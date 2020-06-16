@@ -25,8 +25,8 @@ public class AppTest {
     @Test
     void enabledProperty_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
-            JLabel label1 = new JLabel("label1");
-            JLabel label2 = new JLabel("label2");
+            JLabel label1 = new TestLabel();
+            JLabel label2 = new TestLabel();
 
             Property enabledProperty1 = createBeanAdapter(label1, "enabled");
             Property enabledProperty2 = createBeanAdapter(label2, "enabled");
@@ -43,5 +43,19 @@ public class AppTest {
             Assertions.assertTrue(label1.isEnabled());
             Assertions.assertTrue(label2.isEnabled());
         });
+    }
+
+    public static class TestLabel extends JLabel {
+        @Override
+        public boolean isEnabled() {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            return super.isEnabled();
+        }
+
+        @Override
+        public void setEnabled(boolean enabled) {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            super.setEnabled(enabled);
+        }
     }
 }
