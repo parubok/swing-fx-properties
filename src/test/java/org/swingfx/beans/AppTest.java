@@ -34,9 +34,14 @@ public class AppTest {
 
             Assertions.assertTrue(label1.isEnabled());
             Assertions.assertTrue(label2.isEnabled());
+
             label1.setEnabled(false);
             Assertions.assertFalse(label1.isEnabled());
             Assertions.assertFalse(label2.isEnabled());
+
+            label1.setEnabled(true);
+            Assertions.assertTrue(label1.isEnabled());
+            Assertions.assertTrue(label2.isEnabled());
         });
     }
 }
