@@ -25,45 +25,28 @@
 
 package swingfx.collections;
 
-import com.sun.swingfx.collections.ListListenerHelper;
-import com.sun.swingfx.collections.MapListenerHelper;
-import com.sun.swingfx.collections.SetListenerHelper;
-import java.lang.reflect.Array;
+import com.sun.swingfx.collections.ObservableListWrapper;
+import com.sun.swingfx.collections.ObservableMapWrapper;
+import com.sun.swingfx.collections.ObservableSequentialListWrapper;
+import com.sun.swingfx.collections.SourceAdapterChange;
+import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import swingfx.beans.InvalidationListener;
+import swingfx.beans.Observable;
+import swingfx.util.Callback;
+
 import java.util.AbstractList;
 import java.util.AbstractMap;
 import java.util.AbstractSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.Set;
-
-import com.sun.swingfx.collections.UnmodifiableObservableMap;
-import swingfx.beans.InvalidationListener;
-
-import com.sun.swingfx.collections.ObservableListWrapper;
-import com.sun.swingfx.collections.ObservableMapWrapper;
-import com.sun.swingfx.collections.ObservableSetWrapper;
-import com.sun.swingfx.collections.MapAdapterChange;
-import com.sun.swingfx.collections.ObservableFloatArrayImpl;
-import com.sun.swingfx.collections.ObservableIntegerArrayImpl;
-import com.sun.swingfx.collections.ObservableSequentialListWrapper;
-import com.sun.swingfx.collections.SetAdapterChange;
-import com.sun.swingfx.collections.SortableList;
-import com.sun.swingfx.collections.SourceAdapterChange;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
 import java.util.RandomAccess;
-import swingfx.beans.Observable;
-import swingfx.util.Callback;
+import java.util.Set;
 
 /**
  * Utility class that consists of static methods that are 1:1 copies of java.util.Collections methods.
