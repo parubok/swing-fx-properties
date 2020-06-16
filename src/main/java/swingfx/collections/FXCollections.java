@@ -26,7 +26,6 @@
 package swingfx.collections;
 
 import com.sun.swingfx.collections.ObservableListWrapper;
-import com.sun.swingfx.collections.ObservableMapWrapper;
 import com.sun.swingfx.collections.ObservableSequentialListWrapper;
 import com.sun.swingfx.collections.SourceAdapterChange;
 import org.swingfx.misc.ReturnsUnmodifiableCollection;
@@ -108,24 +107,6 @@ public class FXCollections {
         return list instanceof RandomAccess ? new ObservableListWrapper<E>(list, extractor) :
             new ObservableSequentialListWrapper<E>(list, extractor);
     }
-
-    /**
-     * Constructs an ObservableMap that is backed by the specified map.
-     * Mutation operations on the ObservableMap instance will be reported
-     * to observers that have registered on that instance.<br>
-     * Note that mutation operations made directly to the underlying map are <em>not</em>
-     * reported to observers of any ObservableMap that wraps it.
-     * @param map a Map that backs this ObservableMap
-     * @return a newly created ObservableMap
-     */
-    public static <K, V> swingfx.collections.ObservableMap<K, V> observableMap(Map<K, V> map) {
-        if (map == null) {
-            throw new NullPointerException();
-        }
-        return new ObservableMapWrapper<K, V>(map);
-    }
-
-    private static swingfx.collections.ObservableMap EMPTY_OBSERVABLE_MAP = new EmptyObservableMap();
 
     /**
      * Creates a new empty observable list that is backed by an arraylist.
