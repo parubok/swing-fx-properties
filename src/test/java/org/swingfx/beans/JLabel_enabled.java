@@ -8,7 +8,7 @@ import swingfx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-public class AppTest {
+public class JLabel_enabled {
 
     private static Property createBeanAdapter(Object bean, String propertyName) {
         try {
