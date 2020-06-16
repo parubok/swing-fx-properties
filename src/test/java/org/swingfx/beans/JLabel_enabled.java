@@ -30,6 +30,7 @@ public class JLabel_enabled {
 
             Property enabledProperty1 = createBeanAdapter(label1, "enabled");
             Property enabledProperty2 = createBeanAdapter(label2, "enabled");
+
             enabledProperty2.bind(enabledProperty1);
 
             Assertions.assertTrue(label1.isEnabled());
