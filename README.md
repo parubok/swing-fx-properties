@@ -6,6 +6,9 @@ In JavaFX component properties are type safe, referenced by method name (and not
 
 The JavaFX properties implementation, in fact, is not JavaFX specific - it is a generic property mechanism which can be used for any JavaBean (see javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder).
 
-This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFx-style properties with Swing components.
+This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
 
-Since JavaFX is no longer part of JDK (starting with Java 11), 
+Example:
+```java
+
+```
