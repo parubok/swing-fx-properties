@@ -16,6 +16,10 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
+/**
+ * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
+ * property objects.
+ */
 public class SwingPropertySupport {
 
     private static final String PROP_ENABLED = "swingfx-property-enabled";
@@ -106,6 +110,11 @@ public class SwingPropertySupport {
         }
     };
 
+    /**
+     * @return Property object for 'enabled' property of the specified component.
+     * @see JComponent#setEnabled(boolean)
+     * @see JComponent#isEnabled()
+     */
     public static BooleanProperty enabledProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_ENABLED);
