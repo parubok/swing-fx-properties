@@ -2,7 +2,7 @@
 Adaptation of JavaFX properties for Swing.
 
 When JavaFX 2.0 was released, it introduced an improved approach to component properties handling.
-In JavaFX component properties are type safe, referenced by method (and not via string name like in Swing) and, what is probably the most significant distinction, support binding.
+In JavaFX, component properties are type safe, referenced by method (and not via string name like in Swing) and, what is probably the most significant distinction, support binding.
 
 The JavaFX properties implementation, in fact, is not JavaFX specific - it is a generic property mechanism which can be used for any JavaBean (see `javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder`).
 
