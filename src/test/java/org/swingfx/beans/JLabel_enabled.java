@@ -8,6 +8,7 @@ import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.Property;
+import swingfx.beans.property.StringProperty;
 import swingfx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 
 import javax.swing.JLabel;
@@ -78,11 +79,26 @@ public class JLabel_enabled {
     void swingfx_prop_3() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp1 = SwingFX.enabledProperty(label);
-            StringBinding str = Bindings.createStringBinding(() -> Boolean.toString(enabledProp1.get()), enabledProp1);
+            BooleanProperty enabledProp = SwingFX.enabledProperty(label);
+            StringBinding str = Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp);
             Assertions.assertEquals("true", str.get());
             label.setEnabled(false);
             Assertions.assertEquals("false", str.get());
+        });
+    }
+
+    @Test
+    void swingfx_prop_4() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            JLabel label = new TestLabel();
+            BooleanProperty enabledProp = SwingFX.enabledProperty(label);
+            StringProperty textProp = SwingFX.textProperty(label);
+            textProp.bind(Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp));
+            Assertions.assertEquals("true", label.getText());
+            label.setEnabled(false);
+            Assertions.assertEquals("false", label.getText());
+            label.setEnabled(true);
+            Assertions.assertEquals("true", label.getText());
         });
     }
 
@@ -121,6 +137,18 @@ public class JLabel_enabled {
         public void setEnabled(boolean enabled) {
             Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
             super.setEnabled(enabled);
+        }
+
+        @Override
+        public void setText(String text) {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            super.setText(text);
+        }
+
+        @Override
+        public String getText() {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            return super.getText();
         }
     }
 }
