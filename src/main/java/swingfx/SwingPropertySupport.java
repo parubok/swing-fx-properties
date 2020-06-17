@@ -13,7 +13,7 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-public class SwingFX {
+public class SwingPropertySupport {
 
     private static final String PROP_ENABLED = "swingfx-property-enabled";
     private static final String PROP_TEXT = "swingfx-property-text";

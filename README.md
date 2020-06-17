@@ -10,11 +10,12 @@ This project took the relevant pieces of JavaFX properties code and added suppor
 
 Example (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
 ```java
-import swingfx.SwingFX;
+import static swingfx.SwingPropertySupport.enabledProperty;
+import static swingfx.SwingPropertySupport.selectedProperty;
 
 JCheckBox checkBox = new JCheckBox(); // unselected checkbox
 JLabel label = new JLabel();
-SwingFX.enabledProperty(label).bind(SwingFX.selectedProperty(checkBox));
+enabledProperty(label).bind(selectedProperty(checkBox));
 // label is now disabled since the checkbox is not selected
 checkBox.setSelected(true);
 // label is now enabled

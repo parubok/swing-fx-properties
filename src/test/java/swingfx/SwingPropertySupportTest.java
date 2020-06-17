@@ -12,13 +12,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-public class SwingFXTest {
+public class SwingPropertySupportTest {
 
     @Test
     void enabled_prop_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingFX.enabledProperty(label);
+            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
 
             Assertions.assertTrue(enabledProp.get());
             label.setEnabled(false);
@@ -37,9 +37,9 @@ public class SwingFXTest {
     void enabled_prop_2() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label1 = new TestLabel();
-            BooleanProperty enabledProp1 = SwingFX.enabledProperty(label1);
+            BooleanProperty enabledProp1 = SwingPropertySupport.enabledProperty(label1);
             JLabel label2 = new TestLabel();
-            BooleanProperty enabledProp2 = SwingFX.enabledProperty(label2);
+            BooleanProperty enabledProp2 = SwingPropertySupport.enabledProperty(label2);
             BooleanBinding binding = Bindings.and(enabledProp1, enabledProp2);
             Assertions.assertTrue(binding.get());
             label2.setEnabled(false);
@@ -65,7 +65,7 @@ public class SwingFXTest {
     void enabled_str_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingFX.enabledProperty(label);
+            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
             StringBinding str = Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp);
             Assertions.assertEquals("true", str.get());
             label.setEnabled(false);
@@ -77,8 +77,8 @@ public class SwingFXTest {
     void enabled_text_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingFX.enabledProperty(label);
-            StringProperty textProp = SwingFX.textProperty(label);
+            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
+            StringProperty textProp = SwingPropertySupport.textProperty(label);
             textProp.bind(Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp));
             Assertions.assertEquals("true", label.getText());
             label.setEnabled(false);
@@ -95,7 +95,7 @@ public class SwingFXTest {
             Assertions.assertFalse(checkBox.isSelected());
             JLabel label = new TestLabel();
             Assertions.assertTrue(label.isEnabled());
-            SwingFX.enabledProperty(label).bind(SwingFX.selectedProperty(checkBox));
+            SwingPropertySupport.enabledProperty(label).bind(SwingPropertySupport.selectedProperty(checkBox));
             Assertions.assertFalse(label.isEnabled());
             checkBox.setSelected(true);
             Assertions.assertTrue(label.isEnabled());
