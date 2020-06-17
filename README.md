@@ -20,4 +20,4 @@ checkBox.setSelected(true);
 // label is now enabled
 ```
 
-Since JavaFX is licensed under GPL v2 with the Classpath exception, the same license applies to this project.
+Since [JavaFX](https://github.com/openjdk/jfx) is licensed under GPL v2 with the Classpath exception, the same license applies to this project.
