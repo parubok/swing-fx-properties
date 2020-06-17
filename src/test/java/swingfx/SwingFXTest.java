@@ -1,35 +1,21 @@
-package org.swingfx.beans;
+package swingfx;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import swingfx.SwingFX;
 import swingfx.beans.binding.Bindings;
 import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
-import swingfx.beans.property.Property;
 import swingfx.beans.property.StringProperty;
-import swingfx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-public class JLabel_enabled {
-
-    private static Property createBeanAdapter(Object bean, String propertyName) {
-        try {
-            return JavaBeanObjectPropertyBuilder.create()
-                    .bean(bean)
-                    .name(propertyName)
-                    .build();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+public class SwingFXTest {
 
     @Test
-    void swingfx_prop_1() throws Exception {
+    void enabled_prop_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             BooleanProperty enabledProp = SwingFX.enabledProperty(label);
@@ -48,7 +34,7 @@ public class JLabel_enabled {
     }
 
     @Test
-    void swingfx_prop_2() throws Exception {
+    void enabled_prop_2() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label1 = new TestLabel();
             BooleanProperty enabledProp1 = SwingFX.enabledProperty(label1);
@@ -76,7 +62,7 @@ public class JLabel_enabled {
     }
 
     @Test
-    void swingfx_prop_3() throws Exception {
+    void enabled_str_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             BooleanProperty enabledProp = SwingFX.enabledProperty(label);
@@ -88,7 +74,7 @@ public class JLabel_enabled {
     }
 
     @Test
-    void swingfx_prop_4() throws Exception {
+    void enabled_text_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             BooleanProperty enabledProp = SwingFX.enabledProperty(label);
@@ -103,26 +89,16 @@ public class JLabel_enabled {
     }
 
     @Test
-    void enabledProperty_1() throws Exception {
+    void selected_enabled_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
-            JLabel label1 = new TestLabel();
-            JLabel label2 = new TestLabel();
-
-            Property enabledProperty1 = createBeanAdapter(label1, "enabled");
-            Property enabledProperty2 = createBeanAdapter(label2, "enabled");
-
-            enabledProperty2.bind(enabledProperty1);
-
-            Assertions.assertTrue(label1.isEnabled());
-            Assertions.assertTrue(label2.isEnabled());
-
-            label1.setEnabled(false);
-            Assertions.assertFalse(label1.isEnabled());
-            Assertions.assertFalse(label2.isEnabled());
-
-            label1.setEnabled(true);
-            Assertions.assertTrue(label1.isEnabled());
-            Assertions.assertTrue(label2.isEnabled());
+            JCheckBox checkBox = new JCheckBox();
+            Assertions.assertFalse(checkBox.isSelected());
+            JLabel label = new TestLabel();
+            Assertions.assertTrue(label.isEnabled());
+            SwingFX.enabledProperty(label).bind(SwingFX.selectedProperty(checkBox));
+            Assertions.assertFalse(label.isEnabled());
+            checkBox.setSelected(true);
+            Assertions.assertTrue(label.isEnabled());
         });
     }
 
@@ -140,15 +116,15 @@ public class JLabel_enabled {
         }
 
         @Override
-        public void setText(String text) {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            super.setText(text);
-        }
-
-        @Override
         public String getText() {
             Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
             return super.getText();
+        }
+
+        @Override
+        public void setText(String text) {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            super.setText(text);
         }
     }
 }
