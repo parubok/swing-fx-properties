@@ -8,7 +8,14 @@ The JavaFX properties implementation, in fact, is not JavaFX specific - it is a 
 
 This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
 
-Example:
+Example (bind 'enabled' property of a label to 'selected' property of a checkbox):
 ```java
+import swingfx.SwingFX;
 
+JCheckBox checkBox = new JCheckBox(); // unselected checkbox
+JLabel label = new JLabel();
+SwingFX.enabledProperty(label).bind(SwingFX.selectedProperty(checkBox));
+// label is now disabled since the checkbox is not selected
+checkBox.setSelected(true);
+// label is now enabled
 ```
