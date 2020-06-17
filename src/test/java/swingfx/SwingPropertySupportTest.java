@@ -11,6 +11,7 @@ import swingfx.beans.property.StringProperty;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SwingPropertySupportTest {
 
@@ -99,6 +100,28 @@ public class SwingPropertySupportTest {
             Assertions.assertFalse(label.isEnabled());
             checkBox.setSelected(true);
             Assertions.assertTrue(label.isEnabled());
+        });
+    }
+
+    @Test
+    void visible_prop_1() throws Exception {
+        final AtomicReference<JLabel> ref = new AtomicReference<>();
+        SwingUtilities.invokeAndWait(() -> {
+            JLabel label = new TestLabel();
+            ref.set(label);
+            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
+            Assertions.assertTrue(visibleProp.get());
+            label.setVisible(false);
+        });
+        SwingUtilities.invokeAndWait(() -> {
+            JLabel label = ref.get();
+            Assertions.assertFalse(label.isVisible());
+            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
+            Assertions.assertFalse(visibleProp.get());
+            visibleProp.set(true);
+            Assertions.assertTrue(label.isVisible());
+            visibleProp.set(false);
+            Assertions.assertFalse(label.isVisible());
         });
     }
 

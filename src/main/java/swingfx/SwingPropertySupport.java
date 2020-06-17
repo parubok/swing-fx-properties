@@ -9,6 +9,9 @@ import swingfx.beans.value.ChangeListener;
 import javax.swing.AbstractButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
@@ -18,14 +21,15 @@ public class SwingPropertySupport {
     private static final String PROP_ENABLED = "swingfx-property-enabled";
     private static final String PROP_TEXT = "swingfx-property-text";
     private static final String PROP_SELECTED = "swingfx-property-selected";
+    private static final String PROP_VISIBLE = "swingfx-property-visible";
 
     // enabled:
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
         JComponent component = (JComponent) e.getSource();
         BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_ENABLED);
-        Boolean newEnabled = (Boolean) e.getNewValue();
-        if (newEnabled.booleanValue() != p.get()) {
-            p.set(newEnabled.booleanValue());
+        Boolean newValue = (Boolean) e.getNewValue();
+        if (newValue.booleanValue() != p.get()) {
+            p.set(newValue.booleanValue());
         }
     };
 
@@ -51,6 +55,36 @@ public class SwingPropertySupport {
         AbstractButton absButton = (AbstractButton) p.getBean();
         if (newValue.booleanValue() != absButton.isSelected()) {
             absButton.setSelected(newValue.booleanValue());
+        }
+    };
+
+    // visible:
+    private static final ComponentListener COMPONENT_LISTENER_VISIBLE = new ComponentAdapter() {
+        private void updateProp(ComponentEvent e) {
+            JComponent component = (JComponent) e.getComponent();
+            BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_VISIBLE);
+            boolean visible = component.isVisible();
+            if (visible != p.get()) {
+                p.set(visible);
+            }
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+            updateProp(e);
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+            updateProp(e);
+        }
+    };
+
+    private static final ChangeListener<Boolean> FX_PROP_LISTENER_VISIBLE = (observable, oldValue, newValue) -> {
+        BooleanProperty p = (BooleanProperty) observable;
+        JComponent component = (JComponent) p.getBean();
+        if (newValue.booleanValue() != component.isVisible()) {
+            component.setVisible(newValue.booleanValue());
         }
     };
 
@@ -80,6 +114,18 @@ public class SwingPropertySupport {
             component.putClientProperty(PROP_ENABLED, p);
             component.addPropertyChangeListener("enabled", SWING_PROP_LISTENER_ENABLED);
             p.addListener(FX_PROP_LISTENER_ENABLED);
+        }
+        return p;
+    }
+
+    public static BooleanProperty visibleProperty(JComponent component) {
+        Objects.requireNonNull(component, "component");
+        BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_VISIBLE);
+        if (p == null) {
+            p = new SimpleBooleanProperty(component, "visible", component.isVisible());
+            component.putClientProperty(PROP_VISIBLE, p);
+            component.addComponentListener(COMPONENT_LISTENER_VISIBLE);
+            p.addListener(FX_PROP_LISTENER_VISIBLE);
         }
         return p;
     }
