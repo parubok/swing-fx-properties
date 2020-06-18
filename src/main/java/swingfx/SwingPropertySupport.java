@@ -9,6 +9,7 @@ import swingfx.beans.property.StringProperty;
 import swingfx.beans.value.ChangeListener;
 
 import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -27,11 +28,13 @@ import java.util.Objects;
  */
 public final class SwingPropertySupport {
 
-    private static final String PROP_ENABLED = "swingfx-property-enabled";
-    private static final String PROP_TEXT = "swingfx-property-text";
-    private static final String PROP_SELECTED = "swingfx-property-selected";
-    private static final String PROP_VISIBLE = "swingfx-property-visible";
-    private static final String PROP_TABLE_SELECTED_ROW_COUNT = "swingfx-property-table-selected-row-count";
+    private static final String NAME_PREFIX = "swingfx-property-";
+
+    private static final String PROP_ENABLED = NAME_PREFIX + "enabled";
+    private static final String PROP_TEXT = NAME_PREFIX + "text";
+    private static final String PROP_SELECTED = NAME_PREFIX + "selected";
+    private static final String PROP_VISIBLE = NAME_PREFIX + "visible";
+    private static final String PROP_TABLE_SELECTED_ROW_COUNT = NAME_PREFIX + "table-selected-row-count";
 
     // enabled:
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
@@ -129,6 +132,42 @@ public final class SwingPropertySupport {
             component.putClientProperty(PROP_ENABLED, p);
             component.addPropertyChangeListener("enabled", SWING_PROP_LISTENER_ENABLED);
             p.addListener(FX_PROP_LISTENER_ENABLED);
+        }
+        return p;
+    }
+
+    private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED_FOR_ACTION = e -> {
+        if ("enabled".equals(e.getPropertyName())) {
+            Action action = (Action) e.getSource();
+            BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
+            Boolean newValue = (Boolean) e.getNewValue();
+            if (newValue.booleanValue() != p.get()) {
+                p.set(newValue.booleanValue());
+            }
+        }
+    };
+
+    private static final ChangeListener<Boolean> FX_PROP_LISTENER_ENABLED_FOR_ACTION = (observable, oldValue, newValue) -> {
+        BooleanProperty p = (BooleanProperty) observable;
+        Action action = (Action) p.getBean();
+        if (newValue.booleanValue() != action.isEnabled()) {
+            action.setEnabled(newValue.booleanValue());
+        }
+    };
+
+    /**
+     * @return Property object for 'enabled' property of the specified action.
+     * @see Action#setEnabled(boolean)
+     * @see Action#isEnabled()
+     */
+    public static BooleanProperty enabledProperty(Action action) {
+        Objects.requireNonNull(action, "action");
+        BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
+        if (p == null) {
+            p = new SimpleBooleanProperty(action, "enabled", action.isEnabled());
+            action.putValue(PROP_ENABLED, p);
+            action.addPropertyChangeListener(SWING_PROP_LISTENER_ENABLED_FOR_ACTION);
+            p.addListener(FX_PROP_LISTENER_ENABLED_FOR_ACTION);
         }
         return p;
     }
