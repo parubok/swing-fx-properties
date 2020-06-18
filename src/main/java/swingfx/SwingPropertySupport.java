@@ -180,7 +180,8 @@ public class SwingPropertySupport {
             this.value = table.getSelectedRowCount();
         }
 
-        void setSelectionModel(ListSelectionModel selectionModel) {
+        void updateSelectionModel() {
+            ListSelectionModel selectionModel = this.table.getSelectionModel();
             if (this.selectionModel != null) {
                 this.selectionModel.removeListSelectionListener(this.selectionListener);
             }
@@ -215,7 +216,7 @@ public class SwingPropertySupport {
     private static final PropertyChangeListener SELECTION_MODEL_PROPERTY_LISTENER = e -> {
         JTable table = (JTable) e.getSource();
         TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
-        p.setSelectionModel(table.getSelectionModel());
+        p.updateSelectionModel();
         p.selectedRowCountChanged();
     };
 
@@ -225,7 +226,7 @@ public class SwingPropertySupport {
         if (p == null) {
             p = new TableSelectedRowCountProperty(table);
             table.putClientProperty(PROP_TABLE_SELECTED_ROW_COUNT, p);
-            p.setSelectionModel(table.getSelectionModel());
+            p.updateSelectionModel();
             table.addPropertyChangeListener("selectionModel", SELECTION_MODEL_PROPERTY_LISTENER);
         }
         return p;
