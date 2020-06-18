@@ -172,10 +172,12 @@ public class SwingPropertySupport {
     private static class TableSelectedRowCountProperty extends ReadOnlyIntegerPropertyBase {
         private final JTable table;
         private ListSelectionModel selectionModel;
+        private int value;
         private final ListSelectionListener selectionListener = e -> selectedRowCountChanged();
 
         TableSelectedRowCountProperty(JTable table) {
             this.table = Objects.requireNonNull(table);
+            this.value = table.getSelectedRowCount();
         }
 
         void setSelectionModel(ListSelectionModel selectionModel) {
@@ -188,7 +190,7 @@ public class SwingPropertySupport {
 
         @Override
         public int get() {
-            return table.getSelectedRowCount();
+            return value;
         }
 
         @Override
@@ -202,7 +204,9 @@ public class SwingPropertySupport {
         }
 
         void selectedRowCountChanged() {
-            if (get() != table.getSelectedRowCount()) {
+            int c = table.getSelectedRowCount();
+            if (this.value != c) {
+                this.value = c;
                 fireValueChangedEvent();
             }
         }

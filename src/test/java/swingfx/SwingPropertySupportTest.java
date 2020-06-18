@@ -8,6 +8,8 @@ import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.StringProperty;
+import swingfx.beans.value.ChangeListener;
+import swingfx.beans.value.ObservableValue;
 
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JCheckBox;
@@ -17,6 +19,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SwingPropertySupportTest {
@@ -158,6 +163,29 @@ public class SwingPropertySupportTest {
 
             oldSelectionModel.setSelectionInterval(0, 1); // should not affect the property
             Assertions.assertEquals(0, selRowCountProp.get());
+        });
+    }
+
+    @Test
+    void selectedRowCountProperty_2() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            TableModel model = new DefaultTableModel(10, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            ReadOnlyIntegerProperty selRowCountProp = SwingPropertySupport.selectedRowCountProperty(table);
+            List<Number> values = new ArrayList<>();
+            selRowCountProp.addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    values.add(newValue);
+                }
+            });
+            table.getSelectionModel().setSelectionInterval(0, 1);
+            Assertions.assertEquals(2, selRowCountProp.get());
+            Assertions.assertIterableEquals(Arrays.asList(2), values);
+            table.clearSelection();
+            Assertions.assertIterableEquals(Arrays.asList(2, 0), values);
         });
     }
 
