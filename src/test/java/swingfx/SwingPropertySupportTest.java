@@ -6,11 +6,17 @@ import swingfx.beans.binding.Bindings;
 import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
+import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.StringProperty;
 
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SwingPropertySupportTest {
@@ -122,6 +128,31 @@ public class SwingPropertySupportTest {
             Assertions.assertTrue(label.isVisible());
             visibleProp.set(false);
             Assertions.assertFalse(label.isVisible());
+        });
+    }
+
+    @Test
+    void selectedRowCountProperty_1() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            TableModel model = new DefaultTableModel(10, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            ReadOnlyIntegerProperty selRowCountProp = SwingPropertySupport.selectedRowCountProperty(table);
+            Assertions.assertEquals(0, selRowCountProp.get());
+            table.getSelectionModel().setSelectionInterval(0, 0);
+            Assertions.assertEquals(1, selRowCountProp.get());
+
+            // test that the property continues to work after the selection model is replaced:
+            table.setSelectionModel(new DefaultListSelectionModel());
+            Assertions.assertEquals(0, selRowCountProp.get());
+            table.getSelectionModel().setSelectionInterval(0, 0);
+            Assertions.assertEquals(1, selRowCountProp.get());
+
+            table.getSelectionModel().setSelectionInterval(0, 2);
+            Assertions.assertEquals(3, selRowCountProp.get());
+            table.clearSelection();
+            Assertions.assertEquals(0, selRowCountProp.get());
         });
     }
 
