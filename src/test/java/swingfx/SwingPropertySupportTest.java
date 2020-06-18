@@ -188,6 +188,8 @@ public class SwingPropertySupportTest {
             Assertions.assertIterableEquals(Collections.singletonList(2), values);
             table.clearSelection();
             Assertions.assertIterableEquals(Arrays.asList(2, 0), values);
+            table.clearSelection(); // should not fire event
+            Assertions.assertIterableEquals(Arrays.asList(2, 0), values);
         });
     }
 
