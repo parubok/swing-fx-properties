@@ -25,7 +25,7 @@ import java.util.Objects;
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
  * property objects.
  */
-public class SwingPropertySupport {
+public final class SwingPropertySupport {
 
     private static final String PROP_ENABLED = "swingfx-property-enabled";
     private static final String PROP_TEXT = "swingfx-property-text";
@@ -220,6 +220,12 @@ public class SwingPropertySupport {
         p.selectedRowCountChanged();
     };
 
+    /**
+     * Note: the returned property correctly handles change of the table selection model.
+     *
+     * @param table Table. Not null.
+     * @return Read-only property which value is the number of selected rows in the table.
+     */
     public static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
         Objects.requireNonNull(table, "table");
         TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
