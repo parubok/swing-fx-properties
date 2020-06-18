@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -178,12 +179,13 @@ public class SwingPropertySupportTest {
             selRowCountProp.addListener(new ChangeListener<Number>() {
                 @Override
                 public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
                     values.add(newValue);
                 }
             });
             table.getSelectionModel().setSelectionInterval(0, 1);
             Assertions.assertEquals(2, selRowCountProp.get());
-            Assertions.assertIterableEquals(Arrays.asList(2), values);
+            Assertions.assertIterableEquals(Collections.singletonList(2), values);
             table.clearSelection();
             Assertions.assertIterableEquals(Arrays.asList(2, 0), values);
         });
