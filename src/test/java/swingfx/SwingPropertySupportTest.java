@@ -143,6 +143,8 @@ public class SwingPropertySupportTest {
             table.getSelectionModel().setSelectionInterval(0, 0);
             Assertions.assertEquals(1, selRowCountProp.get());
 
+            ListSelectionModel oldSelectionModel = table.getSelectionModel();
+
             // test that the property continues to work after the selection model is replaced:
             table.setSelectionModel(new DefaultListSelectionModel());
             Assertions.assertEquals(0, selRowCountProp.get());
@@ -152,6 +154,9 @@ public class SwingPropertySupportTest {
             table.getSelectionModel().setSelectionInterval(0, 2);
             Assertions.assertEquals(3, selRowCountProp.get());
             table.clearSelection();
+            Assertions.assertEquals(0, selRowCountProp.get());
+
+            oldSelectionModel.setSelectionInterval(0, 1); // should not affect the property
             Assertions.assertEquals(0, selRowCountProp.get());
         });
     }
