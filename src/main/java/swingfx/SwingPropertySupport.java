@@ -337,7 +337,7 @@ public class SwingPropertySupport {
 
     private static final PropertyChangeListener TABLE_MODEL_PROPERTY_LISTENER = e -> {
         JTable table = (JTable) e.getSource();
-        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
+        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_MODEL_ROW_COUNT);
         p.updateModel();
         p.modelRowCountChanged();
     };

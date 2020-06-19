@@ -218,4 +218,39 @@ public class SwingPropertySupportTest {
             super.setText(text);
         }
     }
+
+    @Test
+    void modelRowCountProperty_1() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            DefaultTableModel model = new DefaultTableModel(3, 2);
+            JTable table = new JTable(model);
+            ReadOnlyIntegerProperty rowCountProperty = SwingPropertySupport.modelRowCountProperty(table);
+
+            List<Number> values = new ArrayList<>();
+            rowCountProperty.addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+                    Assertions.assertEquals(rowCountProperty, observable);
+                    values.add(oldValue);
+                    values.add(newValue);
+                }
+            });
+
+            Assertions.assertEquals(3, rowCountProperty.get());
+            model.removeRow(0);
+            Assertions.assertEquals(2, rowCountProperty.get());
+            Assertions.assertIterableEquals(Arrays.asList(3, 2), values);
+
+            table.setModel(new DefaultTableModel(10, 2));
+            Assertions.assertEquals(10, rowCountProperty.get());
+            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10), values);
+
+            model.removeRow(0); // old model - no effect
+            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10), values);
+
+            ((DefaultTableModel) table.getModel()).removeRow(0);
+            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10, 10, 9), values);
+        });
+    }
 }
