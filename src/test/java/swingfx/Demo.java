@@ -20,7 +20,7 @@ import static swingfx.SwingPropertySupport.textProperty;
 import static swingfx.SwingPropertySupport.visibleProperty;
 
 /**
- * GUI to demonstrate component property binding.
+ * GUI to demo component property binding.
  */
 public class Demo {
     public static void main(String[] args) {
@@ -69,7 +69,7 @@ public class Demo {
         textField.setColumns(10);
         topPanel.add(textField);
 
-        JFrame frame = new JFrame("Example");
+        JFrame frame = new JFrame("swing-fx-properties");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(contentPanel);
         frame.pack();
