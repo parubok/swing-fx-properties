@@ -61,9 +61,7 @@ public class Demo {
         enabledProperty(actionButton).bind(selectedRowCountProperty(table).greaterThan(0));
 
         JButton deleteRowButton = new JButton("Delete Row");
-        deleteRowButton.addActionListener(e -> {
-            tableModel.removeRow(table.getSelectedRow());
-        });
+        deleteRowButton.addActionListener(e -> tableModel.removeRow(table.getSelectedRow()));
         topPanel.add(deleteRowButton);
         enabledProperty(deleteRowButton).bind(selectedRowCountProperty(table).isEqualTo(1, 0.0));
 
