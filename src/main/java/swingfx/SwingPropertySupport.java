@@ -182,6 +182,11 @@ public final class SwingPropertySupport {
         return p;
     }
 
+    /**
+     * @return Property object for 'selected' property of the specified abstract button (e.g. {@link javax.swing.JCheckBox}, {@link javax.swing.JRadioButton}, etc).
+     * @see AbstractButton#setSelected(boolean)
+     * @see AbstractButton#isSelected()
+     */
     public static BooleanProperty selectedProperty(AbstractButton absButton) {
         Objects.requireNonNull(absButton, "absButton");
         BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
@@ -194,6 +199,11 @@ public final class SwingPropertySupport {
         return p;
     }
 
+    /**
+     * @return Property object for 'text' property of the specified label.
+     * @see JLabel#setText(String)
+     * @see JLabel#getText()
+     */
     public static StringProperty textProperty(JLabel label) {
         Objects.requireNonNull(label, "label");
         StringProperty p = (StringProperty) label.getClientProperty(PROP_TEXT);
