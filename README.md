@@ -1,5 +1,5 @@
 # swing-fx-properties
-Adaptation of JavaFX properties for Swing.
+Adaptation of [JavaFX properties](https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm) for Swing.
 
 When JavaFX 2.0 was released, it introduced an improved approach to component properties handling.
 In JavaFX, component properties are type safe, referenced by method (and not via string name like in Swing) and, what is probably the most significant distinction, support binding.
