@@ -46,7 +46,7 @@ public class Demo {
         JPanel bottomPanel = new JPanel();
         JLabel countLabel = new JLabel();
         JLabel hasFocusLabel = new JLabel("Table is Focused!");
-        hasFocusLabel.setForeground(Color.ORANGE);
+        hasFocusLabel.setForeground(Color.BLUE);
         bottomPanel.add(countLabel);
         bottomPanel.add(hasFocusLabel);
         contentPanel.add(bottomPanel, BorderLayout.SOUTH);
