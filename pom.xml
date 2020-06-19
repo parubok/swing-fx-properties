@@ -17,6 +17,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
+  <scm>
+    <connection>scm:git:git@github.com:parubok/swing-fx-properties</connection>
+    <url>scm:git:git@github.com:parubok/swing-fx-properties</url>
+    <developerConnection>scm:git:git@github.com:parubok/swing-fx-properties</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -67,6 +74,11 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
