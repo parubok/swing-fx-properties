@@ -25,13 +25,12 @@
 
 package swingfx.beans.binding;
 
-import swingfx.beans.value.ObservableBooleanValue;
-import swingfx.collections.FXCollections;
-import swingfx.collections.ObservableList;
-
 import com.sun.swingfx.binding.StringFormatter;
 import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import swingfx.beans.value.ObservableBooleanValue;
 import swingfx.beans.value.ObservableValue;
+import swingfx.collections.FXCollections;
+import swingfx.collections.ObservableList;
 
 /**
  * A {@code BooleanExpression} is a
@@ -225,6 +224,24 @@ public abstract class BooleanExpression implements ObservableBooleanValue {
      */
     public swingfx.beans.binding.StringBinding asString() {
         return (StringBinding) StringFormatter.convert(this);
+    }
+
+    /**
+     * Creates a {@link StringExpression} that holds the value
+     * of the {@code BooleanExpression} turned into a {@code String}. If the
+     * value of this {@code BooleanExpression} changes, the value of the
+     * {@link StringExpression} will be updated automatically.
+     * <p>
+     * The result is formatted according to the formatting {@code String}. See
+     * {@code java.util.Formatter} for formatting rules.
+     *
+     * @param format
+     *            the formatting {@code String}
+     * @return the new {@link StringExpression}
+     * @since swing-fx-properties 1.0
+     */
+    public StringExpression asStringExpression(String format) {
+        return Bindings.format(format, this);
     }
 
     /**

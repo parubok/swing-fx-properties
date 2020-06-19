@@ -1,6 +1,8 @@
 package swingfx;
 
 import swingfx.beans.property.BooleanProperty;
+import swingfx.beans.property.ReadOnlyBooleanProperty;
+import swingfx.beans.property.ReadOnlyBooleanPropertyBase;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.ReadOnlyIntegerPropertyBase;
 import swingfx.beans.property.SimpleBooleanProperty;
@@ -23,6 +25,8 @@ import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
@@ -37,6 +41,7 @@ public class SwingPropertySupport {
     private static final String PROP_TEXT = "swingfx-property-text";
     private static final String PROP_SELECTED = "swingfx-property-selected";
     private static final String PROP_VISIBLE = "swingfx-property-visible";
+    private static final String PROP_FOCUSED = "swingfx-property-focused";
     private static final String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     private static final String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
@@ -430,6 +435,62 @@ public class SwingPropertySupport {
             table.putClientProperty(PROP_TABLE_MODEL_ROW_COUNT, p);
             p.updateModel();
             table.addPropertyChangeListener("model", TABLE_MODEL_PROPERTY_LISTENER);
+        }
+        return p;
+    }
+
+    private static class ComponentFocusedProperty extends ReadOnlyBooleanPropertyBase implements FocusListener {
+        private final JComponent component;
+        private boolean value;
+
+        ComponentFocusedProperty(JComponent component) {
+            this.component = component;
+            this.value = component.hasFocus();
+            this.component.addFocusListener(this);
+        }
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            valueChanged(true);
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            valueChanged(false);
+        }
+
+        @Override
+        public boolean get() {
+            return value;
+        }
+
+        @Override
+        public JComponent getBean() {
+            return component;
+        }
+
+        @Override
+        public String getName() {
+            return "hasFocus";
+        }
+
+        void valueChanged(boolean newValue) {
+            if (this.value != newValue) {
+                this.value = newValue;
+                fireValueChangedEvent();
+            }
+        }
+    }
+
+    /**
+     * @see JComponent#hasFocus()
+     */
+    public static ReadOnlyBooleanProperty focusedProperty(JComponent component) {
+        Objects.requireNonNull(component, "component");
+        ComponentFocusedProperty p = (ComponentFocusedProperty) component.getClientProperty(PROP_FOCUSED);
+        if (p == null) {
+            p = new ComponentFocusedProperty(component);
+            component.putClientProperty(PROP_FOCUSED, p);
         }
         return p;
     }
