@@ -26,13 +26,16 @@ import java.util.Objects;
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
  * property objects.
  */
-public final class SwingPropertySupport {
+public class SwingPropertySupport {
 
     private static final String PROP_ENABLED = "swingfx-property-enabled";
     private static final String PROP_TEXT = "swingfx-property-text";
     private static final String PROP_SELECTED = "swingfx-property-selected";
     private static final String PROP_VISIBLE = "swingfx-property-visible";
     private static final String PROP_TABLE_SELECTED_ROW_COUNT = "swingfx-property-table-selected-row-count";
+
+    private SwingPropertySupport() {
+    }
 
     // enabled:
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
