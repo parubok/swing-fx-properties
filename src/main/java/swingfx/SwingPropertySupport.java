@@ -15,6 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -33,6 +35,7 @@ public class SwingPropertySupport {
     private static final String PROP_SELECTED = "swingfx-property-selected";
     private static final String PROP_VISIBLE = "swingfx-property-visible";
     private static final String PROP_TABLE_SELECTED_ROW_COUNT = "swingfx-property-table-selected-row-count";
+    private static final String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
     }
@@ -284,6 +287,75 @@ public class SwingPropertySupport {
             table.putClientProperty(PROP_TABLE_SELECTED_ROW_COUNT, p);
             p.updateSelectionModel();
             table.addPropertyChangeListener("selectionModel", SELECTION_MODEL_PROPERTY_LISTENER);
+        }
+        return p;
+    }
+
+    private static class TableModelRowCountProperty extends ReadOnlyIntegerPropertyBase {
+        private final JTable table;
+        private TableModel model;
+        private int value;
+        private final TableModelListener modelListener = e -> modelRowCountChanged();
+
+        TableModelRowCountProperty(JTable table) {
+            this.table = Objects.requireNonNull(table);
+            this.value = table.getModel().getRowCount();
+        }
+
+        void updateModel() {
+            TableModel model = this.table.getModel();
+            if (this.model != null) {
+                this.model.removeTableModelListener(this.modelListener);
+            }
+            this.model = model;
+            this.model.addTableModelListener(this.modelListener);
+        }
+
+        @Override
+        public int get() {
+            return value;
+        }
+
+        @Override
+        public JTable getBean() {
+            return table;
+        }
+
+        @Override
+        public String getName() {
+            return "modelRowCount";
+        }
+
+        void modelRowCountChanged() {
+            int c = table.getModel().getRowCount();
+            if (this.value != c) {
+                this.value = c;
+                fireValueChangedEvent();
+            }
+        }
+    }
+
+    private static final PropertyChangeListener TABLE_MODEL_PROPERTY_LISTENER = e -> {
+        JTable table = (JTable) e.getSource();
+        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
+        p.updateModel();
+        p.modelRowCountChanged();
+    };
+
+    /**
+     * Note: the returned property correctly handles change of the table model.
+     *
+     * @param table Table. Not null.
+     * @return Read-only property which value is the number of rows in the table model.
+     */
+    public static ReadOnlyIntegerProperty modelRowCountProperty(JTable table) {
+        Objects.requireNonNull(table, "table");
+        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_MODEL_ROW_COUNT);
+        if (p == null) {
+            p = new TableModelRowCountProperty(table);
+            table.putClientProperty(PROP_TABLE_MODEL_ROW_COUNT, p);
+            p.updateModel();
+            table.addPropertyChangeListener("model", TABLE_MODEL_PROPERTY_LISTENER);
         }
         return p;
     }
