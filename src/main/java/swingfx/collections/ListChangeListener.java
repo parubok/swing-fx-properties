@@ -39,7 +39,7 @@ import java.util.List;
 public interface ListChangeListener<E> {
 
     /**
-     * Represents a report of a changes done to an Observablelist.
+     * Represents a report of a changes done to an {@link ObservableList}.
      * The Change may consist of one or more actual changes and must be iterated by {@link #next()} method.
      *
      * Each change must be one of the following:
@@ -203,7 +203,7 @@ public interface ListChangeListener<E> {
          * Set operation will act like remove and add operation at the same time.
          * <p>
          * Usually, it's not necessary to use this method directly.
-         * Handling remove operation and then add operation, as in the example {@link ListChangeListener$Change above},
+         * Handling remove operation and then add operation, as in the example {@link ListChangeListener.Change above},
          * will effectively handle also set operation.
          *
          * @return same <code> as wasAdded() && wasRemoved() </code>

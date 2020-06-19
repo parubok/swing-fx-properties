@@ -13,10 +13,13 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelListener;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableModel;
+import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -34,7 +37,7 @@ public class SwingPropertySupport {
     private static final String PROP_TEXT = "swingfx-property-text";
     private static final String PROP_SELECTED = "swingfx-property-selected";
     private static final String PROP_VISIBLE = "swingfx-property-visible";
-    private static final String PROP_TABLE_SELECTED_ROW_COUNT = "swingfx-property-table-selected-row-count";
+    private static final String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     private static final String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
@@ -229,7 +232,7 @@ public class SwingPropertySupport {
         private final ListSelectionListener selectionListener = e -> selectedRowCountChanged();
 
         TableSelectedRowCountProperty(JTable table) {
-            this.table = Objects.requireNonNull(table);
+            this.table = table;
             this.value = table.getSelectedRowCount();
         }
 
@@ -266,9 +269,9 @@ public class SwingPropertySupport {
         }
     }
 
-    private static final PropertyChangeListener SELECTION_MODEL_PROPERTY_LISTENER = e -> {
+    private static final PropertyChangeListener TABLE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
         JTable table = (JTable) e.getSource();
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
+        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
         p.updateSelectionModel();
         p.selectedRowCountChanged();
     };
@@ -278,15 +281,86 @@ public class SwingPropertySupport {
      *
      * @param table Table. Not null.
      * @return Read-only property which value is the number of selected rows in the table.
+     * @see JTable#getSelectedRowCount()
      */
     public static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
         Objects.requireNonNull(table, "table");
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_TABLE_SELECTED_ROW_COUNT);
+        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
         if (p == null) {
             p = new TableSelectedRowCountProperty(table);
-            table.putClientProperty(PROP_TABLE_SELECTED_ROW_COUNT, p);
+            table.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
             p.updateSelectionModel();
-            table.addPropertyChangeListener("selectionModel", SELECTION_MODEL_PROPERTY_LISTENER);
+            table.addPropertyChangeListener("selectionModel", TABLE_SELECTION_MODEL_PROPERTY_LISTENER);
+        }
+        return p;
+    }
+
+    private static class TreeSelectionCountProperty extends ReadOnlyIntegerPropertyBase {
+        private final JTree tree;
+        private TreeSelectionModel selectionModel;
+        private int value;
+        private final TreeSelectionListener selectionListener = e -> selectionCountChanged();
+
+        TreeSelectionCountProperty(JTree tree) {
+            this.tree = tree;
+            this.value = tree.getSelectionCount();
+        }
+
+        void updateSelectionModel() {
+            TreeSelectionModel selectionModel = this.tree.getSelectionModel();
+            if (this.selectionModel != null) {
+                this.selectionModel.removeTreeSelectionListener(this.selectionListener);
+            }
+            this.selectionModel = selectionModel;
+            this.selectionModel.addTreeSelectionListener(this.selectionListener);
+        }
+
+        @Override
+        public int get() {
+            return value;
+        }
+
+        @Override
+        public JTree getBean() {
+            return tree;
+        }
+
+        @Override
+        public String getName() {
+            return "selectionCount";
+        }
+
+        void selectionCountChanged() {
+            int c = tree.getSelectionCount();
+            if (this.value != c) {
+                this.value = c;
+                fireValueChangedEvent();
+            }
+        }
+    }
+
+    private static final PropertyChangeListener TREE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
+        JTree tree = (JTree) e.getSource();
+        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
+        p.updateSelectionModel();
+        p.selectionCountChanged();
+    };
+
+    /**
+     * Note: the returned property correctly handles change of the tree selection model.
+     *
+     * @param tree Tree. Not null.
+     * @return Read-only property which value is the number of selected rows in the tree.
+     * @see JTree#getSelectionCount()
+     */
+    public static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
+        Objects.requireNonNull(tree, "tree");
+        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
+        if (p == null) {
+            p = new TreeSelectionCountProperty(tree);
+            tree.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
+            p.updateSelectionModel();
+            tree.addPropertyChangeListener(JTree.SELECTION_MODEL_PROPERTY, TREE_SELECTION_MODEL_PROPERTY_LISTENER);
         }
         return p;
     }
