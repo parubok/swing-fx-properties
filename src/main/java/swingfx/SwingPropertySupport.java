@@ -28,13 +28,11 @@ import java.util.Objects;
  */
 public final class SwingPropertySupport {
 
-    private static final String NAME_PREFIX = "swingfx-property-";
-
-    private static final String PROP_ENABLED = NAME_PREFIX + "enabled";
-    private static final String PROP_TEXT = NAME_PREFIX + "text";
-    private static final String PROP_SELECTED = NAME_PREFIX + "selected";
-    private static final String PROP_VISIBLE = NAME_PREFIX + "visible";
-    private static final String PROP_TABLE_SELECTED_ROW_COUNT = NAME_PREFIX + "table-selected-row-count";
+    private static final String PROP_ENABLED = "swingfx-property-enabled";
+    private static final String PROP_TEXT = "swingfx-property-text";
+    private static final String PROP_SELECTED = "swingfx-property-selected";
+    private static final String PROP_VISIBLE = "swingfx-property-visible";
+    private static final String PROP_TABLE_SELECTED_ROW_COUNT = "swingfx-property-table-selected-row-count";
 
     // enabled:
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
