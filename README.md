@@ -23,4 +23,4 @@ checkBox.setSelected(true);
 
 Since [JavaFX](https://github.com/openjdk/jfx) is licensed under GPL v2 with the Classpath exception, the same license applies to this project.
 
-Requires Java 8.
+Requires Java 8 or later.
