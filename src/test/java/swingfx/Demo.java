@@ -1,6 +1,7 @@
 package swingfx;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +19,7 @@ import static swingfx.SwingPropertySupport.focusedProperty;
 import static swingfx.SwingPropertySupport.selectedRowCountProperty;
 import static swingfx.SwingPropertySupport.textProperty;
 import static swingfx.SwingPropertySupport.visibleProperty;
+import static swingfx.SwingPropertySupport.selectedProperty;
 
 /**
  * GUI to demo component property binding.
@@ -43,12 +45,12 @@ public class Demo {
         scrollPane.setViewportView(table);
         contentPanel.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel bottomPanel = new JPanel();
+        JPanel bottomPanel = new JPanel(new BorderLayout());
         JLabel countLabel = new JLabel();
         JLabel hasFocusLabel = new JLabel("Table is Focused!");
         hasFocusLabel.setForeground(Color.BLUE);
-        bottomPanel.add(countLabel);
-        bottomPanel.add(hasFocusLabel);
+        bottomPanel.add(countLabel, BorderLayout.WEST);
+        bottomPanel.add(hasFocusLabel, BorderLayout.EAST);
         contentPanel.add(bottomPanel, BorderLayout.SOUTH);
         textProperty(countLabel).bind(selectedRowCountProperty(table).asString("Selected Rows: %d"));
         visibleProperty(hasFocusLabel).bind(focusedProperty(table));
@@ -56,18 +58,24 @@ public class Demo {
         JPanel topPanel = new JPanel();
         contentPanel.add(topPanel, BorderLayout.NORTH);
 
-        JButton actionButton = new JButton("Action!");
-        topPanel.add(actionButton);
-        enabledProperty(actionButton).bind(selectedRowCountProperty(table).greaterThan(0));
+        JButton clearSelectionButton = new JButton("Clear Selection");
+        clearSelectionButton.addActionListener(e -> table.clearSelection());
+        topPanel.add(clearSelectionButton);
+        enabledProperty(clearSelectionButton).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
 
         JButton deleteRowButton = new JButton("Delete Row");
         deleteRowButton.addActionListener(e -> tableModel.removeRow(table.getSelectedRow()));
         topPanel.add(deleteRowButton);
-        enabledProperty(deleteRowButton).bind(selectedRowCountProperty(table).isEqualTo(1, 0.0));
+        enabledProperty(deleteRowButton).bind(selectedRowCountProperty(table).isEqualTo(1));
+
+        JCheckBox checkBox = new JCheckBox("Value:");
+        topPanel.add(checkBox);
 
         JTextField textField = new JTextField();
         textField.setColumns(10);
         topPanel.add(textField);
+
+        enabledProperty(textField).bind(selectedProperty(checkBox));
 
         JFrame frame = new JFrame("swing-fx-properties");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
