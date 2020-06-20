@@ -27,7 +27,7 @@ package swingfx.beans.binding;
 
 import com.sun.swingfx.binding.BindingHelperObserver;
 import com.sun.swingfx.binding.ListExpressionHelper;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.property.ReadOnlyBooleanProperty;

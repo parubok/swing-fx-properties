@@ -30,7 +30,7 @@ import swingfx.beans.value.ObservableObjectValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
 
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import java.util.Locale;
 
 /**

@@ -31,7 +31,7 @@ import swingfx.beans.value.ChangeListener;
 import swingfx.beans.value.ObservableNumberValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 
 import com.sun.swingfx.binding.BindingHelperObserver;
 import com.sun.swingfx.binding.ExpressionHelper;

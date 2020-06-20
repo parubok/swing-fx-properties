@@ -28,7 +28,7 @@ package swingfx.beans.binding;
 import swingfx.beans.WeakInvalidationListener;
 import swingfx.beans.value.ObservableValue;
 import swingfx.collections.ObservableList;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 
 /**
  * A {@code Binding} calculates a value that depends on one or more sources. The

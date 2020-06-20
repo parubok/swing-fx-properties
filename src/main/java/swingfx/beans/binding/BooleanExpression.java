@@ -26,7 +26,7 @@
 package swingfx.beans.binding;
 
 import com.sun.swingfx.binding.StringFormatter;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.beans.value.ObservableBooleanValue;
 import swingfx.beans.value.ObservableValue;
 import swingfx.collections.FXCollections;

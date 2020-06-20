@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:parubok/swing-fx-properties</connection>
     <url>scm:git:git@github.com:parubok/swing-fx-properties</url>
     <developerConnection>scm:git:git@github.com:parubok/swing-fx-properties</developerConnection>
-    <tag>v1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>

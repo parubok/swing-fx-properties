@@ -62,7 +62,7 @@ import com.sun.swingfx.binding.SelectBinding;
 import com.sun.swingfx.binding.StringConstant;
 import com.sun.swingfx.binding.StringFormatter;
 import com.sun.swingfx.collections.ImmutableObservableList;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.collections.ObservableArray;
 import swingfx.collections.ObservableFloatArray;
 import swingfx.collections.ObservableIntegerArray;

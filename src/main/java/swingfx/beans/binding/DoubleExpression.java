@@ -29,7 +29,7 @@ import swingfx.beans.value.ObservableDoubleValue;
 import swingfx.beans.value.ObservableNumberValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.beans.value.ObservableValue;
 import swingfx.beans.property.ObjectProperty;
 

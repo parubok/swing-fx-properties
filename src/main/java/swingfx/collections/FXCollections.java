@@ -28,7 +28,7 @@ package swingfx.collections;
 import com.sun.swingfx.collections.ObservableListWrapper;
 import com.sun.swingfx.collections.ObservableSequentialListWrapper;
 import com.sun.swingfx.collections.SourceAdapterChange;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.util.Callback;

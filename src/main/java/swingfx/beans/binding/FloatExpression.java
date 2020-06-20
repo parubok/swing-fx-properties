@@ -28,7 +28,7 @@ package swingfx.beans.binding;
 import swingfx.beans.value.ObservableFloatValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import swingfx.beans.value.ObservableValue;
 import swingfx.beans.property.ObjectProperty;
 

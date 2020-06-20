@@ -35,7 +35,7 @@ import swingfx.beans.value.ObservableValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
 
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 
 public abstract class StringFormatter extends StringBinding {
 

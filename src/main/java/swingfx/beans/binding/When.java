@@ -44,9 +44,8 @@ import swingfx.collections.ObservableList;
 import com.sun.swingfx.binding.DoubleConstant;
 import com.sun.swingfx.binding.FloatConstant;
 import com.sun.swingfx.binding.IntegerConstant;
-import org.swingfx.misc.Logging;
 import com.sun.swingfx.binding.LongConstant;
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 
 /**
  * Starting point for a binding that calculates a ternary expression.

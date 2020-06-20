@@ -43,7 +43,7 @@ import swingfx.beans.value.ObservableValue;
 import swingfx.collections.FXCollections;
 import swingfx.collections.ObservableList;
 
-import org.swingfx.misc.ReturnsUnmodifiableCollection;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
 import com.sun.swingfx.property.JavaBeanAccessHelper;
 import com.sun.swingfx.property.PropertyReference;
 import java.util.Arrays;
