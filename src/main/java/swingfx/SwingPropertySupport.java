@@ -4,7 +4,6 @@ import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.ReadOnlyIntegerPropertyBase;
-import swingfx.beans.property.SimpleBooleanProperty;
 import swingfx.beans.property.SimpleStringProperty;
 import swingfx.beans.property.StringProperty;
 import swingfx.beans.value.ChangeListener;
@@ -21,7 +20,6 @@ import javax.swing.event.TableModelListener;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreeSelectionModel;
-import java.awt.event.ItemListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
@@ -32,29 +30,11 @@ import java.util.Objects;
 public class SwingPropertySupport {
 
     static String PROP_TEXT = "swingfx-property-text";
-    static String PROP_SELECTED = "swingfx-property-selected";
     static String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     static String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
     }
-
-    // selected:
-    private static final ItemListener ITEM_LISTENER_SELECTED = e -> {
-        AbstractButton absButton = (AbstractButton) e.getSource();
-        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
-        if (absButton.isSelected() != p.get()) {
-            p.set(absButton.isSelected());
-        }
-    };
-
-    private static final ChangeListener<Boolean> FX_PROP_LISTENER_SELECTED = (observable, oldValue, newValue) -> {
-        BooleanProperty p = (BooleanProperty) observable;
-        AbstractButton absButton = (AbstractButton) p.getBean();
-        if (newValue.booleanValue() != absButton.isSelected()) {
-            absButton.setSelected(newValue.booleanValue());
-        }
-    };
 
     // text:
     private static final PropertyChangeListener SWING_PROP_LISTENER_TEXT = e -> {
@@ -102,15 +82,7 @@ public class SwingPropertySupport {
      * @see AbstractButton#isSelected()
      */
     public static BooleanProperty selectedProperty(AbstractButton absButton) {
-        Objects.requireNonNull(absButton, "absButton");
-        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
-        if (p == null) {
-            p = new SimpleBooleanProperty(absButton, "selected", absButton.isSelected());
-            absButton.putClientProperty(PROP_SELECTED, p);
-            absButton.addItemListener(ITEM_LISTENER_SELECTED);
-            p.addListener(FX_PROP_LISTENER_SELECTED);
-        }
-        return p;
+        return SelectedPropertyImpl.selectedProperty(absButton);
     }
 
     /**
