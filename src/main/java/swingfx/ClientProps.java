@@ -5,4 +5,5 @@ package swingfx;
  */
 public interface ClientProps {
     String PROP_ENABLED = "swingfx-property-enabled";
+    String PROP_FOCUSED = "swingfx-property-focused";
 }
