@@ -483,6 +483,8 @@ public class SwingPropertySupport {
     }
 
     /**
+     * @param component Component. Not null.
+     * @return Read-only property which value is {@code true} when the component has focus and {@code false} when not.
      * @see JComponent#hasFocus()
      */
     public static ReadOnlyBooleanProperty focusedProperty(JComponent component) {
