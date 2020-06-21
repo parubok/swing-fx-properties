@@ -4,6 +4,7 @@
         "http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
+    <module name="NewlineAtEndOfFile"/>
     <module name="TreeWalker">
         <module name="UnusedImports"/>
         <module name="RedundantImport"/>
