@@ -51,6 +51,11 @@ public class SwingPropertySupport {
         return ActionEnabledPropertyImpl.enabledProperty(action);
     }
 
+    /**
+     * @return Property object for 'visible' property of the specified component.
+     * @see JComponent#isVisible()
+     * @see JComponent#setVisible(boolean)
+     */
     public static BooleanProperty visibleProperty(JComponent component) {
         return VisiblePropertyImpl.visibleProperty(component);
     }
