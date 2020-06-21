@@ -3,7 +3,6 @@ package swingfx;
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
-import swingfx.beans.property.ReadOnlyIntegerPropertyBase;
 import swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
@@ -12,18 +11,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.TableModel;
-import java.beans.PropertyChangeListener;
-import java.util.Objects;
 
 /**
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
  * property objects.
  */
 public class SwingPropertySupport {
-
-    static String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
     }
@@ -95,57 +88,6 @@ public class SwingPropertySupport {
         return SelectionCountPropertyImpl.selectionCountProperty(tree);
     }
 
-    private static class TableModelRowCountProperty extends ReadOnlyIntegerPropertyBase {
-        private final JTable table;
-        private TableModel model;
-        private int value;
-        private final TableModelListener modelListener = e -> modelRowCountChanged();
-
-        TableModelRowCountProperty(JTable table) {
-            this.table = Objects.requireNonNull(table);
-            this.value = table.getModel().getRowCount();
-        }
-
-        void updateModel() {
-            TableModel model = this.table.getModel();
-            if (this.model != null) {
-                this.model.removeTableModelListener(this.modelListener);
-            }
-            this.model = model;
-            this.model.addTableModelListener(this.modelListener);
-        }
-
-        @Override
-        public int get() {
-            return value;
-        }
-
-        @Override
-        public JTable getBean() {
-            return table;
-        }
-
-        @Override
-        public String getName() {
-            return "modelRowCount";
-        }
-
-        void modelRowCountChanged() {
-            int c = table.getModel().getRowCount();
-            if (this.value != c) {
-                this.value = c;
-                fireValueChangedEvent();
-            }
-        }
-    }
-
-    private static final PropertyChangeListener TABLE_MODEL_PROPERTY_LISTENER = e -> {
-        JTable table = (JTable) e.getSource();
-        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_MODEL_ROW_COUNT);
-        p.updateModel();
-        p.modelRowCountChanged();
-    };
-
     /**
      * Note: the returned property correctly handles change of the table model.
      *
@@ -153,15 +95,7 @@ public class SwingPropertySupport {
      * @return Read-only property which value is the number of rows in the table model.
      */
     public static ReadOnlyIntegerProperty modelRowCountProperty(JTable table) {
-        Objects.requireNonNull(table, "table");
-        TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_MODEL_ROW_COUNT);
-        if (p == null) {
-            p = new TableModelRowCountProperty(table);
-            table.putClientProperty(PROP_TABLE_MODEL_ROW_COUNT, p);
-            p.updateModel();
-            table.addPropertyChangeListener("model", TABLE_MODEL_PROPERTY_LISTENER);
-        }
-        return p;
+        return ModelRowCountPropertyImpl.modelRowCountProperty(table);
     }
 
     /**
