@@ -71,7 +71,7 @@ public class Demo {
         JCheckBox checkBox = new JCheckBox("Value:");
         topPanel.add(checkBox);
 
-        JTextField textField = new JTextField();
+        JTextField textField = new JTextField("text field");
         textField.setColumns(10);
         topPanel.add(textField);
 
