@@ -12,12 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelListener;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.TableModel;
-import javax.swing.tree.TreeSelectionModel;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
@@ -27,7 +23,6 @@ import java.util.Objects;
  */
 public class SwingPropertySupport {
 
-    static String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     static String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
@@ -78,57 +73,6 @@ public class SwingPropertySupport {
         return TextPropertyImpl.textProperty(label);
     }
 
-    private static class TableSelectedRowCountProperty extends ReadOnlyIntegerPropertyBase {
-        private final JTable table;
-        private ListSelectionModel selectionModel;
-        private int value;
-        private final ListSelectionListener selectionListener = e -> selectedRowCountChanged();
-
-        TableSelectedRowCountProperty(JTable table) {
-            this.table = table;
-            this.value = table.getSelectedRowCount();
-        }
-
-        void updateSelectionModel() {
-            ListSelectionModel selectionModel = this.table.getSelectionModel();
-            if (this.selectionModel != null) {
-                this.selectionModel.removeListSelectionListener(this.selectionListener);
-            }
-            this.selectionModel = selectionModel;
-            this.selectionModel.addListSelectionListener(this.selectionListener);
-        }
-
-        @Override
-        public int get() {
-            return value;
-        }
-
-        @Override
-        public JTable getBean() {
-            return table;
-        }
-
-        @Override
-        public String getName() {
-            return "selectedRowCount";
-        }
-
-        void selectedRowCountChanged() {
-            int c = table.getSelectedRowCount();
-            if (this.value != c) {
-                this.value = c;
-                fireValueChangedEvent();
-            }
-        }
-    }
-
-    private static final PropertyChangeListener TABLE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
-        JTable table = (JTable) e.getSource();
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
-        p.updateSelectionModel();
-        p.selectedRowCountChanged();
-    };
-
     /**
      * Note: the returned property correctly handles change of the table selection model.
      *
@@ -137,67 +81,8 @@ public class SwingPropertySupport {
      * @see JTable#getSelectedRowCount()
      */
     public static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
-        Objects.requireNonNull(table, "table");
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
-        if (p == null) {
-            p = new TableSelectedRowCountProperty(table);
-            table.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
-            p.updateSelectionModel();
-            table.addPropertyChangeListener("selectionModel", TABLE_SELECTION_MODEL_PROPERTY_LISTENER);
-        }
-        return p;
+        return SelectedRowCountPropertyImpl.selectedRowCountProperty(table);
     }
-
-    private static class TreeSelectionCountProperty extends ReadOnlyIntegerPropertyBase {
-        private final JTree tree;
-        private TreeSelectionModel selectionModel;
-        private int value;
-        private final TreeSelectionListener selectionListener = e -> selectionCountChanged();
-
-        TreeSelectionCountProperty(JTree tree) {
-            this.tree = tree;
-            this.value = tree.getSelectionCount();
-        }
-
-        void updateSelectionModel() {
-            TreeSelectionModel selectionModel = this.tree.getSelectionModel();
-            if (this.selectionModel != null) {
-                this.selectionModel.removeTreeSelectionListener(this.selectionListener);
-            }
-            this.selectionModel = selectionModel;
-            this.selectionModel.addTreeSelectionListener(this.selectionListener);
-        }
-
-        @Override
-        public int get() {
-            return value;
-        }
-
-        @Override
-        public JTree getBean() {
-            return tree;
-        }
-
-        @Override
-        public String getName() {
-            return "selectionCount";
-        }
-
-        void selectionCountChanged() {
-            int c = tree.getSelectionCount();
-            if (this.value != c) {
-                this.value = c;
-                fireValueChangedEvent();
-            }
-        }
-    }
-
-    private static final PropertyChangeListener TREE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
-        JTree tree = (JTree) e.getSource();
-        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
-        p.updateSelectionModel();
-        p.selectionCountChanged();
-    };
 
     /**
      * Note: the returned property correctly handles change of the tree selection model.
@@ -207,15 +92,7 @@ public class SwingPropertySupport {
      * @see JTree#getSelectionCount()
      */
     public static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
-        Objects.requireNonNull(tree, "tree");
-        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
-        if (p == null) {
-            p = new TreeSelectionCountProperty(tree);
-            tree.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
-            p.updateSelectionModel();
-            tree.addPropertyChangeListener(JTree.SELECTION_MODEL_PROPERTY, TREE_SELECTION_MODEL_PROPERTY_LISTENER);
-        }
-        return p;
+        return SelectionCountPropertyImpl.selectionCountProperty(tree);
     }
 
     private static class TableModelRowCountProperty extends ReadOnlyIntegerPropertyBase {

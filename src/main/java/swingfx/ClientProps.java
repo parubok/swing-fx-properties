@@ -9,4 +9,5 @@ public interface ClientProps {
     String PROP_VISIBLE = "swingfx-property-visible";
     String PROP_SELECTED = "swingfx-property-selected";
     String PROP_TEXT = "swingfx-property-text";
+    String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
 }
