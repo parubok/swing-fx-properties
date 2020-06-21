@@ -37,34 +37,15 @@ import java.util.Objects;
  */
 public class SwingPropertySupport {
 
-    private static final String PROP_ENABLED = "swingfx-property-enabled";
-    private static final String PROP_TEXT = "swingfx-property-text";
-    private static final String PROP_SELECTED = "swingfx-property-selected";
-    private static final String PROP_VISIBLE = "swingfx-property-visible";
-    private static final String PROP_FOCUSED = "swingfx-property-focused";
-    private static final String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
-    private static final String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
+    static String PROP_TEXT = "swingfx-property-text";
+    static String PROP_SELECTED = "swingfx-property-selected";
+    static String PROP_VISIBLE = "swingfx-property-visible";
+    static String PROP_FOCUSED = "swingfx-property-focused";
+    static String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
+    static String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
     }
-
-    // enabled:
-    private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
-        JComponent component = (JComponent) e.getSource();
-        BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_ENABLED);
-        Boolean newValue = (Boolean) e.getNewValue();
-        if (newValue.booleanValue() != p.get()) {
-            p.set(newValue.booleanValue());
-        }
-    };
-
-    private static final ChangeListener<Boolean> FX_PROP_LISTENER_ENABLED = (observable, oldValue, newValue) -> {
-        BooleanProperty p = (BooleanProperty) observable;
-        JComponent component = (JComponent) p.getBean();
-        if (newValue.booleanValue() != component.isEnabled()) {
-            component.setEnabled(newValue.booleanValue());
-        }
-    };
 
     // selected:
     private static final ItemListener ITEM_LISTENER_SELECTED = e -> {
@@ -137,35 +118,8 @@ public class SwingPropertySupport {
      * @see JComponent#isEnabled()
      */
     public static BooleanProperty enabledProperty(JComponent component) {
-        Objects.requireNonNull(component, "component");
-        BooleanProperty p = (BooleanProperty) component.getClientProperty(PROP_ENABLED);
-        if (p == null) {
-            p = new SimpleBooleanProperty(component, "enabled", component.isEnabled());
-            component.putClientProperty(PROP_ENABLED, p);
-            component.addPropertyChangeListener("enabled", SWING_PROP_LISTENER_ENABLED);
-            p.addListener(FX_PROP_LISTENER_ENABLED);
-        }
-        return p;
+        return ComponentEnabledPropertyImpl.enabledProperty(component);
     }
-
-    private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED_FOR_ACTION = e -> {
-        if ("enabled".equals(e.getPropertyName())) {
-            Action action = (Action) e.getSource();
-            BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
-            Boolean newValue = (Boolean) e.getNewValue();
-            if (newValue.booleanValue() != p.get()) {
-                p.set(newValue.booleanValue());
-            }
-        }
-    };
-
-    private static final ChangeListener<Boolean> FX_PROP_LISTENER_ENABLED_FOR_ACTION = (observable, oldValue, newValue) -> {
-        BooleanProperty p = (BooleanProperty) observable;
-        Action action = (Action) p.getBean();
-        if (newValue.booleanValue() != action.isEnabled()) {
-            action.setEnabled(newValue.booleanValue());
-        }
-    };
 
     /**
      * @return Property object for 'enabled' property of the specified action.
@@ -173,15 +127,7 @@ public class SwingPropertySupport {
      * @see Action#isEnabled()
      */
     public static BooleanProperty enabledProperty(Action action) {
-        Objects.requireNonNull(action, "action");
-        BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
-        if (p == null) {
-            p = new SimpleBooleanProperty(action, "enabled", action.isEnabled());
-            action.putValue(PROP_ENABLED, p);
-            action.addPropertyChangeListener(SWING_PROP_LISTENER_ENABLED_FOR_ACTION);
-            p.addListener(FX_PROP_LISTENER_ENABLED_FOR_ACTION);
-        }
-        return p;
+        return ActionEnabledPropertyImpl.enabledProperty(action);
     }
 
     public static BooleanProperty visibleProperty(JComponent component) {
