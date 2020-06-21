@@ -8,4 +8,5 @@ public interface ClientProps {
     String PROP_FOCUSED = "swingfx-property-focused";
     String PROP_VISIBLE = "swingfx-property-visible";
     String PROP_SELECTED = "swingfx-property-selected";
+    String PROP_TEXT = "swingfx-property-text";
 }

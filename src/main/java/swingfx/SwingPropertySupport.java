@@ -4,9 +4,7 @@ import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.ReadOnlyIntegerPropertyBase;
-import swingfx.beans.property.SimpleStringProperty;
 import swingfx.beans.property.StringProperty;
-import swingfx.beans.value.ChangeListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
@@ -29,30 +27,11 @@ import java.util.Objects;
  */
 public class SwingPropertySupport {
 
-    static String PROP_TEXT = "swingfx-property-text";
     static String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     static String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
 
     private SwingPropertySupport() {
     }
-
-    // text:
-    private static final PropertyChangeListener SWING_PROP_LISTENER_TEXT = e -> {
-        JLabel label = (JLabel) e.getSource();
-        StringProperty p = (StringProperty) label.getClientProperty(PROP_TEXT);
-        String newValue = (String) e.getNewValue();
-        if (!Objects.equals(newValue, p.get())) {
-            p.set(newValue);
-        }
-    };
-
-    private static final ChangeListener<String> FX_PROP_LISTENER_TEXT = (observable, oldValue, newValue) -> {
-        StringProperty p = (StringProperty) observable;
-        JLabel label = (JLabel) p.getBean();
-        if (!Objects.equals(newValue, label.getText())) {
-            label.setText(newValue);
-        }
-    };
 
     /**
      * @return Property object for 'enabled' property of the specified component.
@@ -91,15 +70,7 @@ public class SwingPropertySupport {
      * @see JLabel#getText()
      */
     public static StringProperty textProperty(JLabel label) {
-        Objects.requireNonNull(label, "label");
-        StringProperty p = (StringProperty) label.getClientProperty(PROP_TEXT);
-        if (p == null) {
-            p = new SimpleStringProperty(label, "text", label.getText());
-            label.putClientProperty(PROP_TEXT, p);
-            label.addPropertyChangeListener("text", SWING_PROP_LISTENER_TEXT);
-            p.addListener(FX_PROP_LISTENER_TEXT);
-        }
-        return p;
+        return TextPropertyImpl.textProperty(label);
     }
 
     private static class TableSelectedRowCountProperty extends ReadOnlyIntegerPropertyBase {
