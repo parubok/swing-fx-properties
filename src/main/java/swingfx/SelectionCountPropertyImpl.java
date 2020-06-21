@@ -9,6 +9,8 @@ import javax.swing.tree.TreeSelectionModel;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
+import static swingfx.ClientProps.PROP_SELECTED_ROW_COUNT;
+
 final class SelectionCountPropertyImpl {
     private static class TreeSelectionCountProperty extends ReadOnlyIntegerPropertyBase {
         private final JTree tree;
@@ -56,17 +58,17 @@ final class SelectionCountPropertyImpl {
 
     private static final PropertyChangeListener TREE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
         JTree tree = (JTree) e.getSource();
-        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT);
+        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
         p.updateSelectionModel();
         p.selectionCountChanged();
     };
 
     static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
         Objects.requireNonNull(tree, "tree");
-        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT);
+        TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
         if (p == null) {
             p = new TreeSelectionCountProperty(tree);
-            tree.putClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT, p);
+            tree.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
             p.updateSelectionModel();
             tree.addPropertyChangeListener(JTree.SELECTION_MODEL_PROPERTY, TREE_SELECTION_MODEL_PROPERTY_LISTENER);
         }

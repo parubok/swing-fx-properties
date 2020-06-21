@@ -8,11 +8,13 @@ import javax.swing.Action;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
+import static swingfx.ClientProps.PROP_ENABLED;
+
 final class ActionEnabledPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
         if ("enabled".equals(e.getPropertyName())) {
             Action action = (Action) e.getSource();
-            BooleanProperty p = (BooleanProperty) action.getValue(ClientProps.PROP_ENABLED);
+            BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
             Boolean newValue = (Boolean) e.getNewValue();
             if (newValue.booleanValue() != p.get()) {
                 p.set(newValue.booleanValue());
@@ -30,10 +32,10 @@ final class ActionEnabledPropertyImpl {
 
     static BooleanProperty enabledProperty(Action action) {
         Objects.requireNonNull(action, "action");
-        BooleanProperty p = (BooleanProperty) action.getValue(ClientProps.PROP_ENABLED);
+        BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
         if (p == null) {
             p = new SimpleBooleanProperty(action, "enabled", action.isEnabled());
-            action.putValue(ClientProps.PROP_ENABLED, p);
+            action.putValue(PROP_ENABLED, p);
             action.addPropertyChangeListener(SWING_PROP_LISTENER_ENABLED);
             p.addListener(FX_PROP_LISTENER_ENABLED);
         }

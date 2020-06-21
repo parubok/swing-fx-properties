@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionListener;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
+import static swingfx.ClientProps.PROP_SELECTED_ROW_COUNT;
+
 final class SelectedRowCountPropertyImpl {
     private static class TableSelectedRowCountProperty extends ReadOnlyIntegerPropertyBase {
         private final JTable table;
@@ -56,17 +58,17 @@ final class SelectedRowCountPropertyImpl {
 
     private static final PropertyChangeListener TABLE_SELECTION_MODEL_PROPERTY_LISTENER = e -> {
         JTable table = (JTable) e.getSource();
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT);
+        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
         p.updateSelectionModel();
         p.selectedRowCountChanged();
     };
 
     static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
         Objects.requireNonNull(table, "table");
-        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT);
+        TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
         if (p == null) {
             p = new TableSelectedRowCountProperty(table);
-            table.putClientProperty(ClientProps.PROP_SELECTED_ROW_COUNT, p);
+            table.putClientProperty(PROP_SELECTED_ROW_COUNT, p);
             p.updateSelectionModel();
             table.addPropertyChangeListener("selectionModel", TABLE_SELECTION_MODEL_PROPERTY_LISTENER);
         }
