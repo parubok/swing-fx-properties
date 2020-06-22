@@ -8,7 +8,6 @@ import swingfx.beans.property.SimpleStringProperty;
 import javax.swing.SwingUtilities;
 
 class BindingsTest {
-
     @Test
     void createObjectBinding() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
