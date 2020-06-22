@@ -8,10 +8,12 @@ import javax.swing.AbstractButton;
 import java.awt.event.ItemListener;
 import java.util.Objects;
 
+import static swingfx.ClientProps.PROP_SELECTED;
+
 final class SelectedPropertyImpl {
     private static final ItemListener ITEM_LISTENER_SELECTED = e -> {
         AbstractButton absButton = (AbstractButton) e.getSource();
-        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(ClientProps.PROP_SELECTED);
+        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
         if (absButton.isSelected() != p.get()) {
             p.set(absButton.isSelected());
         }
@@ -27,10 +29,10 @@ final class SelectedPropertyImpl {
 
     static BooleanProperty selectedProperty(AbstractButton absButton) {
         Objects.requireNonNull(absButton, "absButton");
-        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(ClientProps.PROP_SELECTED);
+        BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
         if (p == null) {
             p = new SimpleBooleanProperty(absButton, "selected", absButton.isSelected());
-            absButton.putClientProperty(ClientProps.PROP_SELECTED, p);
+            absButton.putClientProperty(PROP_SELECTED, p);
             absButton.addItemListener(ITEM_LISTENER_SELECTED);
             p.addListener(FX_PROP_LISTENER_SELECTED);
         }
