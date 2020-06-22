@@ -11,7 +11,7 @@ import java.util.Objects;
 import static swingfx.ClientProps.PROP_SELECTED;
 
 final class SelectedPropertyImpl {
-    private static final ItemListener ITEM_LISTENER_SELECTED = e -> {
+    private static final ItemListener ITEM_LISTENER = e -> {
         AbstractButton absButton = (AbstractButton) e.getSource();
         BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
         if (absButton.isSelected() != p.get()) {
@@ -19,7 +19,7 @@ final class SelectedPropertyImpl {
         }
     };
 
-    private static final ChangeListener<Boolean> FX_PROP_LISTENER_SELECTED = (observable, oldValue, newValue) -> {
+    private static final ChangeListener<Boolean> FX_PROP_LISTENER = (observable, oldValue, newValue) -> {
         BooleanProperty p = (BooleanProperty) observable;
         AbstractButton absButton = (AbstractButton) p.getBean();
         if (newValue.booleanValue() != absButton.isSelected()) {
@@ -33,8 +33,8 @@ final class SelectedPropertyImpl {
         if (p == null) {
             p = new SimpleBooleanProperty(absButton, "selected", absButton.isSelected());
             absButton.putClientProperty(PROP_SELECTED, p);
-            absButton.addItemListener(ITEM_LISTENER_SELECTED);
-            p.addListener(FX_PROP_LISTENER_SELECTED);
+            absButton.addItemListener(ITEM_LISTENER);
+            p.addListener(FX_PROP_LISTENER);
         }
         return p;
     }
