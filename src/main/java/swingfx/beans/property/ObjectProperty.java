@@ -45,8 +45,8 @@ import swingfx.beans.value.ObservableObjectValue;
  * The context of a {@code ObjectProperty} can be read with {@link #getBean()}
  * and {@link #getName()}.
  *
- * For specialized implementations for {@link ObservableList}, {@link ObservableSet} and
- * {@link ObservableMap} that also report changes inside the collections, see
+ * For specialized implementations for {@link swingfx.collections.ObservableList}, {@link swingfx.collections.ObservableSet} and
+ * {@link swingfx.collections.ObservableMap} that also report changes inside the collections, see
  * {@link ListProperty}, {@link SetProperty} and {@link MapProperty}, respectively.
  *
  * @see ObservableObjectValue

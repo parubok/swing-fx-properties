@@ -11,4 +11,6 @@ public interface ClientProps {
     String PROP_TEXT = "swingfx-property-text";
     String PROP_SELECTED_ROW_COUNT = "swingfx-property-selected-row-count";
     String PROP_TABLE_MODEL_ROW_COUNT = "swingfx-property-table-model-row-count";
+    String PROP_FOREGROUND = "swingfx-property-foreground";
+    String PROP_BACKGROUND = "swingfx-property-background";
 }

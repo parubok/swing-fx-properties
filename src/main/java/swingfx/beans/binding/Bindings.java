@@ -25,13 +25,20 @@
 
 package swingfx.beans.binding;
 
-import java.lang.ref.WeakReference;
-import java.text.Format;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
+import com.sun.swingfx.binding.BidirectionalBinding;
+import com.sun.swingfx.binding.BidirectionalContentBinding;
+import com.sun.swingfx.binding.ContentBinding;
+import com.sun.swingfx.binding.DoubleConstant;
+import com.sun.swingfx.binding.FloatConstant;
+import com.sun.swingfx.binding.IntegerConstant;
+import com.sun.swingfx.binding.LongConstant;
+import com.sun.swingfx.binding.ObjectConstant;
+import com.sun.swingfx.binding.SelectBinding;
+import com.sun.swingfx.binding.StringConstant;
+import com.sun.swingfx.binding.StringFormatter;
+import com.sun.swingfx.collections.ImmutableObservableList;
+import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
+import org.swingfx.misc.Logging;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.property.Property;
@@ -45,27 +52,23 @@ import swingfx.beans.value.ObservableObjectValue;
 import swingfx.beans.value.ObservableStringValue;
 import swingfx.beans.value.ObservableValue;
 import swingfx.collections.FXCollections;
+import swingfx.collections.ObservableArray;
+import swingfx.collections.ObservableFloatArray;
+import swingfx.collections.ObservableIntegerArray;
 import swingfx.collections.ObservableList;
 import swingfx.collections.ObservableMap;
 import swingfx.collections.ObservableSet;
 import swingfx.util.StringConverter;
-import com.sun.swingfx.binding.BidirectionalBinding;
-import com.sun.swingfx.binding.BidirectionalContentBinding;
-import com.sun.swingfx.binding.ContentBinding;
-import com.sun.swingfx.binding.DoubleConstant;
-import com.sun.swingfx.binding.FloatConstant;
-import com.sun.swingfx.binding.IntegerConstant;
-import org.swingfx.misc.Logging;
-import com.sun.swingfx.binding.LongConstant;
-import com.sun.swingfx.binding.ObjectConstant;
-import com.sun.swingfx.binding.SelectBinding;
-import com.sun.swingfx.binding.StringConstant;
-import com.sun.swingfx.binding.StringFormatter;
-import com.sun.swingfx.collections.ImmutableObservableList;
-import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
-import swingfx.collections.ObservableArray;
-import swingfx.collections.ObservableFloatArray;
-import swingfx.collections.ObservableIntegerArray;
+
+import java.lang.ref.WeakReference;
+import java.text.Format;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.function.BiFunction;
 
 /**
  * Bindings is a helper class with a lot of utility functions to create simple
@@ -316,6 +319,20 @@ public final class Bindings {
                         : new ImmutableObservableList<Observable>(dependencies);
             }
         };
+    }
+
+    /**
+     * Combines the two observable values via the specified function and returns the resulting binding.
+     *
+     * @since swing-fx-properties 1.2
+     */
+    public static <K, T, D> ObjectBinding<D> createObjectBinding(ObservableValue<K> value1,
+                                                                 ObservableValue<T> value2,
+                                                                 BiFunction<K, T, D> func) {
+        Objects.requireNonNull(value1, "value1");
+        Objects.requireNonNull(value2, "value2");
+        Objects.requireNonNull(func, "func");
+        return createObjectBinding(() -> func.apply(value1.getValue(), value2.getValue()), value1, value2);
     }
 
     /**

@@ -1,6 +1,7 @@
 package swingfx;
 
 import swingfx.beans.property.BooleanProperty;
+import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.StringProperty;
@@ -11,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import java.awt.Color;
 
 /**
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
@@ -105,5 +107,25 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyBooleanProperty focusedProperty(JComponent component) {
         return FocusedPropertyImpl.focusedProperty(component);
+    }
+
+    /**
+     * @param component Component. Not null.
+     * @return Property object for 'foreground' property of the specified component.
+     * @see JComponent#setForeground(Color)
+     * @see JComponent#getForeground()
+     */
+    public static ObjectProperty<Color> foregroundProperty(JComponent component) {
+        return ForegroundPropertyImpl.foregroundProperty(component);
+    }
+
+    /**
+     * @param component Component. Not null.
+     * @return Property object for 'background' property of the specified component.
+     * @see JComponent#setBackground(Color)
+     * @see JComponent#getBackground()
+     */
+    public static ObjectProperty<Color> backgroundProperty(JComponent component) {
+        return BackgroundPropertyImpl.backgroundProperty(component);
     }
 }

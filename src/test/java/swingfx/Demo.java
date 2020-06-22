@@ -16,10 +16,11 @@ import java.awt.Color;
 
 import static swingfx.SwingPropertySupport.enabledProperty;
 import static swingfx.SwingPropertySupport.focusedProperty;
+import static swingfx.SwingPropertySupport.foregroundProperty;
+import static swingfx.SwingPropertySupport.selectedProperty;
 import static swingfx.SwingPropertySupport.selectedRowCountProperty;
 import static swingfx.SwingPropertySupport.textProperty;
 import static swingfx.SwingPropertySupport.visibleProperty;
-import static swingfx.SwingPropertySupport.selectedProperty;
 
 /**
  * GUI to demo component property binding.
@@ -74,6 +75,13 @@ public class Demo {
         JTextField textField = new JTextField("text field");
         textField.setColumns(10);
         topPanel.add(textField);
+
+        JLabel textFieldFocusLabel = new JLabel();
+        topPanel.add(textFieldFocusLabel);
+        foregroundProperty(textFieldFocusLabel).bind(focusedProperty(textField)
+                .asObject(focused -> focused ? Color.BLUE : Color.RED));
+        textProperty(textFieldFocusLabel).bind(focusedProperty(textField)
+                .asObject(focused -> focused ? "Text field has focus!" : "Text field has NO focus!"));
 
         enabledProperty(textField).bind(selectedProperty(checkBox));
 
