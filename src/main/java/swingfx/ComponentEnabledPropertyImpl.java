@@ -26,7 +26,7 @@ final class ComponentEnabledPropertyImpl {
         }
     };
 
-    static BooleanProperty enabledProperty(JComponent component) {
+    static BooleanProperty getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         BooleanProperty p = (BooleanProperty) component.getClientProperty(ClientProps.PROP_ENABLED);
         if (p == null) {

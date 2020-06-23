@@ -30,7 +30,7 @@ public class SwingPropertySupport {
      * @see JComponent#isEnabled()
      */
     public static BooleanProperty enabledProperty(JComponent component) {
-        return ComponentEnabledPropertyImpl.enabledProperty(component);
+        return ComponentEnabledPropertyImpl.getProperty(component);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SwingPropertySupport {
      * @see Action#isEnabled()
      */
     public static BooleanProperty enabledProperty(Action action) {
-        return ActionEnabledPropertyImpl.enabledProperty(action);
+        return ActionEnabledPropertyImpl.getProperty(action);
     }
 
     /**
@@ -48,7 +48,7 @@ public class SwingPropertySupport {
      * @see JComponent#setVisible(boolean)
      */
     public static BooleanProperty visibleProperty(JComponent component) {
-        return VisiblePropertyImpl.visibleProperty(component);
+        return VisiblePropertyImpl.getProperty(component);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SwingPropertySupport {
      * @see AbstractButton#isSelected()
      */
     public static BooleanProperty selectedProperty(AbstractButton absButton) {
-        return SelectedPropertyImpl.selectedProperty(absButton);
+        return SelectedPropertyImpl.getProperty(absButton);
     }
 
     /**
@@ -66,7 +66,7 @@ public class SwingPropertySupport {
      * @see JLabel#getText()
      */
     public static StringProperty textProperty(JLabel label) {
-        return TextPropertyImpl.textProperty(label);
+        return TextPropertyImpl.getProperty(label);
     }
 
     /**
@@ -77,7 +77,7 @@ public class SwingPropertySupport {
      * @see JTable#getSelectedRowCount()
      */
     public static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
-        return SelectedRowCountPropertyImpl.selectedRowCountProperty(table);
+        return SelectedRowCountPropertyImpl.getProperty(table);
     }
 
     /**
@@ -88,7 +88,7 @@ public class SwingPropertySupport {
      * @see JTree#getSelectionCount()
      */
     public static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
-        return SelectionCountPropertyImpl.selectionCountProperty(tree);
+        return SelectionCountPropertyImpl.getProperty(tree);
     }
 
     /**
@@ -98,7 +98,7 @@ public class SwingPropertySupport {
      * @return Read-only property which value is the number of rows in the table model.
      */
     public static ReadOnlyIntegerProperty modelRowCountProperty(JTable table) {
-        return ModelRowCountPropertyImpl.modelRowCountProperty(table);
+        return ModelRowCountPropertyImpl.getProperty(table);
     }
 
     /**
@@ -107,7 +107,7 @@ public class SwingPropertySupport {
      * @see JComponent#hasFocus()
      */
     public static ReadOnlyBooleanProperty focusedProperty(JComponent component) {
-        return FocusedPropertyImpl.focusedProperty(component);
+        return FocusedPropertyImpl.getProperty(component);
     }
 
     /**
@@ -117,7 +117,7 @@ public class SwingPropertySupport {
      * @see JComponent#getForeground()
      */
     public static ObjectProperty<Color> foregroundProperty(JComponent component) {
-        return ForegroundPropertyImpl.foregroundProperty(component);
+        return ForegroundPropertyImpl.getProperty(component);
     }
 
     /**
@@ -127,7 +127,7 @@ public class SwingPropertySupport {
      * @see JComponent#getBackground()
      */
     public static ObjectProperty<Color> backgroundProperty(JComponent component) {
-        return BackgroundPropertyImpl.backgroundProperty(component);
+        return BackgroundPropertyImpl.getProperty(component);
     }
 
     /**
@@ -137,6 +137,6 @@ public class SwingPropertySupport {
      * @see JComboBox#getSelectedItem()
      */
     public static <E> ObjectProperty<E> selectedItemProperty(JComboBox<E> comboBox) {
-        return SelectedItemPropertyImpl.selectedItemProperty(comboBox);
+        return SelectedItemPropertyImpl.getProperty(comboBox);
     }
 }

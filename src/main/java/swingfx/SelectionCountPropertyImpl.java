@@ -63,7 +63,7 @@ final class SelectionCountPropertyImpl {
         p.selectionCountChanged();
     };
 
-    static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
+    static ReadOnlyIntegerProperty getProperty(JTree tree) {
         Objects.requireNonNull(tree, "tree");
         TreeSelectionCountProperty p = (TreeSelectionCountProperty) tree.getClientProperty(PROP_SELECTED_ROW_COUNT);
         if (p == null) {

@@ -30,7 +30,7 @@ final class ActionEnabledPropertyImpl {
         }
     };
 
-    static BooleanProperty enabledProperty(Action action) {
+    static BooleanProperty getProperty(Action action) {
         Objects.requireNonNull(action, "action");
         BooleanProperty p = (BooleanProperty) action.getValue(PROP_ENABLED);
         if (p == null) {

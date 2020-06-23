@@ -63,7 +63,7 @@ final class SelectedRowCountPropertyImpl {
         p.selectedRowCountChanged();
     };
 
-    static ReadOnlyIntegerProperty selectedRowCountProperty(JTable table) {
+    static ReadOnlyIntegerProperty getProperty(JTable table) {
         Objects.requireNonNull(table, "table");
         TableSelectedRowCountProperty p = (TableSelectedRowCountProperty) table.getClientProperty(PROP_SELECTED_ROW_COUNT);
         if (p == null) {

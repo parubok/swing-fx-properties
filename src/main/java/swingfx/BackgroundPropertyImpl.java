@@ -29,7 +29,7 @@ final class BackgroundPropertyImpl {
         }
     };
 
-    static ObjectProperty<Color> backgroundProperty(JComponent component) {
+    static ObjectProperty<Color> getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         ObjectProperty<Color> p = (ObjectProperty) component.getClientProperty(ClientProps.PROP_BACKGROUND);
         if (p == null) {

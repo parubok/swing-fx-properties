@@ -29,7 +29,7 @@ final class ForegroundPropertyImpl {
         }
     };
 
-    static ObjectProperty<Color> foregroundProperty(JComponent component) {
+    static ObjectProperty<Color> getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         ObjectProperty<Color> p = (ObjectProperty) component.getClientProperty(ClientProps.PROP_FOREGROUND);
         if (p == null) {

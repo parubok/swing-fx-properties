@@ -28,7 +28,7 @@ final class SelectedItemPropertyImpl {
         }
     };
 
-    static <E> ObjectProperty<E> selectedItemProperty(JComboBox<E> comboBox) {
+    static <E> ObjectProperty<E> getProperty(JComboBox<E> comboBox) {
         Objects.requireNonNull(comboBox, "comboBox");
         ObjectProperty<E> p = (ObjectProperty) comboBox.getClientProperty(PROP_SELECTED_ITEM);
         if (p == null) {

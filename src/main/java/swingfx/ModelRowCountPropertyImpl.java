@@ -63,7 +63,7 @@ final class ModelRowCountPropertyImpl {
         p.modelRowCountChanged();
     };
 
-    static ReadOnlyIntegerProperty modelRowCountProperty(JTable table) {
+    static ReadOnlyIntegerProperty getProperty(JTable table) {
         Objects.requireNonNull(table, "table");
         TableModelRowCountProperty p = (TableModelRowCountProperty) table.getClientProperty(PROP_TABLE_MODEL_ROW_COUNT);
         if (p == null) {

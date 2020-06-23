@@ -54,7 +54,7 @@ final class FocusedPropertyImpl {
         }
     }
 
-    static ReadOnlyBooleanProperty focusedProperty(JComponent component) {
+    static ReadOnlyBooleanProperty getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         ComponentFocusedProperty p = (ComponentFocusedProperty) component.getClientProperty(PROP_FOCUSED);
         if (p == null) {

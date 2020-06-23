@@ -26,7 +26,7 @@ final class TextPropertyImpl {
         }
     };
 
-    static StringProperty textProperty(JLabel label) {
+    static StringProperty getProperty(JLabel label) {
         Objects.requireNonNull(label, "label");
         StringProperty p = (StringProperty) label.getClientProperty(ClientProps.PROP_TEXT);
         if (p == null) {

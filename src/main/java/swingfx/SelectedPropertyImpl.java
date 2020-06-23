@@ -27,7 +27,7 @@ final class SelectedPropertyImpl {
         }
     };
 
-    static BooleanProperty selectedProperty(AbstractButton absButton) {
+    static BooleanProperty getProperty(AbstractButton absButton) {
         Objects.requireNonNull(absButton, "absButton");
         BooleanProperty p = (BooleanProperty) absButton.getClientProperty(PROP_SELECTED);
         if (p == null) {

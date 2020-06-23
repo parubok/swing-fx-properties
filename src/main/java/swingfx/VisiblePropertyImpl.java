@@ -40,7 +40,7 @@ final class VisiblePropertyImpl {
         }
     };
 
-    public static BooleanProperty visibleProperty(JComponent component) {
+    public static BooleanProperty getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
         BooleanProperty p = (BooleanProperty) component.getClientProperty(ClientProps.PROP_VISIBLE);
         if (p == null) {
