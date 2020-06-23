@@ -1,7 +1,9 @@
 package swingfx;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import java.awt.Color;
 import static swingfx.SwingPropertySupport.enabledProperty;
 import static swingfx.SwingPropertySupport.focusedProperty;
 import static swingfx.SwingPropertySupport.foregroundProperty;
+import static swingfx.SwingPropertySupport.selectedItemProperty;
 import static swingfx.SwingPropertySupport.selectedProperty;
 import static swingfx.SwingPropertySupport.selectedRowCountProperty;
 import static swingfx.SwingPropertySupport.textProperty;
@@ -36,6 +39,7 @@ public class Demo {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.addTab("Tab 1", tab1());
         tabbedPane.addTab("Tab 2", tab2());
+        tabbedPane.addTab("Tab 3", tab3());
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JFrame frame = new JFrame("swing-fx-properties");
@@ -105,6 +109,29 @@ public class Demo {
                 .asObject(focused -> focused ? "Text field has focus!" : "Text field has NO focus!"));
 
         enabledProperty(textField).bind(selectedProperty(checkBox));
+
+        return panel;
+    }
+
+    private static JPanel tab3() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JPanel topPanel = new JPanel();
+        panel.add(topPanel, BorderLayout.NORTH);
+
+        int c = 10;
+        String[] values = new String[c];
+        for (int i = 0; i < c; i++) {
+            values[i] = "value_" + i;
+        }
+        JComboBox<String> combo1 = new JComboBox<>(new DefaultComboBoxModel<>(values));
+        topPanel.add(combo1);
+
+        JComboBox<String> combo2 = new JComboBox<>(new DefaultComboBoxModel<>(values));
+        topPanel.add(combo2);
+
+        selectedItemProperty(combo1).bindBidirectional(selectedItemProperty(combo2));
 
         return panel;
     }
