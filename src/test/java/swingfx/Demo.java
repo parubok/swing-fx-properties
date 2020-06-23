@@ -21,7 +21,6 @@ import static swingfx.SwingPropertySupport.foregroundProperty;
 import static swingfx.SwingPropertySupport.selectedProperty;
 import static swingfx.SwingPropertySupport.selectedRowCountProperty;
 import static swingfx.SwingPropertySupport.textProperty;
-import static swingfx.SwingPropertySupport.visibleProperty;
 
 /**
  * GUI to demo component property binding.
@@ -35,8 +34,8 @@ public class Demo {
         JPanel contentPanel = new JPanel(new BorderLayout());
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Old", oldTab());
-        tabbedPane.addTab("selectedRowCount", selectedRowCountTab());
+        tabbedPane.addTab("Tab 1", tab1());
+        tabbedPane.addTab("Tab 2", tab2());
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JFrame frame = new JFrame("swing-fx-properties");
@@ -47,7 +46,7 @@ public class Demo {
         frame.setVisible(true);
     }
 
-    private static JPanel selectedRowCountTab() {
+    private static JPanel tab1() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
         DefaultTableModel tableModel = new DefaultTableModel(20, 5) {
@@ -84,48 +83,17 @@ public class Demo {
         return panel;
     }
 
-    private static JPanel oldTab() {
-        JPanel oldPanel = new JPanel(new BorderLayout(10, 10));
-        oldPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        DefaultTableModel tableModel = new DefaultTableModel(20, 5) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JTable table = new JTable();
-        table.setModel(tableModel);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(table);
-        oldPanel.add(scrollPane, BorderLayout.CENTER);
-
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        JLabel countLabel = new JLabel();
-        JLabel hasFocusLabel = new JLabel("Table is Focused!");
-        hasFocusLabel.setForeground(Color.BLUE);
-        bottomPanel.add(countLabel, BorderLayout.WEST);
-        bottomPanel.add(hasFocusLabel, BorderLayout.EAST);
-        oldPanel.add(bottomPanel, BorderLayout.SOUTH);
-        textProperty(countLabel).bind(selectedRowCountProperty(table).asString("Selected Rows: %d"));
-        visibleProperty(hasFocusLabel).bind(focusedProperty(table));
+    private static JPanel tab2() {
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         JPanel topPanel = new JPanel();
-        oldPanel.add(topPanel, BorderLayout.NORTH);
-
-        JButton clearSelectionButton = new JButton("Clear Selection");
-        clearSelectionButton.addActionListener(e -> table.clearSelection());
-        topPanel.add(clearSelectionButton);
-        enabledProperty(clearSelectionButton).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
-
-        JButton deleteRowButton = new JButton("Delete Row");
-        deleteRowButton.addActionListener(e -> tableModel.removeRow(table.getSelectedRow()));
-        topPanel.add(deleteRowButton);
-        enabledProperty(deleteRowButton).bind(selectedRowCountProperty(table).isEqualTo(1));
+        panel.add(topPanel, BorderLayout.NORTH);
 
         JCheckBox checkBox = new JCheckBox("Value:");
         topPanel.add(checkBox);
 
-        JTextField textField = new JTextField("text field");
+        JTextField textField = new JTextField("text");
         textField.setColumns(10);
         topPanel.add(textField);
 
@@ -138,6 +106,6 @@ public class Demo {
 
         enabledProperty(textField).bind(selectedProperty(checkBox));
 
-        return oldPanel;
+        return panel;
     }
 }
