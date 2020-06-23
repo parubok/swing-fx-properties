@@ -132,7 +132,7 @@ public class SwingPropertySupport {
 
     /**
      * @param comboBox Combo box. Not null.
-     * @return Property object for 'selectedItem' property of the specified combo box. Value {@code null} means no selection.
+     * @return Property object for 'selectedItem' property of the specified combo box. Value {@code null} of the property means no selection.
      * @see JComboBox#setSelectedItem(Object)
      * @see JComboBox#getSelectedItem()
      */
