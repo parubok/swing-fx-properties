@@ -127,7 +127,7 @@ public class Demo {
 
         JPanel panel1 = new JPanel();
         panel.add(panel1);
-
+        panel1.add(new JLabel("bindBidirectional:"));
         int c = 10;
         String[] values = new String[c];
         for (int i = 0; i < c; i++) {
