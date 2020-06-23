@@ -8,6 +8,7 @@ import swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -127,5 +128,15 @@ public class SwingPropertySupport {
      */
     public static ObjectProperty<Color> backgroundProperty(JComponent component) {
         return BackgroundPropertyImpl.backgroundProperty(component);
+    }
+
+    /**
+     * @param comboBox Combo box. Not null.
+     * @return Property object for 'selectedItem' property of the specified combo box. Value {@code null} means no selection.
+     * @see JComboBox#setSelectedItem(Object)
+     * @see JComboBox#getSelectedItem()
+     */
+    public static <E> ObjectProperty<E> selectedItemProperty(JComboBox<E> comboBox) {
+        return SelectedItemPropertyImpl.selectedItemProperty(comboBox);
     }
 }
