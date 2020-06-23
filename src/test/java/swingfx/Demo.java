@@ -1,5 +1,7 @@
 package swingfx;
 
+import swingfx.beans.property.ObjectProperty;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -131,7 +133,9 @@ public class Demo {
         JComboBox<String> combo2 = new JComboBox<>(new DefaultComboBoxModel<>(values));
         topPanel.add(combo2);
 
-        selectedItemProperty(combo1).bindBidirectional(selectedItemProperty(combo2));
+        ObjectProperty<String> p1 = selectedItemProperty(combo1);
+        ObjectProperty<String> p2 = selectedItemProperty(combo2);
+        p1.bindBidirectional(p2);
 
         return panel;
     }
