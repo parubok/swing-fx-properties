@@ -2,6 +2,7 @@ package swingfx;
 
 import swingfx.beans.property.ObjectProperty;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,10 +16,13 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
+import static swingfx.SwingPropertySupport.backgroundProperty;
 import static swingfx.SwingPropertySupport.enabledProperty;
 import static swingfx.SwingPropertySupport.focusedProperty;
 import static swingfx.SwingPropertySupport.foregroundProperty;
@@ -116,11 +120,13 @@ public class Demo {
     }
 
     private static JPanel tab3() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
+        JPanel panel = new JPanel(null);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
         panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel topPanel = new JPanel();
-        panel.add(topPanel, BorderLayout.NORTH);
+        JPanel panel1 = new JPanel();
+        panel.add(panel1);
 
         int c = 10;
         String[] values = new String[c];
@@ -128,14 +134,32 @@ public class Demo {
             values[i] = "value_" + i;
         }
         JComboBox<String> combo1 = new JComboBox<>(new DefaultComboBoxModel<>(values));
-        topPanel.add(combo1);
+        panel1.add(combo1);
 
         JComboBox<String> combo2 = new JComboBox<>(new DefaultComboBoxModel<>(values));
-        topPanel.add(combo2);
+        panel1.add(combo2);
 
         ObjectProperty<String> p1 = selectedItemProperty(combo1);
         ObjectProperty<String> p2 = selectedItemProperty(combo2);
         p1.bindBidirectional(p2);
+
+        JPanel panel2 = new JPanel();
+        panel.add(panel2);
+
+        DefaultComboBoxModel<String> colorModel = new DefaultComboBoxModel<>();
+        colorModel.addElement("#FF0000");
+        colorModel.addElement("#00FF00");
+        colorModel.addElement("#0000FF");
+        JComboBox<String> colorCombo = new JComboBox<>(colorModel);
+        panel2.add(colorCombo);
+
+        JPanel colorPanel = new JPanel(null);
+        colorPanel.setOpaque(true);
+        colorPanel.setPreferredSize(new Dimension(100, 100));
+        colorPanel.setBorder(new LineBorder(Color.BLACK));
+        panel2.add(colorPanel);
+
+        backgroundProperty(colorPanel).bind(selectedItemProperty(colorCombo).asObject(s -> Color.decode(s)));
 
         return panel;
     }
