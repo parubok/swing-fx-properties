@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyBooleanPropertyBase;
@@ -8,7 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_FOCUSED;
+import static org.swingfx.ClientProps.PROP_FOCUSED;
 
 final class FocusedPropertyImpl {
     private static class ComponentFocusedProperty extends ReadOnlyBooleanPropertyBase implements FocusListener {

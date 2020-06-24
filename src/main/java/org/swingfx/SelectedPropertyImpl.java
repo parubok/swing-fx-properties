@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.SimpleBooleanProperty;
@@ -8,7 +8,7 @@ import javax.swing.AbstractButton;
 import java.awt.event.ItemListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_SELECTED;
+import static org.swingfx.ClientProps.PROP_SELECTED;
 
 final class SelectedPropertyImpl {
     private static final ItemListener ITEM_LISTENER = e -> {

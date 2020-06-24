@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 /**
  * Keys for {@link javax.swing.JComponent#getClientProperty(Object)} and {@link javax.swing.JComponent#putClientProperty(Object, Object)} to store/retrieve SwingFX property objects.

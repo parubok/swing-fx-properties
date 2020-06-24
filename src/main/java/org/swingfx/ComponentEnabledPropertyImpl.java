@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.SimpleBooleanProperty;

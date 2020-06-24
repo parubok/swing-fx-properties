@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.ReadOnlyIntegerPropertyBase;
@@ -9,7 +9,7 @@ import javax.swing.table.TableModel;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_TABLE_MODEL_ROW_COUNT;
+import static org.swingfx.ClientProps.PROP_TABLE_MODEL_ROW_COUNT;
 
 final class ModelRowCountPropertyImpl {
     private static class TableModelRowCountProperty extends ReadOnlyIntegerPropertyBase {

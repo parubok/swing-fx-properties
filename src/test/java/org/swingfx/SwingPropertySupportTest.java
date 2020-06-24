@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

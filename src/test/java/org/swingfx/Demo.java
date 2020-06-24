@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.ObjectProperty;
 
@@ -22,14 +22,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import static swingfx.SwingPropertySupport.backgroundProperty;
-import static swingfx.SwingPropertySupport.enabledProperty;
-import static swingfx.SwingPropertySupport.focusedProperty;
-import static swingfx.SwingPropertySupport.foregroundProperty;
-import static swingfx.SwingPropertySupport.selectedItemProperty;
-import static swingfx.SwingPropertySupport.selectedProperty;
-import static swingfx.SwingPropertySupport.selectedRowCountProperty;
-import static swingfx.SwingPropertySupport.textProperty;
+import static org.swingfx.SwingPropertySupport.backgroundProperty;
+import static org.swingfx.SwingPropertySupport.enabledProperty;
+import static org.swingfx.SwingPropertySupport.focusedProperty;
+import static org.swingfx.SwingPropertySupport.foregroundProperty;
+import static org.swingfx.SwingPropertySupport.selectedItemProperty;
+import static org.swingfx.SwingPropertySupport.selectedProperty;
+import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
+import static org.swingfx.SwingPropertySupport.textProperty;
 
 /**
  * GUI to demo component property binding.

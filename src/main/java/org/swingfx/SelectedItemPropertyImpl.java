@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.SimpleObjectProperty;
@@ -8,7 +8,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_SELECTED_ITEM;
+import static org.swingfx.ClientProps.PROP_SELECTED_ITEM;
 
 final class SelectedItemPropertyImpl {
     private static final ItemListener ITEM_LISTENER = e -> {

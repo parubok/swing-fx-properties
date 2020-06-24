@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.SimpleObjectProperty;
@@ -9,12 +9,12 @@ import java.awt.Color;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_FOREGROUND;
+import static org.swingfx.ClientProps.PROP_BACKGROUND;
 
-final class ForegroundPropertyImpl {
+final class BackgroundPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER = e -> {
         JComponent component = (JComponent) e.getSource();
-        ObjectProperty<Color> p = (ObjectProperty<Color>) component.getClientProperty(PROP_FOREGROUND);
+        ObjectProperty<Color> p = (ObjectProperty<Color>) component.getClientProperty(PROP_BACKGROUND);
         Color newValue = (Color) e.getNewValue();
         if (!Objects.equals(newValue, p.get())) {
             p.set(newValue);
@@ -24,18 +24,18 @@ final class ForegroundPropertyImpl {
     private static final ChangeListener<Color> FX_PROP_LISTENER = (observable, oldValue, newValue) -> {
         ObjectProperty<Color> p = (ObjectProperty) observable;
         JComponent component = (JComponent) p.getBean();
-        if (!Objects.equals(newValue, component.getForeground())) {
-            component.setForeground(newValue);
+        if (!Objects.equals(newValue, component.getBackground())) {
+            component.setBackground(newValue);
         }
     };
 
     static ObjectProperty<Color> getProperty(JComponent component) {
         Objects.requireNonNull(component, "component");
-        ObjectProperty<Color> p = (ObjectProperty) component.getClientProperty(ClientProps.PROP_FOREGROUND);
+        ObjectProperty<Color> p = (ObjectProperty) component.getClientProperty(ClientProps.PROP_BACKGROUND);
         if (p == null) {
-            p = new SimpleObjectProperty<>(component, "foreground", component.getForeground());
-            component.putClientProperty(PROP_FOREGROUND, p);
-            component.addPropertyChangeListener("foreground", SWING_PROP_LISTENER);
+            p = new SimpleObjectProperty<>(component, "background", component.getBackground());
+            component.putClientProperty(PROP_BACKGROUND, p);
+            component.addPropertyChangeListener("background", SWING_PROP_LISTENER);
             p.addListener(FX_PROP_LISTENER);
         }
         return p;

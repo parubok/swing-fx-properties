@@ -1,4 +1,4 @@
-package swingfx;
+package org.swingfx;
 
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.SimpleBooleanProperty;
@@ -8,7 +8,7 @@ import javax.swing.Action;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
-import static swingfx.ClientProps.PROP_ENABLED;
+import static org.swingfx.ClientProps.PROP_ENABLED;
 
 final class ActionEnabledPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER_ENABLED = e -> {
