@@ -26,7 +26,7 @@ import static org.swingfx.SwingPropertySupport.backgroundProperty;
 import static org.swingfx.SwingPropertySupport.enabledProperty;
 import static org.swingfx.SwingPropertySupport.focusedProperty;
 import static org.swingfx.SwingPropertySupport.foregroundProperty;
-import static org.swingfx.SwingPropertySupport.mouseOver;
+import static org.swingfx.SwingPropertySupport.mouseOverProperty;
 import static org.swingfx.SwingPropertySupport.selectedItemProperty;
 import static org.swingfx.SwingPropertySupport.selectedProperty;
 import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
@@ -174,7 +174,7 @@ public class Demo {
         colorPanel.setBorder(new LineBorder(Color.BLACK));
         panel.add(colorPanel);
 
-        backgroundProperty(colorPanel).bind(mouseOver(colorPanel).asObject(b -> b ? Color.RED : Color.BLUE));
+        backgroundProperty(colorPanel).bind(mouseOverProperty(colorPanel).asObject(b -> b ? Color.RED : Color.BLUE));
 
         return panel;
     }

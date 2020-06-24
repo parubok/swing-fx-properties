@@ -144,7 +144,7 @@ public class SwingPropertySupport {
      * @param component Component. Not null.
      * @return Boolean property which is {@code true} when the mouse cursor is over the component.
      */
-    public static ReadOnlyBooleanProperty mouseOver(JComponent component) {
+    public static ReadOnlyBooleanProperty mouseOverProperty(JComponent component) {
         return MouseOverPropertyImpl.getProperty(component);
     }
 }
