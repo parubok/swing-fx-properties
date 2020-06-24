@@ -15,4 +15,5 @@ public interface ClientProps {
     String PROP_BACKGROUND = "swingfx-property-background";
     String PROP_SELECTED_ITEM = "swingfx-property-selected-item";
     String PROP_MOUSE_OVER = "swingfx-property-mouse-over";
+    String PROP_BORDER = "swingfx-property-border";
 }

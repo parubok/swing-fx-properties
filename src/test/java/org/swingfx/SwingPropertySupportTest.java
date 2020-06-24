@@ -6,24 +6,29 @@ import swingfx.beans.binding.Bindings;
 import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
+import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
 import swingfx.beans.property.StringProperty;
 import swingfx.beans.value.ChangeListener;
 import swingfx.beans.value.ObservableValue;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -256,6 +261,36 @@ public class SwingPropertySupportTest {
 
             ((DefaultTableModel) table.getModel()).removeRow(0);
             Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10, 10, 9), values);
+        });
+    }
+
+    @Test
+    void borderProperty_1() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            JPanel panel = new JPanel();
+            ObjectProperty<Border> p = SwingPropertySupport.borderProperty(panel);
+            Assertions.assertNull(p.get());
+            p.set(BorderFactory.createEmptyBorder());
+            Assertions.assertEquals(BorderFactory.createEmptyBorder(), panel.getBorder());
+
+            List<Border> values = new ArrayList<>();
+            p.addListener(new ChangeListener<Border>() {
+                @Override
+                public void changed(ObservableValue<? extends Border> observable, Border oldValue, Border newValue) {
+                    values.add(oldValue);
+                    values.add(newValue);
+                }
+            });
+            Border lineBorder = BorderFactory.createLineBorder(Color.RED, 10);
+            panel.setBorder(lineBorder);
+            Assertions.assertEquals(lineBorder, p.get());
+            Assertions.assertIterableEquals(Arrays.asList(BorderFactory.createEmptyBorder(), lineBorder), values);
+
+            panel.setBorder(null);
+            Assertions.assertNull(p.get());
+            Assertions.assertNull(panel.getBorder());
+            Assertions.assertIterableEquals(Arrays.asList(BorderFactory.createEmptyBorder(), lineBorder,
+                    lineBorder, null), values);
         });
     }
 

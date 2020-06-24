@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.border.Border;
 import java.awt.Color;
 
 /**
@@ -146,5 +147,15 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyBooleanProperty mouseOverProperty(JComponent component) {
         return MouseOverPropertyImpl.getProperty(component);
+    }
+
+    /**
+     * @param component Component. Not null.
+     * @return Property object for border of the specified component.
+     * @see JComponent#setBorder(Border)
+     * @see JComponent#getBorder()
+     */
+    public static ObjectProperty<Border> borderProperty(JComponent component) {
+        return BorderPropertyImpl.getProperty(component);
     }
 }
