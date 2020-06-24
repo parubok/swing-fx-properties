@@ -139,4 +139,12 @@ public class SwingPropertySupport {
     public static <E> ObjectProperty<E> selectedItemProperty(JComboBox<E> comboBox) {
         return SelectedItemPropertyImpl.getProperty(comboBox);
     }
+
+    /**
+     * @param component Component. Not null.
+     * @return Boolean property which is {@code true} when the mouse cursor is over the component.
+     */
+    public static ReadOnlyBooleanProperty mouseOver(JComponent component) {
+        return MouseOverPropertyImpl.getProperty(component);
+    }
 }
