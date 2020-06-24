@@ -151,7 +151,7 @@ public class SwingPropertySupport {
 
     /**
      * @param component Component. Not null.
-     * @return Property object for border of the specified component.
+     * @return Property object for border of the specified component. Null is a valid value for border property.
      * @see JComponent#setBorder(Border)
      * @see JComponent#getBorder()
      */
