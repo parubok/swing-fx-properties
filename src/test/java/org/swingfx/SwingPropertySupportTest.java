@@ -15,6 +15,7 @@ import swingfx.beans.value.ObservableValue;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
+import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
@@ -36,6 +37,8 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -234,6 +237,18 @@ public class SwingPropertySupportTest {
             Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
             super.setText(text);
         }
+
+        @Override
+        public Icon getIcon() {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            return super.getIcon();
+        }
+
+        @Override
+        public void setIcon(Icon icon) {
+            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
+            super.setIcon(icon);
+        }
     }
 
     @Test
@@ -372,4 +387,33 @@ public class SwingPropertySupportTest {
             Assertions.assertFalse(p.get());
         });
     }
+
+    @Test
+    void icon_1() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            JLabel label = new TestLabel();
+            ObjectProperty<Icon> p = SwingPropertySupport.iconProperty(label);
+            Assertions.assertNull(p.get());
+            Icon icon = new Icon() {
+                @Override
+                public void paintIcon(Component c, Graphics g, int x, int y) {
+
+                }
+
+                @Override
+                public int getIconWidth() {
+                    return 10;
+                }
+
+                @Override
+                public int getIconHeight() {
+                    return 10;
+                }
+            };
+            label.setIcon(icon);
+            Assertions.assertEquals(icon, label.getIcon());
+            Assertions.assertEquals(icon, p.get());
+        });
+    }
+
 }

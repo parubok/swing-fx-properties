@@ -8,6 +8,7 @@ import swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -70,6 +71,15 @@ public class SwingPropertySupport {
      */
     public static StringProperty textProperty(JLabel label) {
         return TextPropertyImpl.getProperty(label);
+    }
+
+    /**
+     * @return Property object for 'icon' property of the specified label.
+     * @see JLabel#setIcon(Icon)
+     * @see JLabel#getIcon()
+     */
+    public static ObjectProperty<Icon> iconProperty(JLabel label) {
+        return IconPropertyImpl.getProperty(label);
     }
 
     /**
