@@ -169,7 +169,7 @@ public class SwingPropertySupport {
      * Implementation notes:
      * <ul>
      *  <li>The property value will be refreshed on every change in the underlying document.</li>
-     *  <li>The property correctly handles replacement of document and input verifier.</li>
+     *  <li>The property correctly handles replacement of document and/or input verifier.</li>
      * </ul>
      * </p>
      * @return Boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
