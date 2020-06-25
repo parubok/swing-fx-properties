@@ -8,12 +8,14 @@ import swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.text.JTextComponent;
 import java.awt.Color;
 
 /**
@@ -157,5 +159,24 @@ public class SwingPropertySupport {
      */
     public static ObjectProperty<Border> borderProperty(JComponent component) {
         return BorderPropertyImpl.getProperty(component);
+    }
+
+    /**
+     * @param textComponent Text component which validness will be represented by the property. To support validness
+     * checks, the component must have its {@link javax.swing.InputVerifier} properly configured. The property's value
+     * will be {@code true} if the input verifier is {@code null}.
+     * <p>
+     * Implementation notes:
+     * <ul>
+     *  <li>The property value will be refreshed on every change in the underlying document.</li>
+     *  <li>The property correctly handles replacement of document and input verifier.</li>
+     * </ul>
+     * </p>
+     * @return Boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
+     * @see JComponent#setInputVerifier(InputVerifier)
+     * @see JComponent#getInputVerifier()
+     */
+    public static ReadOnlyBooleanProperty validInputProperty(JTextComponent textComponent) {
+        return ValidInputPropertyImpl.getProperty(textComponent);
     }
 }
