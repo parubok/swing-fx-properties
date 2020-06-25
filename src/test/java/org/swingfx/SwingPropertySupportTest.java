@@ -413,6 +413,9 @@ public class SwingPropertySupportTest {
             label.setIcon(icon);
             Assertions.assertEquals(icon, label.getIcon());
             Assertions.assertEquals(icon, p.get());
+
+            p.set(null);
+            Assertions.assertNull(label.getIcon());
         });
     }
 
