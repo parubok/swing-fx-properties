@@ -23,9 +23,9 @@ import java.awt.Color;
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
  * property objects.
  */
-public class SwingPropertySupport {
+public class SwingProperties {
 
-    private SwingPropertySupport() {
+    private SwingProperties() {
     }
 
     /**

@@ -22,15 +22,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import static org.swingfx.SwingPropertySupport.backgroundProperty;
-import static org.swingfx.SwingPropertySupport.enabledProperty;
-import static org.swingfx.SwingPropertySupport.focusedProperty;
-import static org.swingfx.SwingPropertySupport.foregroundProperty;
-import static org.swingfx.SwingPropertySupport.mouseOverProperty;
-import static org.swingfx.SwingPropertySupport.selectedItemProperty;
-import static org.swingfx.SwingPropertySupport.selectedProperty;
-import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
-import static org.swingfx.SwingPropertySupport.textProperty;
+import static org.swingfx.SwingProperties.backgroundProperty;
+import static org.swingfx.SwingProperties.enabledProperty;
+import static org.swingfx.SwingProperties.focusedProperty;
+import static org.swingfx.SwingProperties.foregroundProperty;
+import static org.swingfx.SwingProperties.mouseOverProperty;
+import static org.swingfx.SwingProperties.selectedItemProperty;
+import static org.swingfx.SwingProperties.selectedProperty;
+import static org.swingfx.SwingProperties.selectedRowCountProperty;
+import static org.swingfx.SwingProperties.textProperty;
 
 /**
  * GUI to demo component property binding.

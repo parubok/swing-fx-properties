@@ -45,13 +45,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class SwingPropertySupportTest {
+public class SwingPropertiesTest {
 
     @Test
     void enabled_prop_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
+            BooleanProperty enabledProp = SwingProperties.enabledProperty(label);
 
             Assertions.assertTrue(enabledProp.get());
             label.setEnabled(false);
@@ -70,9 +70,9 @@ public class SwingPropertySupportTest {
     void enabled_prop_2() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label1 = new TestLabel();
-            BooleanProperty enabledProp1 = SwingPropertySupport.enabledProperty(label1);
+            BooleanProperty enabledProp1 = SwingProperties.enabledProperty(label1);
             JLabel label2 = new TestLabel();
-            BooleanProperty enabledProp2 = SwingPropertySupport.enabledProperty(label2);
+            BooleanProperty enabledProp2 = SwingProperties.enabledProperty(label2);
             BooleanBinding binding = Bindings.and(enabledProp1, enabledProp2);
             Assertions.assertTrue(binding.get());
             label2.setEnabled(false);
@@ -98,7 +98,7 @@ public class SwingPropertySupportTest {
     void enabled_str_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
+            BooleanProperty enabledProp = SwingProperties.enabledProperty(label);
             StringBinding str = Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp);
             Assertions.assertEquals("true", str.get());
             label.setEnabled(false);
@@ -110,8 +110,8 @@ public class SwingPropertySupportTest {
     void enabled_text_binding_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
-            StringProperty textProp = SwingPropertySupport.textProperty(label);
+            BooleanProperty enabledProp = SwingProperties.enabledProperty(label);
+            StringProperty textProp = SwingProperties.textProperty(label);
             textProp.bind(Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp));
             Assertions.assertEquals("true", label.getText());
             label.setEnabled(false);
@@ -128,7 +128,7 @@ public class SwingPropertySupportTest {
             Assertions.assertFalse(checkBox.isSelected());
             JLabel label = new TestLabel();
             Assertions.assertTrue(label.isEnabled());
-            SwingPropertySupport.enabledProperty(label).bind(SwingPropertySupport.selectedProperty(checkBox));
+            SwingProperties.enabledProperty(label).bind(SwingProperties.selectedProperty(checkBox));
             Assertions.assertFalse(label.isEnabled());
             checkBox.setSelected(true);
             Assertions.assertTrue(label.isEnabled());
@@ -141,14 +141,14 @@ public class SwingPropertySupportTest {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             ref.set(label);
-            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
+            BooleanProperty visibleProp = SwingProperties.visibleProperty(label);
             Assertions.assertTrue(visibleProp.get());
             label.setVisible(false);
         });
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = ref.get();
             Assertions.assertFalse(label.isVisible());
-            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
+            BooleanProperty visibleProp = SwingProperties.visibleProperty(label);
             Assertions.assertFalse(visibleProp.get());
             visibleProp.set(true);
             Assertions.assertTrue(label.isVisible());
@@ -164,7 +164,7 @@ public class SwingPropertySupportTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ReadOnlyIntegerProperty selRowCountProp = SwingPropertySupport.selectedRowCountProperty(table);
+            ReadOnlyIntegerProperty selRowCountProp = SwingProperties.selectedRowCountProperty(table);
             Assertions.assertEquals(0, selRowCountProp.get());
             table.getSelectionModel().setSelectionInterval(0, 0);
             Assertions.assertEquals(1, selRowCountProp.get());
@@ -194,7 +194,7 @@ public class SwingPropertySupportTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ReadOnlyIntegerProperty selRowCountProp = SwingPropertySupport.selectedRowCountProperty(table);
+            ReadOnlyIntegerProperty selRowCountProp = SwingProperties.selectedRowCountProperty(table);
             List<Number> values = new ArrayList<>();
             selRowCountProp.addListener(new ChangeListener<Number>() {
                 @Override
@@ -256,7 +256,7 @@ public class SwingPropertySupportTest {
         SwingUtilities.invokeAndWait(() -> {
             DefaultTableModel model = new DefaultTableModel(3, 2);
             JTable table = new JTable(model);
-            ReadOnlyIntegerProperty rowCountProperty = SwingPropertySupport.modelRowCountProperty(table);
+            ReadOnlyIntegerProperty rowCountProperty = SwingProperties.modelRowCountProperty(table);
 
             List<Number> values = new ArrayList<>();
             rowCountProperty.addListener(new ChangeListener<Number>() {
@@ -290,7 +290,7 @@ public class SwingPropertySupportTest {
     void borderProperty_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JPanel panel = new JPanel();
-            ObjectProperty<Border> p = SwingPropertySupport.borderProperty(panel);
+            ObjectProperty<Border> p = SwingProperties.borderProperty(panel);
             Assertions.assertNull(p.get());
             p.set(BorderFactory.createEmptyBorder());
             Assertions.assertEquals(BorderFactory.createEmptyBorder(), panel.getBorder());
@@ -326,7 +326,7 @@ public class SwingPropertySupportTest {
             root.add(child_2);
             TreeModel model = new DefaultTreeModel(root);
             JTree tree = new JTree(model);
-            ReadOnlyIntegerProperty selCountProp = SwingPropertySupport.selectionCountProperty(tree);
+            ReadOnlyIntegerProperty selCountProp = SwingProperties.selectionCountProperty(tree);
 
             List<Number> values = new ArrayList<>();
             selCountProp.addListener(new ChangeListener<Number>() {
@@ -360,7 +360,7 @@ public class SwingPropertySupportTest {
                     return ((JTextField) input).getText().length() > 3;
                 }
             };
-            ReadOnlyBooleanProperty p = SwingPropertySupport.validInputProperty(textField);
+            ReadOnlyBooleanProperty p = SwingProperties.validInputProperty(textField);
             Assertions.assertTrue(p.get());
             textField.setInputVerifier(inputVerifier);
             Assertions.assertFalse(p.get());
@@ -392,7 +392,7 @@ public class SwingPropertySupportTest {
     void icon_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
-            ObjectProperty<Icon> p = SwingPropertySupport.iconProperty(label);
+            ObjectProperty<Icon> p = SwingProperties.iconProperty(label);
             Assertions.assertNull(p.get());
             Icon icon = new Icon() {
                 @Override
