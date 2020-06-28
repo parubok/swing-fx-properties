@@ -8,15 +8,15 @@ The JavaFX properties implementation, in fact, is not JavaFX specific - it is a 
 
 This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
 
-The Swing properties are obtained via static methods of class `org.swingfx.SwingProperties`.
+The Swing properties are obtained via class `org.swingfx.SwingPropertySupport`.
 
 Example 1 (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
 ```java
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 
-import static org.swingfx.SwingProperties.enabledProperty;
-import static org.swingfx.SwingProperties.selectedProperty;
+import static org.swingfx.SwingPropertySupport.enabledProperty;
+import static org.swingfx.SwingPropertySupport.selectedProperty;
 
 JCheckBox checkBox = new JCheckBox(); // unselected checkbox
 JLabel label = new JLabel();
@@ -31,8 +31,8 @@ Example 2 (bind 'enabled' property of an action to 'selectedRowCount' property o
 import javax.swing.JTable;
 import javax.swing.Action;
 
-import static org.swingfx.SwingProperties.enabledProperty;
-import static org.swingfx.SwingProperties.selectedRowCountProperty;
+import static org.swingfx.SwingPropertySupport.enabledProperty;
+import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
 
 Action action = ...; // e.g. delete table rows
 JTable table = ...;
