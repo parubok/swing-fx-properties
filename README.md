@@ -44,6 +44,6 @@ To improve usability, the following APIs were added to the original APIs of Java
 - `ObservableValue.asObject(Function<T, K> func)`
 - `BooleanExpression.asStringExpression(String format)`
 
-Since [JavaFX](https://github.com/openjdk/jfx) is licensed under GPL v2 with the Classpath exception, the same license applies to this project.
+Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with the Classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), the same license applies to this project.
 
 Requires Java 8 or later.
