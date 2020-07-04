@@ -82,7 +82,7 @@ final class SelectedRowsPropertyImpl {
                     table.clearSelection();
                 } else {
                     int min = Collections.min(propValue);
-                    boolean contInterval = true; // may be unsorted
+                    boolean contInterval = true; // values in the interval may be unsorted
                     for (int i = 1; i < propValue.size(); i++) {
                         if (!propValue.contains(min + i)) {
                             contInterval = false;
