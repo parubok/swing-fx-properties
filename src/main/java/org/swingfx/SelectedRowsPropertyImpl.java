@@ -74,26 +74,26 @@ final class SelectedRowsPropertyImpl {
         TableSelectedRowsProperty p = (TableSelectedRowsProperty) observable;
         JTable table = (JTable) p.getBean();
         List<Integer> tableValue = getSelectedRows(table);
-        List<Integer> val = p.get();
-        if (!tableValue.equals(val)) {
+        List<Integer> propValue = p.get();
+        if (!tableValue.equals(propValue)) {
             p.adjustingTableSelection = true;
             try {
-                if (val.isEmpty()) {
+                if (propValue.isEmpty()) {
                     table.clearSelection();
                 } else {
-                    int min = Collections.min(val);
+                    int min = Collections.min(propValue);
                     boolean contInterval = true; // may be unsorted
-                    for (int i = 1; i < val.size(); i++) {
-                        if (!val.contains(min + i)) {
+                    for (int i = 1; i < propValue.size(); i++) {
+                        if (!propValue.contains(min + i)) {
                             contInterval = false;
                             break;
                         }
                     }
                     if (contInterval) {
-                        table.getSelectionModel().setSelectionInterval(min, min + val.size() - 1);
+                        table.getSelectionModel().setSelectionInterval(min, min + propValue.size() - 1);
                     } else {
                         table.clearSelection();
-                        val.forEach(index -> table.getSelectionModel().addSelectionInterval(index, index));
+                        propValue.forEach(index -> table.getSelectionModel().addSelectionInterval(index, index));
                     }
                 }
             } finally {
