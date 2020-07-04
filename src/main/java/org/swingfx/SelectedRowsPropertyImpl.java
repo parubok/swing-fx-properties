@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionListener;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ final class SelectedRowsPropertyImpl {
         void selectedRowsChanged() {
             if (!adjustingTableSelection) {
                 List<Integer> tableValue = getSelectedRows((JTable) getBean());
-                if (!tableValue.equals(get())) {
+                if (!new HashSet<>(tableValue).equals(new HashSet<>(get()))) { // compare disregarding order
                     if (tableValue.isEmpty()) {
                         get().clear();
                     } else {
