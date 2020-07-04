@@ -200,7 +200,7 @@ public class SwingPropertySupport {
      * </p>
      *
      * @param table Table. Not null.
-     * @return Property which represents the selected rows of the provided table.
+     * @return Property which values is indexes of the selected rows of the provided table.
      * @see JTable#getSelectedRows()
      * @see javax.swing.ListSelectionModel#setSelectionMode(int)
      */
