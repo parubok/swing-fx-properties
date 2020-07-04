@@ -193,11 +193,15 @@ public class SwingPropertySupport {
 
     /**
      * <p>
-     * <b>Note</b>: in order to work properly, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
+     * <b>Note 1</b>: In order to work properly, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
+     * </p>
+     * <p>
+     * <b>Note 2:</b> The returned property correctly handles change of the table selection model.
      * </p>
      *
-     * @param table
-     * @return
+     * @param table Table. Not null.
+     * @return Property which represents the selected rows of the provided table.
+     * @see JTable#getSelectedRows()
      * @see javax.swing.ListSelectionModel#setSelectionMode(int)
      */
     public static ListProperty<Integer> selectedRowsProperty(JTable table) {
