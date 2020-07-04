@@ -1,6 +1,7 @@
 package org.swingfx;
 
 import swingfx.beans.property.BooleanProperty;
+import swingfx.beans.property.ListProperty;
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
@@ -188,5 +189,18 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyBooleanProperty validInputProperty(JTextComponent textComponent) {
         return ValidInputPropertyImpl.getProperty(textComponent);
+    }
+
+    /**
+     * <p>
+     * <b>Note</b>: in order to work properly, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
+     * </p>
+     *
+     * @param table
+     * @return
+     * @see javax.swing.ListSelectionModel#setSelectionMode(int)
+     */
+    public static ListProperty<Integer> selectedRowsProperty(JTable table) {
+        return SelectedRowsPropertyImpl.getProperty(table);
     }
 }

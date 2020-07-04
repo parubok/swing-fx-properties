@@ -24,11 +24,10 @@ final class SelectedRowCountPropertyImpl {
         }
 
         void updateSelectionModel() {
-            ListSelectionModel selectionModel = this.table.getSelectionModel();
             if (this.selectionModel != null) {
                 this.selectionModel.removeListSelectionListener(this.selectionListener);
             }
-            this.selectionModel = selectionModel;
+            this.selectionModel = this.table.getSelectionModel();
             this.selectionModel.addListSelectionListener(this.selectionListener);
         }
 
