@@ -198,6 +198,9 @@ public class SwingPropertySupport {
      * <p>
      * <b>Note 2:</b> The returned property correctly handles change of the table selection model.
      * </p>
+     * <p>
+     * <b>Note 3:</b> Order of values in the list is not guaranteed to be identical to the order returned by {@link JTable#getSelectedRows()}.
+     * </p>
      *
      * @param table Table. Not null.
      * @return Property which values is indexes of the selected rows of the provided table.

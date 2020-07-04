@@ -18,7 +18,7 @@ import static org.swingfx.ClientProps.PROP_SELECTED_ROWS;
 
 final class SelectedRowsPropertyImpl {
     private static class TableSelectedRowsProperty extends SimpleListProperty<Integer> {
-        boolean adjusting;
+        boolean adjustingTableSelection;
         private ListSelectionModel selectionModel;
         private final ListSelectionListener selectionListener = e -> selectedRowsChanged();
 
@@ -35,7 +35,7 @@ final class SelectedRowsPropertyImpl {
         }
 
         void selectedRowsChanged() {
-            if (!adjusting) {
+            if (!adjustingTableSelection) {
                 List<Integer> tableValue = getSelectedRows((JTable) getBean());
                 if (!tableValue.equals(get())) {
                     if (tableValue.isEmpty()) {
@@ -75,7 +75,7 @@ final class SelectedRowsPropertyImpl {
         List<Integer> tableValue = getSelectedRows(table);
         List<Integer> val = p.get();
         if (!tableValue.equals(val)) {
-            p.adjusting = true;
+            p.adjustingTableSelection = true;
             try {
                 if (val.isEmpty()) {
                     table.clearSelection();
@@ -96,7 +96,7 @@ final class SelectedRowsPropertyImpl {
                     }
                 }
             } finally {
-                p.adjusting = false;
+                p.adjustingTableSelection = false;
             }
         }
     };
