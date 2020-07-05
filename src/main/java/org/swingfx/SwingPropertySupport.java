@@ -150,7 +150,7 @@ public class SwingPropertySupport {
 
     /**
      * @param component Component. Not null.
-     * @return Boolean property which is {@code true} when the mouse cursor is over the component.
+     * @return Read-only boolean property which is {@code true} when the mouse cursor is over the component.
      */
     public static ReadOnlyBooleanProperty mouseOverProperty(JComponent component) {
         return MouseOverPropertyImpl.getProperty(component);
@@ -174,7 +174,7 @@ public class SwingPropertySupport {
      * <b>Note:</b> The property value will be refreshed on every change in the underlying document.
      * </p>
      *
-     * @return Boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
+     * @return Read-only boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
      * @see JComponent#setInputVerifier(InputVerifier)
      * @see JComponent#getInputVerifier()
      */
