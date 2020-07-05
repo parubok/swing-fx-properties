@@ -84,8 +84,6 @@ public class SwingPropertySupport {
     }
 
     /**
-     * Note: the returned property correctly handles change of the table selection model.
-     *
      * @param table Table. Not null.
      * @return Read-only property which value is the number of selected rows in the table.
      * @see JTable#getSelectedRowCount()
@@ -95,8 +93,6 @@ public class SwingPropertySupport {
     }
 
     /**
-     * Note: the returned property correctly handles change of the tree selection model.
-     *
      * @param tree Tree. Not null.
      * @return Read-only property which value is the number of selected rows in the tree.
      * @see JTree#getSelectionCount()
@@ -106,8 +102,6 @@ public class SwingPropertySupport {
     }
 
     /**
-     * Note: the returned property correctly handles change of the table model.
-     *
      * @param table Table. Not null.
      * @return Read-only property which value is the number of rows in the table model.
      */
@@ -177,11 +171,7 @@ public class SwingPropertySupport {
      * checks, the component must have its {@link javax.swing.InputVerifier} properly configured. The property's value
      * will be {@code true} if the input verifier is {@code null}.
      * <p>
-     * Implementation notes:
-     * <ul>
-     *  <li>The property value will be refreshed on every change in the underlying document.</li>
-     *  <li>The property correctly handles replacement of document and/or input verifier.</li>
-     * </ul>
+     * <b>Note:</b> The property value will be refreshed on every change in the underlying document.
      * </p>
      * @return Boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
      * @see JComponent#setInputVerifier(InputVerifier)
@@ -196,10 +186,7 @@ public class SwingPropertySupport {
      * <b>Note 1</b>: In order to work properly, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
      * </p>
      * <p>
-     * <b>Note 2:</b> The returned property correctly handles change of the table selection model.
-     * </p>
-     * <p>
-     * <b>Note 3:</b> Order of values in the list is not guaranteed to be identical to the order returned by {@link JTable#getSelectedRows()}.
+     * <b>Note 2:</b> Order of values in the list is not guaranteed to be identical to the order returned by {@link JTable#getSelectedRows()}.
      * </p>
      *
      * @param table Table. Not null.
