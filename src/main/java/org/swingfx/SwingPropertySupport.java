@@ -173,6 +173,7 @@ public class SwingPropertySupport {
      * <p>
      * <b>Note:</b> The property value will be refreshed on every change in the underlying document.
      * </p>
+     *
      * @return Boolean property which represents validness of the text component (as defined by its {@link javax.swing.InputVerifier}).
      * @see JComponent#setInputVerifier(InputVerifier)
      * @see JComponent#getInputVerifier()
