@@ -275,8 +275,17 @@ public class SwingPropertySupportTest {
             Assertions.assertTrue(p.get().isEmpty());
             Assertions.assertEquals(0, table.getSelectedRowCount());
             p.get().setAll(9, 7, 8); // unsorted
-            Assertions.assertArrayEquals(new int[]{7, 8, 9}, table.getSelectedRows());
             Assertions.assertEquals(Arrays.asList(9, 7, 8), p.get());
+            Assertions.assertArrayEquals(new int[]{7, 8, 9}, table.getSelectedRows());
+
+            table.getSelectionModel().addSelectionInterval(11, 12);
+            Assertions.assertEquals(Arrays.asList(7, 8, 9, 11, 12), p.get());
+
+            table.getSelectionModel().addSelectionInterval(17, 15);
+            Assertions.assertEquals(Arrays.asList(7, 8, 9, 11, 12, 15, 16, 17), p.get());
+
+            table.clearSelection();
+            Assertions.assertEquals(Collections.emptyList(), p.get());
         });
     }
 
