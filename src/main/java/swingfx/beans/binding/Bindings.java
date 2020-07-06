@@ -7395,7 +7395,7 @@ public final class Bindings {
             protected V computeValue() {
                 try {
                     return op.get(key);
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7439,7 +7439,7 @@ public final class Bindings {
             protected V computeValue() {
                 try {
                     return op.get(key.getValue());
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7488,7 +7488,7 @@ public final class Bindings {
                     } else {
                         return value;
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7537,7 +7537,7 @@ public final class Bindings {
                     } else {
                         return value;
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7586,7 +7586,7 @@ public final class Bindings {
                     } else {
                         return value.doubleValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7635,7 +7635,7 @@ public final class Bindings {
                     } else {
                         return value.doubleValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7684,7 +7684,7 @@ public final class Bindings {
                     } else {
                         return value.floatValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7733,7 +7733,7 @@ public final class Bindings {
                     } else {
                         return value.floatValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7782,7 +7782,7 @@ public final class Bindings {
                     } else {
                         return value.intValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7831,7 +7831,7 @@ public final class Bindings {
                     } else {
                         return value.intValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7880,7 +7880,7 @@ public final class Bindings {
                     } else {
                         return value.longValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7929,7 +7929,7 @@ public final class Bindings {
                     } else {
                         return value.longValue();
                     }
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -7973,7 +7973,7 @@ public final class Bindings {
             protected String computeValue() {
                 try {
                     return op.get(key);
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
@@ -8017,7 +8017,7 @@ public final class Bindings {
             protected String computeValue() {
                 try {
                     return op.get(key.getValue());
-                } catch (ClassCastException | NullPointerException ex) {
+                } catch (Exception ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
             }
