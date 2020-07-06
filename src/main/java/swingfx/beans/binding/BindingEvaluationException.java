@@ -1,9 +1,9 @@
 package swingfx.beans.binding;
 
 /**
- * Thrown, for example, if evaluation of user provided dependencies of the binding resulted in exception.
- * In the original JavaFX code such exceptions were just logged, which, IMHO, is a bad practice.
- * Now this exception will be thrown instead and will arrive to the calling code.
+ * Thrown, for example, if evaluation of value function of the binding resulted in exception.
+ * In the original JavaFX code such exceptions were just logged and default value was returned, which, IMHO, is a bad
+ * practice since it hides possible bugs.
  *
  * @since swing-fx-properties 1.7
  */
