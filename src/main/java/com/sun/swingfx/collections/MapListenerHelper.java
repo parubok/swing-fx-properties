@@ -120,11 +120,7 @@ public abstract class MapListenerHelper<K, V> extends ExpressionHelperBase {
 
         @Override
         protected void fireValueChangedEvent(MapChangeListener.Change<? extends K, ? extends V> change) {
-            try {
-                listener.invalidated(change.getMap());
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.invalidated(change.getMap());
         }
     }
 
@@ -158,11 +154,7 @@ public abstract class MapListenerHelper<K, V> extends ExpressionHelperBase {
 
         @Override
         protected void fireValueChangedEvent(MapChangeListener.Change<? extends K, ? extends V> change) {
-            try {
-                listener.onChanged(change);
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.onChanged(change);
         }
     }
 
@@ -315,18 +307,10 @@ public abstract class MapListenerHelper<K, V> extends ExpressionHelperBase {
             try {
                 locked = true;
                 for (int i = 0; i < curInvalidationSize; i++) {
-                    try {
-                        curInvalidationList[i].invalidated(change.getMap());
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curInvalidationList[i].invalidated(change.getMap());
                 }
                 for (int i = 0; i < curChangeSize; i++) {
-                    try {
-                        curChangeList[i].onChanged(change);
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curChangeList[i].onChanged(change);
                 }
             } finally {
                 locked = false;

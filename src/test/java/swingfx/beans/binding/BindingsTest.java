@@ -7,7 +7,7 @@ import swingfx.beans.property.SimpleStringProperty;
 
 class BindingsTest {
     @Test
-    void createObjectBinding() {
+    void createObjectBinding_1() {
         SimpleStringProperty p1 = new SimpleStringProperty("abc123");
         SimpleIntegerProperty p2 = new SimpleIntegerProperty(3);
         ObjectBinding<String> b = Bindings.createObjectBinding(p1, p2, (v1, v2) -> v1.substring(v2.intValue()));
@@ -18,5 +18,15 @@ class BindingsTest {
 
         p1.setValue("HELLO!!!");
         Assertions.assertEquals("O!!!", b.get());
+    }
+
+    @Test
+    void createObjectBinding_2() {
+        SimpleStringProperty p1 = new SimpleStringProperty("abc123");
+        SimpleIntegerProperty p2 = new SimpleIntegerProperty(3);
+        ObjectBinding<String> b = Bindings.createObjectBinding(p1, p2, (v1, v2) -> {
+            throw new RuntimeException("error!");
+        });
+        Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
     }
 }

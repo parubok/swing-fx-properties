@@ -121,11 +121,7 @@ public abstract class ListListenerHelper<E> extends ExpressionHelperBase {
 
         @Override
         protected void fireValueChangedEvent(ListChangeListener.Change<? extends E> change) {
-            try {
             listener.invalidated(change.getList());
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
         }
     }
 
@@ -159,11 +155,7 @@ public abstract class ListListenerHelper<E> extends ExpressionHelperBase {
 
         @Override
         protected void fireValueChangedEvent(ListChangeListener.Change<? extends E> change) {
-            try {
-                listener.onChanged(change);
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.onChanged(change);
         }
     }
 
@@ -316,19 +308,11 @@ public abstract class ListListenerHelper<E> extends ExpressionHelperBase {
             try {
                 locked = true;
                 for (int i = 0; i < curInvalidationSize; i++) {
-                    try {
-                        curInvalidationList[i].invalidated(change.getList());
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curInvalidationList[i].invalidated(change.getList());
                 }
                 for (int i = 0; i < curChangeSize; i++) {
                     change.reset();
-                    try {
-                        curChangeList[i].onChanged(change);
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curChangeList[i].onChanged(change);
                 }
             } finally {
                 locked = false;

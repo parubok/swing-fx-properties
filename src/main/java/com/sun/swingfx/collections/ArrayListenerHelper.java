@@ -126,11 +126,7 @@ public abstract class ArrayListenerHelper<T extends ObservableArray<T>> extends 
 
         @Override
         protected void fireValueChangedEvent(boolean sizeChanged, int from, int to) {
-            try {
-                listener.invalidated(observable);
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.invalidated(observable);
         }
     }
 
@@ -165,11 +161,7 @@ public abstract class ArrayListenerHelper<T extends ObservableArray<T>> extends 
 
         @Override
         protected void fireValueChangedEvent(boolean sizeChanged, int from, int to) {
-            try {
-                listener.onChanged(observable, sizeChanged, from, to);
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.onChanged(observable, sizeChanged, from, to);
         }
     }
 
@@ -325,18 +317,10 @@ public abstract class ArrayListenerHelper<T extends ObservableArray<T>> extends 
             try {
                 locked = true;
                 for (int i = 0; i < curInvalidationSize; i++) {
-                    try {
-                        curInvalidationList[i].invalidated(observable);
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curInvalidationList[i].invalidated(observable);
                 }
                 for (int i = 0; i < curChangeSize; i++) {
-                    try {
-                        curChangeList[i].onChanged(observable, sizeChanged, from, to);
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curChangeList[i].onChanged(observable, sizeChanged, from, to);
                 }
             } finally {
                 locked = false;

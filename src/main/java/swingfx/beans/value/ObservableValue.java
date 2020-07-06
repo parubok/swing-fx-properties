@@ -28,10 +28,12 @@ package swingfx.beans.value;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.binding.Bindings;
+import swingfx.beans.binding.IntegerBinding;
 import swingfx.beans.binding.ObjectBinding;
 
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.ToIntFunction;
 
 /**
  * An {@code ObservableValue} is an entity that wraps a value and allows to
@@ -145,5 +147,15 @@ public interface ObservableValue<T> extends Observable {
     default <K> ObjectBinding<K> asObject(Function<T, K> func) {
         Objects.requireNonNull(func);
         return Bindings.createObjectBinding(() -> func.apply(getValue()), this);
+    }
+
+    /**
+     * Creates {@link IntegerBinding} which is bounded to this value via the specified mapping function.
+     *
+     * @since swing-fx-properties 1.7
+     */
+    default IntegerBinding asInteger(ToIntFunction<T> func) {
+        Objects.requireNonNull(func);
+        return Bindings.createIntegerBinding(() -> func.applyAsInt(getValue()), this);
     }
 }

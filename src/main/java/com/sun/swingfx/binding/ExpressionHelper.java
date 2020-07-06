@@ -132,11 +132,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
 
         @Override
         protected void fireValueChangedEvent() {
-            try {
-                listener.invalidated(observable);
-            } catch (Exception e) {
-                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-            }
+            listener.invalidated(observable);
         }
     }
 
@@ -177,11 +173,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
             currentValue = observable.getValue();
             final boolean changed = (currentValue == null)? (oldValue != null) : !currentValue.equals(oldValue);
             if (changed) {
-                try {
-                    listener.changed(observable, oldValue, currentValue);
-                } catch (Exception e) {
-                    Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                }
+                listener.changed(observable, oldValue, currentValue);
             }
         }
     }
@@ -344,11 +336,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
             try {
                 locked = true;
                 for (int i = 0; i < curInvalidationSize; i++) {
-                    try {
-                        curInvalidationList[i].invalidated(observable);
-                    } catch (Exception e) {
-                        Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                    }
+                    curInvalidationList[i].invalidated(observable);
                 }
                 if (curChangeSize > 0) {
                     final T oldValue = currentValue;
@@ -356,11 +344,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
                     final boolean changed = (currentValue == null)? (oldValue != null) : !currentValue.equals(oldValue);
                     if (changed) {
                         for (int i = 0; i < curChangeSize; i++) {
-                            try {
-                                curChangeList[i].changed(observable, oldValue, currentValue);
-                            } catch (Exception e) {
-                                Thread.currentThread().getUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
-                            }
+                            curChangeList[i].changed(observable, oldValue, currentValue);
                         }
                     }
                 }

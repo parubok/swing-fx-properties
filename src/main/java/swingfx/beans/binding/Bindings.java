@@ -38,7 +38,6 @@ import com.sun.swingfx.binding.StringConstant;
 import com.sun.swingfx.binding.StringFormatter;
 import com.sun.swingfx.collections.ImmutableObservableList;
 import com.sun.swingfx.collections.annotations.ReturnsUnmodifiableCollection;
-import org.swingfx.misc.Logging;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.property.Property;
@@ -135,8 +134,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return false;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -176,8 +174,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return 0.0;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -217,8 +214,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return 0.0f;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -258,8 +254,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return 0;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -299,8 +294,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return 0L;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -354,8 +348,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return null;
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -395,8 +388,7 @@ public final class Bindings {
                 try {
                     return func.call();
                 } catch (Exception e) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    return "";
+                    throw new BindingEvaluationException(this, e);
                 }
             }
 
@@ -6119,9 +6111,8 @@ public final class Bindings {
                 try {
                     return op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -6180,9 +6171,8 @@ public final class Bindings {
                 try {
                     return op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -6228,14 +6218,13 @@ public final class Bindings {
                 try {
                     final Boolean value = op.get(index);
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value;
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return false;
             }
 
             @Override
@@ -6292,14 +6281,13 @@ public final class Bindings {
                 try {
                     final Boolean value = op.get(index.intValue());
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value;
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return false;
             }
 
             @Override
@@ -6345,14 +6333,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index);
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.doubleValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0;
             }
 
             @Override
@@ -6409,14 +6396,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index.intValue());
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.doubleValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0;
             }
 
             @Override
@@ -6462,14 +6448,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index);
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.floatValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -6526,14 +6511,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index.intValue());
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.floatValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -6579,14 +6563,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index);
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.intValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -6643,14 +6626,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index.intValue());
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.intValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -6696,14 +6678,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index);
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.longValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0L;
             }
 
             @Override
@@ -6760,14 +6741,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(index.intValue());
                     if (value == null) {
-                        Logging.getLogger().fine("List element is null, returning default value instead.");
+                        throw new BindingEvaluationException(this, "List element is null at index " + index);
                     } else {
                         return value.longValue();
                     }
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0L;
             }
 
             @Override
@@ -6813,9 +6793,8 @@ public final class Bindings {
                 try {
                     return op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -6872,9 +6851,8 @@ public final class Bindings {
                 try {
                     return op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -7084,9 +7062,8 @@ public final class Bindings {
                 try {
                     return op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -7143,9 +7120,8 @@ public final class Bindings {
                 try {
                     return op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -7191,9 +7167,8 @@ public final class Bindings {
                 try {
                     return op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -7250,9 +7225,8 @@ public final class Bindings {
                 try {
                     return op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
-                    Logging.getLogger().fine("Exception while evaluating binding");
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -7421,14 +7395,9 @@ public final class Bindings {
             protected V computeValue() {
                 try {
                     return op.get(key);
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -7470,14 +7439,9 @@ public final class Bindings {
             protected V computeValue() {
                 try {
                     return op.get(key.getValue());
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -7520,18 +7484,13 @@ public final class Bindings {
                 try {
                     final Boolean value = op.get(key);
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value;
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return false;
             }
 
             @Override
@@ -7574,18 +7533,13 @@ public final class Bindings {
                 try {
                     final Boolean value = op.get(key.getValue());
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value;
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return false;
             }
 
             @Override
@@ -7628,18 +7582,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key);
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.doubleValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0;
             }
 
             @Override
@@ -7682,18 +7631,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key.getValue());
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.doubleValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0;
             }
 
             @Override
@@ -7736,18 +7680,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key);
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.floatValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -7790,18 +7729,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key.getValue());
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.floatValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0.0f;
             }
 
             @Override
@@ -7844,18 +7778,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key);
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.intValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -7898,18 +7827,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key.getValue());
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.intValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0;
             }
 
             @Override
@@ -7952,18 +7876,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key);
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.longValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0L;
             }
 
             @Override
@@ -8006,18 +7925,13 @@ public final class Bindings {
                 try {
                     final Number value = op.get(key.getValue());
                     if (value == null) {
-                        Logging.getLogger().fine("Element not found in map, returning default value instead.");
+                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                     } else {
                         return value.longValue();
                     }
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return 0L;
             }
 
             @Override
@@ -8059,14 +7973,9 @@ public final class Bindings {
             protected String computeValue() {
                 try {
                     return op.get(key);
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
@@ -8108,14 +8017,9 @@ public final class Bindings {
             protected String computeValue() {
                 try {
                     return op.get(key.getValue());
-                } catch (ClassCastException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
-                } catch (NullPointerException ex) {
-                    Logging.getLogger().warning("Exception while evaluating binding");
-                    // ignore
+                } catch (ClassCastException | NullPointerException ex) {
+                    throw new BindingEvaluationException(this, ex);
                 }
-                return null;
             }
 
             @Override
