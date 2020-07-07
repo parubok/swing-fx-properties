@@ -28,11 +28,14 @@ package swingfx.beans.value;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.binding.Bindings;
+import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.IntegerBinding;
 import swingfx.beans.binding.ObjectBinding;
+import swingfx.beans.binding.StringExpression;
 
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
 /**
@@ -142,6 +145,7 @@ public interface ObservableValue<T> extends Observable {
     /**
      * Creates {@link ObjectBinding} which is bounded to this value via the specified mapping function.
      *
+     * @param func Mapping function. Not null.
      * @since swing-fx-properties 1.2
      */
     default <K> ObjectBinding<K> asObject(Function<T, K> func) {
@@ -152,10 +156,39 @@ public interface ObservableValue<T> extends Observable {
     /**
      * Creates {@link IntegerBinding} which is bounded to this value via the specified mapping function.
      *
+     * @param func Mapping function. Not null.
      * @since swing-fx-properties 1.7
      */
     default IntegerBinding asInteger(ToIntFunction<T> func) {
         Objects.requireNonNull(func);
         return Bindings.createIntegerBinding(() -> func.applyAsInt(getValue()), this);
+    }
+
+    /**
+     * Creates {@link BooleanBinding} which is bounded to this value via the specified mapping predicate.
+     *
+     * @param predicate Mapping predicate. Not null.
+     * @since swing-fx-properties 1.7
+     */
+    default BooleanBinding asBoolean(Predicate<T> predicate) {
+        Objects.requireNonNull(predicate);
+        return Bindings.createBooleanBinding(() -> predicate.test(getValue()), this);
+    }
+
+    /**
+     * Creates a {@link StringExpression} that holds the value turned into a {@code String}. If the
+     * value changes, the value of the {@link StringExpression} will be updated automatically.
+     * <p>
+     * The result is formatted according to the formatting {@code String}. See
+     * {@code java.util.Formatter} for formatting rules.
+     * </p>
+     *
+     * @param format
+     *            the formatting {@code String}
+     * @return the new {@link StringExpression}
+     * @since swing-fx-properties 1.0
+     */
+    default StringExpression asStringExpression(String format) {
+        return Bindings.format(format, this);
     }
 }
