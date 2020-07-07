@@ -39,9 +39,10 @@ JTable table = ...;
 enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
 ```
 
-To improve usability, the following APIs were added to the original APIs of JavaFX:
+For convenience, the following APIs were added to the original APIs of JavaFX:
 - `Bindings.createObjectBinding(ObservableValue<K> value1, ObservableValue<T> value2, BiFunction<K, T, D> func)`
 - `ObservableValue.asObject(Function<T, K> func)`
+- `ObservableValue.asBoolean(Predicate<T> predicate)`
 - `BooleanExpression.asStringExpression(String format)`
 
 Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with the Classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), the same license applies to this project.
