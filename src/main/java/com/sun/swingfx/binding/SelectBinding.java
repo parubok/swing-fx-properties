@@ -30,7 +30,6 @@ import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.WeakInvalidationListener;
 import swingfx.beans.binding.Binding;
-import swingfx.beans.binding.BindingEvaluationException;
 import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.DoubleBinding;
 import swingfx.beans.binding.FloatBinding;
@@ -98,8 +97,9 @@ public class SelectBinding {
             try {
                 return (T)observable.getValue();
             } catch (ClassCastException ex) {
-                throw new BindingEvaluationException(this, ex); // Value of select-binding has wrong type
+                Logging.getLogger().warning("Value of select-binding has wrong type, returning null.");
             }
+            return null;
         }
 
 
@@ -146,9 +146,12 @@ public class SelectBinding {
             }
             try {
                 return (Boolean)observable.getValue();
-            } catch (Exception ex) {
-                throw new BindingEvaluationException(this, ex);
+            } catch (NullPointerException ex) {
+                Logging.getLogger().fine("Value of select binding is null, returning default value");
+            } catch (ClassCastException ex) {
+                Logging.getLogger().warning("Value of select-binding has wrong type, returning default value.");
             }
+            return DEFAULT_VALUE;
         }
 
         @Override
@@ -194,9 +197,12 @@ public class SelectBinding {
             }
             try {
                 return ((Number)observable.getValue()).doubleValue();
-            } catch (Exception ex) {
-                throw new BindingEvaluationException(this, ex);
+            } catch (NullPointerException ex) {
+                Logging.getLogger().fine("Value of select binding is null, returning default value");
+            } catch (ClassCastException ex) {
+                Logging.getLogger().warning("Exception while evaluating select-binding");
             }
+            return DEFAULT_VALUE;
         }
 
         @Override
@@ -242,9 +248,12 @@ public class SelectBinding {
             }
             try {
                 return ((Number)observable.getValue()).floatValue();
-            } catch (Exception ex) {
-                throw new BindingEvaluationException(this, ex);
+            } catch (NullPointerException ex) {
+                Logging.getLogger().fine("Value of select binding is null, returning default value");
+            } catch (ClassCastException ex) {
+                Logging.getLogger().warning("Exception while evaluating select-binding");
             }
+            return DEFAULT_VALUE;
         }
 
         @Override
@@ -290,9 +299,12 @@ public class SelectBinding {
             }
             try {
                 return ((Number)observable.getValue()).intValue();
-            } catch (Exception ex) {
-                throw new BindingEvaluationException(this, ex);
+            } catch (NullPointerException ex) {
+                Logging.getLogger().fine("Value of select binding is null, returning default value");
+            } catch (ClassCastException ex) {
+                Logging.getLogger().warning("Exception while evaluating select-binding");
             }
+            return DEFAULT_VALUE;
         }
 
         @Override
@@ -338,9 +350,12 @@ public class SelectBinding {
             }
             try {
                 return ((Number)observable.getValue()).longValue();
-            } catch (Exception ex) {
-                throw new BindingEvaluationException(this, ex);
+            } catch (NullPointerException ex) {
+                Logging.getLogger().fine("Value of select binding is null, returning default value");
+            } catch (ClassCastException ex) {
+                Logging.getLogger().warning("Exception while evaluating select-binding");
             }
+            return DEFAULT_VALUE;
         }
 
         @Override
@@ -381,7 +396,13 @@ public class SelectBinding {
             if (observable == null) {
                 return DEFAULT_VALUE;
             }
-            return observable.getValue().toString();
+            try {
+                return observable.getValue().toString();
+            } catch (RuntimeException ex) {
+                Logging.getLogger().warning("Exception while evaluating select-binding");
+                // return default
+                return DEFAULT_VALUE;
+            }
         }
 
         @Override
