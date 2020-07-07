@@ -7,6 +7,7 @@ import swingfx.beans.binding.BooleanBinding;
 import swingfx.beans.binding.IntegerBinding;
 import swingfx.beans.binding.StringExpression;
 import swingfx.beans.property.SimpleBooleanProperty;
+import swingfx.beans.property.SimpleIntegerProperty;
 import swingfx.beans.property.SimpleStringProperty;
 
 class ObservableValueTest {
@@ -57,11 +58,20 @@ class ObservableValueTest {
     }
 
     @Test
-    void asStringExpression() {
-        SimpleBooleanProperty b = new SimpleBooleanProperty(true);
-        StringExpression ex = b.asStringExpression("ex:%s");
+    void asStringExpression_1() {
+        SimpleBooleanProperty p = new SimpleBooleanProperty(true);
+        StringExpression ex = p.asStringExpression("ex:%s");
         Assertions.assertEquals("ex:true", ex.getValue());
-        b.set(false);
+        p.set(false);
         Assertions.assertEquals("ex:false", ex.getValue());
+    }
+
+    @Test
+    void asStringExpression_2() {
+        SimpleIntegerProperty p = new SimpleIntegerProperty(1245);
+        StringExpression ex = p.asStringExpression("ex:%d");
+        Assertions.assertEquals("ex:1245", ex.getValue());
+        p.set(-30);
+        Assertions.assertEquals("ex:-30", ex.getValue());
     }
 }
