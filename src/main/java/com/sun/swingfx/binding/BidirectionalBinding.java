@@ -25,7 +25,6 @@
 
 package com.sun.swingfx.binding;
 
-import org.swingfx.misc.Logging;
 import swingfx.beans.Observable;
 import swingfx.beans.WeakListener;
 import swingfx.beans.property.DoubleProperty;
@@ -766,15 +765,13 @@ public abstract class BidirectionalBinding<T> implements ChangeListener<T>, Weak
                             try {
                                 property2.setValue(fromString(property1.getValue()));
                             } catch (Exception e) {
-                                Logging.getLogger().warning("Exception while parsing String in bidirectional binding");
-                                property2.setValue(null);
+                                throw new BidirectionalBindingEvaluationException(this, "Exception while parsing String in bidirectional binding");
                             }
                         } else {
                             try {
                                 property1.setValue(toString(property2.getValue()));
                             } catch (Exception e) {
-                                Logging.getLogger().warning("Exception while converting Object to String in bidirectional binding");
-                                property1.setValue("");
+                                throw new BidirectionalBindingEvaluationException(this, "Exception while converting Object to String in bidirectional binding");
                             }
                         }
                     } finally {
