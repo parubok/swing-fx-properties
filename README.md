@@ -8,6 +8,8 @@ The JavaFX properties implementation, in fact, is not JavaFX specific - it is a 
 
 This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
 
+**Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`.
+
 The Swing properties are obtained via static methods of class `org.swingfx.SwingPropertySupport`. Currently this class provides support for 17 various properties.
 
 Example 1 (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
