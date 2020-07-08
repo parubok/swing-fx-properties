@@ -7944,7 +7944,8 @@ public final class Bindings {
 
     /**
      * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the mapping of a specific key
-     * in an {@link ObservableMap}.
+     * in an {@link ObservableMap}. The {@code StringBinding} will hold {@code null}, if the {@code key} cannot be
+     * found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}

@@ -43,6 +43,7 @@ enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualT
 
 For convenience, the following APIs were added to the original APIs of JavaFX:
 - `Bindings.createObjectBinding(ObservableValue<K> value1, ObservableValue<T> value2, BiFunction<K, T, D> func)`
+- `Bindings.stringValueAt(ObservableMap<K, String> op, K key, String defaultValue)`
 - `ObservableValue.asObject(Function<T, K> func)`
 - `ObservableValue.asBoolean(Predicate<T> predicate)`
 - `ObservableValue.asStringExpression(String format)`
