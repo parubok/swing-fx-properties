@@ -37,9 +37,9 @@ class BindingsTest {
     @Test
     void stringValueAt_1() {
         ObservableMap<String, String> map = new ObservableMapWrapper<>(new HashMap<>());
-        StringBinding b1 = Bindings.stringValueAt(map, "key1", "defVal");
+        StringBinding b1 = Bindings.stringValueAt(map, "key1", "");
         StringBinding b2 = Bindings.stringValueAt(map, "key2");
-        Assertions.assertEquals("defVal", b1.get());
+        Assertions.assertEquals("", b1.get());
         Assertions.assertNull(b2.get());
     }
 }
