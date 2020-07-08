@@ -1,9 +1,13 @@
 package swingfx.beans.binding;
 
+import com.sun.swingfx.collections.ObservableMapWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import swingfx.beans.property.SimpleIntegerProperty;
 import swingfx.beans.property.SimpleStringProperty;
+import swingfx.collections.ObservableMap;
+
+import java.util.HashMap;
 
 class BindingsTest {
     @Test
@@ -28,5 +32,14 @@ class BindingsTest {
             throw new RuntimeException("error!");
         });
         Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
+    }
+
+    @Test
+    void stringValueAt_1() {
+        ObservableMap<String, String> map = new ObservableMapWrapper<>(new HashMap<>());
+        StringBinding b1 = Bindings.stringValueAt(map, "key1", "defVal");
+        StringBinding b2 = Bindings.stringValueAt(map, "key2");
+        Assertions.assertEquals("defVal", b1.get());
+        Assertions.assertNull(b2.get());
     }
 }

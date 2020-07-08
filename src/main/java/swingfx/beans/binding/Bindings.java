@@ -7944,8 +7944,7 @@ public final class Bindings {
 
     /**
      * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the mapping of a specific key
-     * in an {@link ObservableMap}. The {@code StringBinding}
-     * will hold {@code null}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * in an {@link ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7954,7 +7953,24 @@ public final class Bindings {
      * @throws NullPointerException if the {@code ObservableMap} is {@code null}
      * @since JavaFX 2.1
      */
-    public static <K> swingfx.beans.binding.StringBinding stringValueAt(final ObservableMap<K, String> op, final K key) {
+    public static <K> StringBinding stringValueAt(final ObservableMap<K, String> op, final K key) {
+        return stringValueAt(op, key, null);
+    }
+
+    /**
+     * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the mapping of a specific key
+     * in an {@link ObservableMap}. The {@code StringBinding}
+     * will hold the {@code defaultValue}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     *
+     * @param op the {@code ObservableMap}
+     * @param key the key in the {@code Map}
+     * @param defaultValue Value of binding when the key has no value in the map.
+     * @param <K> type of the key elements of the {@code Map}
+     * @return the new {@code StringBinding}
+     * @throws NullPointerException if the {@code ObservableMap} is {@code null}
+     * @since swing-fx-properties 1.9
+     */
+    public static <K> StringBinding stringValueAt(final ObservableMap<K, String> op, final K key, String defaultValue) {
         if (op == null) {
             throw new NullPointerException("Map cannot be null.");
         }
@@ -7971,11 +7987,7 @@ public final class Bindings {
 
             @Override
             protected String computeValue() {
-                try {
-                    return op.get(key);
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
-                }
+                return op.getOrDefault(key, defaultValue);
             }
 
             @Override
