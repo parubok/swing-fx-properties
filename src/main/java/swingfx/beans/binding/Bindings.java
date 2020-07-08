@@ -7975,7 +7975,7 @@ public final class Bindings {
             throw new NullPointerException("Map cannot be null.");
         }
 
-        return new swingfx.beans.binding.StringBinding() {
+        return new StringBinding() {
             {
                 super.bind(op);
             }
