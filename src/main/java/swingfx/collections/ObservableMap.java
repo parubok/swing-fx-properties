@@ -25,9 +25,11 @@
 
 package swingfx.collections;
 
-import java.util.Map;
-
 import swingfx.beans.Observable;
+import swingfx.beans.binding.Bindings;
+import swingfx.beans.binding.ObjectBinding;
+
+import java.util.Map;
 
 /**
  * A map that allows observers to track changes when they occur.
@@ -41,11 +43,24 @@ public interface ObservableMap<K, V> extends Map<K, V>, Observable {
      * Add a listener to this observable map.
      * @param listener the listener for listening to the list changes
      */
-    public void addListener(swingfx.collections.MapChangeListener<? super K, ? super V> listener);
+    void addListener(swingfx.collections.MapChangeListener<? super K, ? super V> listener);
+
     /**
      * Tries to removed a listener from this observable map. If the listener is not
      * attached to this map, nothing happens.
      * @param listener a listener to remove
      */
-    public void removeListener(MapChangeListener<? super K, ? super V> listener);
+    void removeListener(MapChangeListener<? super K, ? super V> listener);
+
+    /**
+     * Creates a new {@link ObjectBinding} that contains the mapping of a specific key in this map.
+     *
+     * @param key the key in the {@code Map}
+     * @param defaultValue Value of binding when the key has no value in the map.
+     * @return the new {@code ObjectBinding}
+     * @since swing-fx-properties 1.10
+     */
+    default ObjectBinding<V> valueAt(K key, V defaultValue) {
+        return Bindings.valueAt(this, key, defaultValue);
+    }
 }

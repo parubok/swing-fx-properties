@@ -7376,12 +7376,29 @@ public final class Bindings {
      * @throws NullPointerException if the {@code ObservableMap} is {@code null}
      * @since JavaFX 2.1
      */
-    public static <K, V> swingfx.beans.binding.ObjectBinding<V> valueAt(final ObservableMap<K, V> op, final K key) {
+    public static <K, V> ObjectBinding<V> valueAt(final ObservableMap<K, V> op, final K key) {
+        return valueAt(op, key, null);
+    }
+
+    /**
+     * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the mapping of a specific key
+     * in an {@link ObservableMap}.
+     *
+     * @param op the {@code ObservableMap}
+     * @param key the key in the {@code Map}
+     * @param defaultValue Value of binding when the key has no value in the map.
+     * @param <K> type of the key elements of the {@code Map}
+     * @param <V> type of the value elements of the {@code Map}
+     * @return the new {@code ObjectBinding}
+     * @throws NullPointerException if the {@code ObservableMap} is {@code null}
+     * @since swing-fx-properties 1.10
+     */
+    public static <K, V> ObjectBinding<V> valueAt(final ObservableMap<K, V> op, final K key, V defaultValue) {
         if (op == null) {
             throw new NullPointerException("Map cannot be null.");
         }
 
-        return new swingfx.beans.binding.ObjectBinding<V>() {
+        return new ObjectBinding<V>() {
             {
                 super.bind(op);
             }
@@ -7393,11 +7410,7 @@ public final class Bindings {
 
             @Override
             protected V computeValue() {
-                try {
-                    return op.get(key);
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
-                }
+                return op.getOrDefault(key, defaultValue);
             }
 
             @Override
