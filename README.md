@@ -52,4 +52,6 @@ For convenience, the following APIs were added to the original APIs of JavaFX:
 
 Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with the Classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), the same license applies to this project.
 
+**Important Note:** As specified in `bind` [method JavaDoc](https://docs.oracle.com/javase/8/javafx/api/javafx/beans/property/Property.html#bind-javafx.beans.value.ObservableValue-), JavaFX has all the bind calls implemented through weak listeners. This means the bound property can be garbage collected and stopped from being updated.
+
 Requires Java 8 or later.
