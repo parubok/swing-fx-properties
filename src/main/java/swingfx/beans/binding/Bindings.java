@@ -6171,7 +6171,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code ObjectBinding}
-     * will contain {@code null}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}
@@ -6187,7 +6187,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code ObjectBinding}
-     * will contain {@code null}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}, converted to int
@@ -6231,7 +6231,8 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.BooleanBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code BooleanBinding}
-     * will hold {@code false}, if the {@code index} points behind the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}
+     * or the list value at the {@code index} is {@code null}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}
