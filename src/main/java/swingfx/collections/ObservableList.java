@@ -25,15 +25,17 @@
 
 package swingfx.collections;
 
+import swingfx.beans.Observable;
+import swingfx.beans.binding.Bindings;
+import swingfx.beans.binding.ObjectBinding;
+import swingfx.collections.transformation.FilteredList;
+import swingfx.collections.transformation.SortedList;
+
 import java.text.Collator;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-
-import swingfx.beans.Observable;
-import swingfx.collections.transformation.FilteredList;
-import swingfx.collections.transformation.SortedList;
 
 /**
  * A list that allows listeners to track changes when they occur.
@@ -102,6 +104,17 @@ public interface ObservableList<E> extends List<E>, Observable {
      * @throws IndexOutOfBoundsException if an illegal range is provided
      */
     public void remove(int from, int to);
+
+    /**
+     * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
+     * of the list at the specified position. The {@code ObjectBinding}
+     * will contain {@code defaultValue}, if the {@code index} points behind the {@code ObservableList}.
+     *
+     * @since swing-fx-properties 1.11
+     */
+    default ObjectBinding<E> valueAt(int index, E defaultValue) {
+        return Bindings.valueAt(this, index, defaultValue);
+    }
 
     /**
      * Creates a {@link FilteredList} wrapper of this list using
