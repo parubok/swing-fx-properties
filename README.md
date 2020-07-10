@@ -8,7 +8,10 @@ The JavaFX properties implementation, in fact, is not JavaFX specific - it is a 
 
 This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
 
-**Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`.
+**Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`. For some cases, this library also provides alternative methods which allow to specify a default value which is returned instead of throwing `BindingEvaluationException`.
+Example:
+- `Bindings.valueAt(ObservableList<E> op, int index)` - throws `BindingEvaluationException` in case of invalid index.
+- `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)` - returns the specified default value in case of invalid index.
 
 The Swing properties are obtained via static methods of class `org.swingfx.SwingPropertySupport`. Currently this class provides support for 17 various properties.
 
@@ -45,6 +48,7 @@ The following APIs were added to the original APIs of JavaFX:
 - `Bindings.createObjectBinding(ObservableValue<K> value1, ObservableValue<T> value2, BiFunction<K, T, D> func)`
 - `Bindings.stringValueAt(ObservableMap<K, String> op, K key, String defaultValue)`
 - `Bindings.valueAt(ObservableMap<K, V> op, K key, V defaultValue)`
+- `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)`
 - `ObservableMap.valueAt(K key, V defaultValue)`
 - `ObservableValue.asObject(Function<T, K> func)`
 - `ObservableValue.asBoolean(Predicate<T> predicate)`
