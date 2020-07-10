@@ -6,7 +6,7 @@ In JavaFX, component properties are type safe, referenced by method (and not via
 
 The JavaFX properties implementation, in fact, is not JavaFX specific - it is a generic property mechanism which can be used for any JavaBean (see `javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder`).
 
-This project took the relevant pieces of JavaFX properties code and added support for Swing - so a developer may use JavaFX-style properties with Swing components.
+This project took the relevant pieces of JavaFX properties code and added support for Swing - to allow usage of JavaFX-style properties and related functionality with Swing components.
 
 **Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`. For some cases, this library also provides alternative methods which allow to specify a default value which is returned instead of throwing `BindingEvaluationException`.
 Example:
