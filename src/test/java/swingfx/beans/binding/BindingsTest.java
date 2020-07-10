@@ -4,6 +4,7 @@ import com.sun.swingfx.collections.ObservableListWrapper;
 import com.sun.swingfx.collections.ObservableMapWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import swingfx.beans.property.SimpleDoubleProperty;
 import swingfx.beans.property.SimpleIntegerProperty;
 import swingfx.beans.property.SimpleStringProperty;
 import swingfx.collections.ObservableList;
@@ -76,5 +77,22 @@ class BindingsTest {
 
         list.remove(0);
         Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
+    }
+
+    @Test
+    void createObjectBinding_TriFunction_1() {
+        SimpleStringProperty p1 = new SimpleStringProperty("abc");
+        SimpleIntegerProperty p2 = new SimpleIntegerProperty(3);
+        SimpleDoubleProperty p3 = new SimpleDoubleProperty(1.2);
+        ObjectBinding<String> b = Bindings.createObjectBinding(p1, p2, p3, (v1, v2, v3) -> v1 + "_" + v2 + "_" + v3);
+        Assertions.assertEquals("abc_3_1.2", b.get());
+
+        p2.setValue(4);
+        Assertions.assertEquals("abc_4_1.2", b.get());
+
+        p1.setValue("H7");
+        Assertions.assertEquals("H7_4_1.2", b.get());
+
+        b.dispose();
     }
 }

@@ -57,6 +57,7 @@ import swingfx.collections.ObservableIntegerArray;
 import swingfx.collections.ObservableList;
 import swingfx.collections.ObservableMap;
 import swingfx.collections.ObservableSet;
+import swingfx.util.TriFunction;
 import swingfx.util.StringConverter;
 
 import java.lang.ref.WeakReference;
@@ -323,10 +324,27 @@ public final class Bindings {
     public static <K, T, D> ObjectBinding<D> createObjectBinding(ObservableValue<K> value1,
                                                                  ObservableValue<T> value2,
                                                                  BiFunction<K, T, D> func) {
-        Objects.requireNonNull(value1, "value1");
-        Objects.requireNonNull(value2, "value2");
-        Objects.requireNonNull(func, "func");
+        Objects.requireNonNull(value1);
+        Objects.requireNonNull(value2);
+        Objects.requireNonNull(func);
         return createObjectBinding(() -> func.apply(value1.getValue(), value2.getValue()), value1, value2);
+    }
+
+    /**
+     * Combines the three observable values via the specified function and returns the resulting binding.
+     *
+     * @since swing-fx-properties 1.11
+     */
+    public static <D, F, G, R> ObjectBinding<R> createObjectBinding(ObservableValue<D> value1,
+                                                                       ObservableValue<F> value2,
+                                                                       ObservableValue<G> value3,
+                                                                       TriFunction<D, F, G, R> func) {
+        Objects.requireNonNull(value1);
+        Objects.requireNonNull(value2);
+        Objects.requireNonNull(value3);
+        Objects.requireNonNull(func);
+        return createObjectBinding(() -> func.apply(value1.getValue(), value2.getValue(), value3.getValue()), value1,
+                value2, value3);
     }
 
     /**
