@@ -41,7 +41,7 @@ JTable table = ...;
 enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
 ```
 
-For convenience, the following APIs were added to the original APIs of JavaFX:
+The following APIs were added to the original APIs of JavaFX:
 - `Bindings.createObjectBinding(ObservableValue<K> value1, ObservableValue<T> value2, BiFunction<K, T, D> func)`
 - `Bindings.stringValueAt(ObservableMap<K, String> op, K key, String defaultValue)`
 - `Bindings.valueAt(ObservableMap<K, V> op, K key, V defaultValue)`
