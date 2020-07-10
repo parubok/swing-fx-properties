@@ -57,8 +57,8 @@ import swingfx.collections.ObservableIntegerArray;
 import swingfx.collections.ObservableList;
 import swingfx.collections.ObservableMap;
 import swingfx.collections.ObservableSet;
-import swingfx.util.TriFunction;
 import swingfx.util.StringConverter;
+import swingfx.util.TriFunction;
 
 import java.lang.ref.WeakReference;
 import java.text.Format;
@@ -7514,11 +7514,7 @@ public final class Bindings {
 
             @Override
             protected V computeValue() {
-                try {
-                    return op.get(key.getValue());
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
-                }
+                return op.get(key.getValue());
             }
 
             @Override
@@ -8065,11 +8061,7 @@ public final class Bindings {
 
             @Override
             protected String computeValue() {
-                try {
-                    return op.get(key.getValue());
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
-                }
+                return op.get(key.getValue());
             }
 
             @Override
