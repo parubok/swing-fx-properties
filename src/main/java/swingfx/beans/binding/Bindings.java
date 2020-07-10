@@ -6078,7 +6078,52 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code ObjectBinding}
-     * will contain {@code null}, if the {@code index} points behind the {@code ObservableList}.
+     * will contain {@code defaultValue}, if the {@code index} points behind the {@code ObservableList}.
+     *
+     * @param op the {@code ObservableList}
+     * @param index the position in the {@code List}
+     * @param defaultValue value of the binding if the {@code index} points behind the {@code ObservableList}.
+     * @param <E> the type of the {@code List} elements
+     * @return the new {@code ObjectBinding}
+     * @throws NullPointerException if the {@code ObservableList} is {@code null}
+     * @throws IllegalArgumentException if (@code index < 0}
+     * @since swing-fx-properties 1.11
+     */
+    public static <E> swingfx.beans.binding.ObjectBinding<E> valueAt(final ObservableList<E> op, final int index, E defaultValue) {
+        if (op == null) {
+            throw new NullPointerException("List cannot be null.");
+        }
+        if (index < 0) {
+            throw new IllegalArgumentException("Index cannot be negative");
+        }
+
+        return new swingfx.beans.binding.ObjectBinding<E>() {
+            {
+                super.bind(op);
+            }
+
+            @Override
+            public void dispose() {
+                super.unbind(op);
+            }
+
+            @Override
+            protected E computeValue() {
+                return index < op.size() ? op.get(index) : defaultValue;
+            }
+
+            @Override
+            @ReturnsUnmodifiableCollection
+            public ObservableList<?> getDependencies() {
+                return FXCollections.singletonObservableList(op);
+            }
+        };
+    }
+
+    /**
+     * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
+     * of an {@link ObservableList} at the specified position. The {@code ObjectBinding}
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}
