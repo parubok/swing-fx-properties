@@ -7558,15 +7558,11 @@ public final class Bindings {
 
             @Override
             protected boolean computeValue() {
-                try {
-                    final Boolean value = op.get(key);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
-                    } else {
-                        return value;
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Boolean value = op.get(key);
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
+                } else {
+                    return value;
                 }
             }
 
@@ -7607,15 +7603,11 @@ public final class Bindings {
 
             @Override
             protected boolean computeValue() {
-                try {
-                    final Boolean value = op.get(key.getValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
-                    } else {
-                        return value;
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Boolean value = op.get(key.getValue());
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                } else {
+                    return value;
                 }
             }
 
@@ -7656,15 +7648,11 @@ public final class Bindings {
 
             @Override
             protected double computeValue() {
-                try {
-                    final Number value = op.get(key);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
-                    } else {
-                        return value.doubleValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key);
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
+                } else {
+                    return value.doubleValue();
                 }
             }
 
@@ -7705,15 +7693,11 @@ public final class Bindings {
 
             @Override
             protected double computeValue() {
-                try {
-                    final Number value = op.get(key.getValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
-                    } else {
-                        return value.doubleValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key.getValue());
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                } else {
+                    return value.doubleValue();
                 }
             }
 
@@ -7728,7 +7712,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.FloatBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code FloatBinding}
-     * will hold {@code 0.0f}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7754,15 +7738,11 @@ public final class Bindings {
 
             @Override
             protected float computeValue() {
-                try {
-                    final Number value = op.get(key);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
-                    } else {
-                        return value.floatValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key);
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
+                } else {
+                    return value.floatValue();
                 }
             }
 
@@ -7803,15 +7783,11 @@ public final class Bindings {
 
             @Override
             protected float computeValue() {
-                try {
-                    final Number value = op.get(key.getValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
-                    } else {
-                        return value.floatValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key.getValue());
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                } else {
+                    return value.floatValue();
                 }
             }
 
@@ -7852,15 +7828,11 @@ public final class Bindings {
 
             @Override
             protected int computeValue() {
-                try {
-                    final Number value = op.get(key);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
-                    } else {
-                        return value.intValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key);
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
+                } else {
+                    return value.intValue();
                 }
             }
 
@@ -7901,15 +7873,11 @@ public final class Bindings {
 
             @Override
             protected int computeValue() {
-                try {
-                    final Number value = op.get(key.getValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
-                    } else {
-                        return value.intValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key.getValue());
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                } else {
+                    return value.intValue();
                 }
             }
 
@@ -7950,15 +7918,11 @@ public final class Bindings {
 
             @Override
             protected long computeValue() {
-                try {
-                    final Number value = op.get(key);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
-                    } else {
-                        return value.longValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key);
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
+                } else {
+                    return value.longValue();
                 }
             }
 
@@ -7999,15 +7963,11 @@ public final class Bindings {
 
             @Override
             protected long computeValue() {
-                try {
-                    final Number value = op.get(key.getValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
-                    } else {
-                        return value.longValue();
-                    }
-                } catch (Exception ex) {
-                    throw new BindingEvaluationException(this, ex);
+                final Number value = op.get(key.getValue());
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                } else {
+                    return value.longValue();
                 }
             }
 
