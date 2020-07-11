@@ -7558,7 +7558,7 @@ public final class Bindings {
                 if (value == null) {
                     throw new BindingEvaluationException(this, "Value for key '" + key + "' not found in map");
                 } else {
-                    return value;
+                    return value.booleanValue();
                 }
             }
 
@@ -7604,7 +7604,7 @@ public final class Bindings {
                 if (value == null) {
                     throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
-                    return value;
+                    return value.booleanValue();
                 }
             }
 
