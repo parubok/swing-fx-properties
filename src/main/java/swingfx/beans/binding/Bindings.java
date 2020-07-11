@@ -6279,16 +6279,16 @@ public final class Bindings {
 
             @Override
             protected boolean computeValue() {
+                final Boolean value;
                 try {
-                    final Boolean value = op.get(index);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value;
-                    }
+                    value = op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.booleanValue();
             }
 
             @Override
@@ -6342,16 +6342,16 @@ public final class Bindings {
 
             @Override
             protected boolean computeValue() {
+                final Boolean value;
                 try {
-                    final Boolean value = op.get(index.intValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value;
-                    }
+                    value = op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.booleanValue();
             }
 
             @Override
@@ -6394,16 +6394,16 @@ public final class Bindings {
 
             @Override
             protected double computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.doubleValue();
-                    }
+                    value = op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.doubleValue();
             }
 
             @Override
@@ -6457,16 +6457,16 @@ public final class Bindings {
 
             @Override
             protected double computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index.intValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.doubleValue();
-                    }
+                    value = op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.doubleValue();
             }
 
             @Override
@@ -6509,16 +6509,16 @@ public final class Bindings {
 
             @Override
             protected float computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.floatValue();
-                    }
+                    value = op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.floatValue();
             }
 
             @Override
@@ -6572,16 +6572,16 @@ public final class Bindings {
 
             @Override
             protected float computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index.intValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.floatValue();
-                    }
+                    value = op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.floatValue();
             }
 
             @Override
@@ -6624,16 +6624,16 @@ public final class Bindings {
 
             @Override
             protected int computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.intValue();
-                    }
+                    value = op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.intValue();
             }
 
             @Override
@@ -6687,16 +6687,16 @@ public final class Bindings {
 
             @Override
             protected int computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index.intValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.intValue();
-                    }
+                    value = op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.intValue();
             }
 
             @Override
@@ -6739,16 +6739,16 @@ public final class Bindings {
 
             @Override
             protected long computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index);
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.longValue();
-                    }
+                    value = op.get(index);
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.longValue();
             }
 
             @Override
@@ -6802,16 +6802,16 @@ public final class Bindings {
 
             @Override
             protected long computeValue() {
+                final Number value;
                 try {
-                    final Number value = op.get(index.intValue());
-                    if (value == null) {
-                        throw new BindingEvaluationException(this, "List element is null at index " + index);
-                    } else {
-                        return value.longValue();
-                    }
+                    value = op.get(index.intValue());
                 } catch (IndexOutOfBoundsException ex) {
                     throw new BindingEvaluationException(this, ex);
                 }
+                if (value == null) {
+                    throw new BindingEvaluationException(this, "List element is null at index " + index);
+                }
+                return value.longValue();
             }
 
             @Override
