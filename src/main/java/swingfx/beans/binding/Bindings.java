@@ -7573,7 +7573,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.BooleanBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code BooleanBinding}
-     * will hold {@code false}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7619,7 +7619,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.DoubleBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code DoubleBinding}
-     * will hold {@code 0.0}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7664,7 +7664,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.DoubleBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code DoubleBinding}
-     * will hold {@code 0.0}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
