@@ -6547,7 +6547,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.FloatBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code FloatBinding}
-     * will hold {@code 0.0f}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}, converted to int
@@ -6662,7 +6662,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.IntegerBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code IntegerBinding}
-     * will hold {@code 0}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}, converted to int
@@ -6777,7 +6777,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.LongBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code LongBinding}
-     * will hold {@code 0L}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}, converted to int
@@ -6825,7 +6825,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code StringBinding}
-     * will hold {@code null}, if the {@code index} points behind the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}
@@ -6887,7 +6887,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the element
      * of an {@link ObservableList} at the specified position. The {@code StringBinding}
-     * will hold {@code ""}, if the {@code index} is outside of the {@code ObservableList}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
      * @param index the position in the {@code List}, converted to int
@@ -7094,7 +7094,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.FloatBinding} that contains the element
      * of an {@link ObservableArray} at the specified position. The {@code FloatBinding}
-     * will hold {@code 0.0f}, if the {@code index} points behind the {@code ObservableArray}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableArray}.
      *
      * @param op the {@code ObservableArray}
      * @param index the position in the {@code ObservableArray}
@@ -7156,7 +7156,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.FloatBinding} that contains the element
      * of an {@link ObservableArray} at the specified position. The {@code FloatBinding}
-     * will hold {@code 0.0f}, if the {@code index} is outside of the {@code ObservableArray}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableArray}.
      *
      * @param op the {@code ObservableArray}
      * @param index the position in the {@code ObservableArray}, converted to int
@@ -7199,7 +7199,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.IntegerBinding} that contains the element
      * of an {@link ObservableArray} at the specified position. The {@code IntegerBinding}
-     * will hold {@code 0}, if the {@code index} points behind the {@code ObservableArray}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableArray}.
      *
      * @param op the {@code ObservableArray}
      * @param index the position in the {@code ObservableArray}
@@ -7261,7 +7261,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.IntegerBinding} that contains the element
      * of an {@link ObservableArray} at the specified position. The {@code IntegerBinding}
-     * will hold {@code 0}, if the {@code index} is outside of the {@code ObservableArray}.
+     * will throw {@link BindingEvaluationException}, if the {@code index} is outside of the {@code ObservableArray}.
      *
      * @param op the {@code ObservableArray}
      * @param index the position in the {@code ObservableArray}, converted to int
@@ -7599,9 +7599,10 @@ public final class Bindings {
 
             @Override
             protected boolean computeValue() {
-                final Boolean value = op.get(key.getValue());
+                final K keyValue = key.getValue();
+                final Boolean value = op.get(keyValue);
                 if (value == null) {
-                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                    throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
                     return value;
                 }
@@ -7689,9 +7690,10 @@ public final class Bindings {
 
             @Override
             protected double computeValue() {
-                final Number value = op.get(key.getValue());
+                final K keyValue = key.getValue();
+                final Number value = op.get(keyValue);
                 if (value == null) {
-                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                    throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
                     return value.doubleValue();
                 }
@@ -7753,7 +7755,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.FloatBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code FloatBinding}
-     * will hold {@code 0.0f}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7779,9 +7781,10 @@ public final class Bindings {
 
             @Override
             protected float computeValue() {
-                final Number value = op.get(key.getValue());
+                final K keyValue = key.getValue();
+                final Number value = op.get(keyValue);
                 if (value == null) {
-                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                    throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
                     return value.floatValue();
                 }
@@ -7798,7 +7801,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.IntegerBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code IntegerBinding}
-     * will hold {@code 0}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7843,7 +7846,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.IntegerBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code IntegerBinding}
-     * will hold {@code 0}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7869,9 +7872,10 @@ public final class Bindings {
 
             @Override
             protected int computeValue() {
-                final Number value = op.get(key.getValue());
+                final K keyValue = key.getValue();
+                final Number value = op.get(keyValue);
                 if (value == null) {
-                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                    throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
                     return value.intValue();
                 }
@@ -7888,7 +7892,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.LongBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code LongBinding}
-     * will hold {@code 0L}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7933,7 +7937,7 @@ public final class Bindings {
     /**
      * Creates a new {@link swingfx.beans.binding.LongBinding} that contains the mapping of a specific key
      * in an {@link ObservableMap}. The {@code LongBinding}
-     * will hold {@code 0L}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * will throw {@link BindingEvaluationException}, if the {@code key} cannot be found in the {@code ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
@@ -7959,9 +7963,10 @@ public final class Bindings {
 
             @Override
             protected long computeValue() {
-                final Number value = op.get(key.getValue());
+                final K keyValue = key.getValue();
+                final Number value = op.get(keyValue);
                 if (value == null) {
-                    throw new BindingEvaluationException(this, "Value for key '" + key.getValue() + "' not found in map");
+                    throw new BindingEvaluationException(this, "Value for key '" + keyValue + "' not found in map");
                 } else {
                     return value.longValue();
                 }
@@ -8034,8 +8039,7 @@ public final class Bindings {
 
     /**
      * Creates a new {@link swingfx.beans.binding.StringBinding} that contains the mapping of a specific key
-     * in an {@link ObservableMap}. The {@code StringBinding}
-     * will hold {@code ""}, if the {@code key} cannot be found in the {@code ObservableMap}.
+     * in an {@link ObservableMap}.
      *
      * @param op the {@code ObservableMap}
      * @param key the key in the {@code Map}
