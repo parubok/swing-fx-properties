@@ -7402,7 +7402,7 @@ public final class Bindings {
      */
     public static <K, V> swingfx.beans.binding.BooleanBinding isNotEmpty(final ObservableMap<K, V> op)     {
         if (op == null) {
-            throw new NullPointerException("List cannot be null.");
+            throw new NullPointerException("Map cannot be null.");
         }
 
         return new swingfx.beans.binding.BooleanBinding() {
