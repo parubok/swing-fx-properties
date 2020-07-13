@@ -5,6 +5,7 @@ import swingfx.beans.property.ListProperty;
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
+import swingfx.beans.property.ReadOnlyObjectProperty;
 import swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
@@ -18,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
 import javax.swing.text.JTextComponent;
+import javax.swing.tree.TreePath;
 import java.awt.Color;
 
 /**
@@ -99,6 +101,16 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
         return SelectionCountPropertyImpl.getProperty(tree);
+    }
+
+    /**
+     * @param tree Tree. Not null.
+     * @return Read-only property which value is the selected path in three. The property value is {@code null}
+     * if no path is selected or the first selected path if multiple paths are selected.
+     * @see JTree#getSelectionPath()
+     */
+    public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
+        return SelectionPathPropertyImpl.getProperty(tree);
     }
 
     /**

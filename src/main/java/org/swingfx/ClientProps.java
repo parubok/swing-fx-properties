@@ -18,5 +18,6 @@ public enum ClientProps {
     PROP_SELECTED_ITEM,
     PROP_MOUSE_OVER,
     PROP_BORDER,
-    PROP_VALID_INPUT
+    PROP_VALID_INPUT,
+    PROP_SELECTED_PATH,
 }
