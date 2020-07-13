@@ -6252,14 +6252,14 @@ public final class Bindings {
      * will hold the default value, if the {@code index} points behind the {@link ObservableList}.
      *
      * @param op the {@code ObservableList}
-     * @param index the position in the {@code List}, converted to int
+     * @param index the position in the {@code List}
      * @param defaultValue value of the binding if the {@code index} points behind the {@link ObservableList}.
      * @param <E> the type of the {@code List} elements
      * @return the new {@code ObjectBinding}
      * @throws NullPointerException if the {@code ObservableList} or {@code index} is {@code null}
      * @since swing-fx-properties 1.12
      */
-    public static <E> ObjectBinding<E> valueAt(ObservableList<E> op, ObservableNumberValue index, E defaultValue) {
+    public static <E> ObjectBinding<E> valueAt(ObservableList<E> op, ObservableIntegerValue index, E defaultValue) {
         if ((op == null) || (index == null)) {
             throw new NullPointerException("Operands cannot be null.");
         }
