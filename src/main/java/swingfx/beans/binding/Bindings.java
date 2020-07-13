@@ -6260,10 +6260,8 @@ public final class Bindings {
      * @since swing-fx-properties 1.12
      */
     public static <E> ObjectBinding<E> valueAt(ObservableList<E> op, ObservableIntegerValue index, E defaultValue) {
-        if ((op == null) || (index == null)) {
-            throw new NullPointerException("Operands cannot be null.");
-        }
-
+        Objects.requireNonNull(op);
+        Objects.requireNonNull(index);
         return new ObjectBinding<E>() {
             {
                 super.bind(op, index);
@@ -6282,7 +6280,7 @@ public final class Bindings {
                 }
                 final int indexValue = indexNumber.intValue();
                 if (indexValue < 0) {
-                    throw new BindingEvaluationException(this, "Index value is negative");
+                    throw new BindingEvaluationException(this, "Index value is negative: " + indexValue);
                 }
                 return indexValue < op.size() ? op.get(indexValue) : defaultValue;
             }
