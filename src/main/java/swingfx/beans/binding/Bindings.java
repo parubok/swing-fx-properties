@@ -6203,8 +6203,8 @@ public final class Bindings {
     }
 
     /**
-     * Creates a new {@link swingfx.beans.binding.ObjectBinding} that contains the element
-     * of an {@link ObservableList} at the specified position. The {@code ObjectBinding}
+     * Creates a new {@link ObjectBinding} that contains the element
+     * of an {@link ObservableList} at the specified position. The {@link ObjectBinding}
      * will throw {@link BindingEvaluationException}, if the {@code index} points behind the {@code ObservableList}.
      *
      * @param op the {@code ObservableList}
@@ -6214,7 +6214,7 @@ public final class Bindings {
      * @throws NullPointerException if the {@code ObservableList} or {@code index} is {@code null}
      * @since JavaFX 8.0
      */
-    public static <E> swingfx.beans.binding.ObjectBinding<E> valueAt(final ObservableList<E> op, final ObservableNumberValue index) {
+    public static <E> ObjectBinding<E> valueAt(ObservableList<E> op, ObservableNumberValue index) {
         if ((op == null) || (index == null)) {
             throw new NullPointerException("Operands cannot be null.");
         }
@@ -6242,6 +6242,55 @@ public final class Bindings {
             @ReturnsUnmodifiableCollection
             public ObservableList<?> getDependencies() {
                 return new ImmutableObservableList<Observable>(op, index);
+            }
+        };
+    }
+
+    /**
+     * Creates a new {@link ObjectBinding} that contains the element
+     * of an {@link ObservableList} at the specified position. The {@link ObjectBinding}
+     * will hold the default value, if the {@code index} points behind the {@link ObservableList}.
+     *
+     * @param op the {@code ObservableList}
+     * @param index the position in the {@code List}, converted to int
+     * @param defaultValue value of the binding if the {@code index} points behind the {@link ObservableList}.
+     * @param <E> the type of the {@code List} elements
+     * @return the new {@code ObjectBinding}
+     * @throws NullPointerException if the {@code ObservableList} or {@code index} is {@code null}
+     * @since swing-fx-properties 1.12
+     */
+    public static <E> ObjectBinding<E> valueAt(ObservableList<E> op, ObservableNumberValue index, E defaultValue) {
+        if ((op == null) || (index == null)) {
+            throw new NullPointerException("Operands cannot be null.");
+        }
+
+        return new ObjectBinding<E>() {
+            {
+                super.bind(op, index);
+            }
+
+            @Override
+            public void dispose() {
+                super.unbind(op, index);
+            }
+
+            @Override
+            protected E computeValue() {
+                final Number indexNumber = index.getValue();
+                if (indexNumber == null) {
+                    throw new BindingEvaluationException(this, "Index value is null");
+                }
+                final int indexValue = indexNumber.intValue();
+                if (indexValue < 0) {
+                    throw new BindingEvaluationException(this, "Index value is negative");
+                }
+                return indexValue < op.size() ? op.get(indexValue) : defaultValue;
+            }
+
+            @Override
+            @ReturnsUnmodifiableCollection
+            public ObservableList<?> getDependencies() {
+                return new ImmutableObservableList<>(op, index);
             }
         };
     }

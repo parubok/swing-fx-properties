@@ -11,6 +11,7 @@ import swingfx.collections.ObservableList;
 import swingfx.collections.ObservableMap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 class BindingsTest {
@@ -77,6 +78,36 @@ class BindingsTest {
 
         list.remove(0);
         Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
+    }
+
+    @Test
+    void valueAt_list_observable_index() {
+        ObservableList<String> list = new ObservableListWrapper<>(new ArrayList<>());
+        SimpleIntegerProperty index = new SimpleIntegerProperty(1);
+        ObjectBinding<String> b = Bindings.valueAt(list, index, "def");
+        Assertions.assertEquals("def", b.get());
+        list.add("v0");
+        Assertions.assertEquals("def", b.get());
+        list.add("v1");
+        Assertions.assertEquals("v1", b.get());
+        index.set(0);
+        Assertions.assertEquals("v0", b.get());
+        index.set(10);
+        Assertions.assertEquals("def", b.get());
+
+        index.set(-1);
+        Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
+    }
+
+    @Test
+    void valueAt_list_null_index() {
+        ObservableList<String> list = new ObservableListWrapper<>(new ArrayList<>(Arrays.asList("s0")));
+        SimpleIntegerProperty index = new SimpleIntegerProperty(1);
+        ObjectBinding<String> b = Bindings.valueAt(list, index, "def");
+        Assertions.assertEquals("def", b.get());
+
+        index.setValue(null); // sets the property to 0
+        Assertions.assertEquals("s0", b.get());
     }
 
     @Test
