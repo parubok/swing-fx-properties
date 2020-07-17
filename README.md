@@ -52,6 +52,7 @@ The following APIs were added to the original APIs of JavaFX:
 - `Bindings.stringValueAt(ObservableMap<K, String> op, K key, String defaultValue)`
 - `Bindings.valueAt(ObservableMap<K, V> op, K key, V defaultValue)`
 - `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)`
+- `Bindings.valueAt(ObservableList<E> op, ObservableIntegerValue index, E defaultValue)`
 - `ObservableMap.valueAt(K key, V defaultValue)`
 - `ObservableList.valueAt(int index, E defaultValue)`
 - `ObservableValue.asObject(Function<T, K> func)`
