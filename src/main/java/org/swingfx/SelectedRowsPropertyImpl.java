@@ -24,7 +24,7 @@ final class SelectedRowsPropertyImpl {
         private final ListSelectionListener selectionListener = e -> selectedRowsChanged();
 
         TableSelectedRowsProperty(JTable table) {
-            super(table, "selectedRows", new ObservableListWrapper<>(new ArrayList<>()));
+            super(table, "selectedRows", new ObservableListWrapper<>(getSelectedRows(table)));
         }
 
         void updateSelectionModel() {
@@ -49,13 +49,10 @@ final class SelectedRowsPropertyImpl {
         }
     }
 
-    private static List<Integer> getSelectedRows(JTable table) {
-        List<Integer> selectedRows;
-        if (table.getSelectionModel().isSelectionEmpty()) {
-            selectedRows = Collections.emptyList();
-        } else {
+    private static ArrayList<Integer> getSelectedRows(JTable table) {
+        final ArrayList<Integer> selectedRows = new ArrayList<>();
+        if (!table.getSelectionModel().isSelectionEmpty()) {
             int[] rows = table.getSelectedRows();
-            selectedRows = new ArrayList<>(rows.length);
             for (int i = 0; i < rows.length; i++) {
                 selectedRows.add(Integer.valueOf(rows[i]));
             }

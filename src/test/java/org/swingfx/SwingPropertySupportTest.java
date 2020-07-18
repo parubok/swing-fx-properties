@@ -252,10 +252,10 @@ public class SwingPropertySupportTest {
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
-            p.get().add(3);
-            Assertions.assertArrayEquals(new int[] {3}, table.getSelectedRows());
+            p.add(3);
+            Assertions.assertArrayEquals(new int[]{3}, table.getSelectedRows());
             p.set(new ObservableListWrapper<>(new ArrayList<>(Arrays.asList(4, 6))));
-            Assertions.assertArrayEquals(new int[] {4,6}, table.getSelectedRows());
+            Assertions.assertArrayEquals(new int[]{4, 6}, table.getSelectedRows());
 
             p.get().clear();
             Assertions.assertArrayEquals(new int[0], table.getSelectedRows());
@@ -273,7 +273,7 @@ public class SwingPropertySupportTest {
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
-            Assertions.assertTrue(p.get().isEmpty());
+            Assertions.assertTrue(p.isEmpty());
             Assertions.assertEquals(0, table.getSelectedRowCount());
             p.get().setAll(9, 7, 8); // unsorted
             Assertions.assertEquals(Arrays.asList(9, 7, 8), p.get());
@@ -286,7 +286,20 @@ public class SwingPropertySupportTest {
             Assertions.assertEquals(Arrays.asList(7, 8, 9, 11, 12, 15, 16, 17), p.get());
 
             table.clearSelection();
-            Assertions.assertEquals(Collections.emptyList(), p.get());
+            Assertions.assertTrue(p.isEmpty());
+        });
+    }
+
+    @Test
+    void selectedRowsProperty_initial_value() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            TableModel model = new DefaultTableModel(20, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            table.selectAll();
+            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            Assertions.assertEquals(table.getSelectedRowCount(), p.size());
         });
     }
 
