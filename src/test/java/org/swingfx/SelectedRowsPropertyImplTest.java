@@ -101,4 +101,16 @@ class SelectedRowsPropertyImplTest {
             Assertions.assertEquals(table.getSelectedRowCount(), p.size());
         });
     }
+
+    @Test
+    void invalid_rows() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            TableModel model = new DefaultTableModel(20, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(100)));
+        });
+    }
 }

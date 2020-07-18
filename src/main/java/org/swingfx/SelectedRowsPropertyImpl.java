@@ -79,9 +79,8 @@ final class SelectedRowsPropertyImpl {
         if (nonEqualUnordered(tableValue, propValue)) {
             p.adjustingTableSelection = true;
             try {
-                if (propValue.isEmpty()) {
-                    table.clearSelection();
-                } else {
+                table.clearSelection();
+                if (!propValue.isEmpty()) {
                     int min = Collections.min(propValue);
                     boolean contInterval = true; // values in the interval may be unsorted
                     for (int i = 1; i < propValue.size(); i++) {
@@ -90,14 +89,12 @@ final class SelectedRowsPropertyImpl {
                             break;
                         }
                     }
-                    final ListSelectionModel selectionModel = table.getSelectionModel();
                     if (contInterval) {
                         // e.g. 3, 4, 5 (or 5, 3, 4)
-                        selectionModel.setSelectionInterval(min, min + propValue.size() - 1);
+                        table.addRowSelectionInterval(min, min + propValue.size() - 1);
                     } else {
                         // e.g. 1, 3, 7
-                        selectionModel.clearSelection();
-                        propValue.forEach(index -> selectionModel.addSelectionInterval(index, index));
+                        propValue.forEach(index -> table.addRowSelectionInterval(index, index));
                     }
                 }
             } finally {
