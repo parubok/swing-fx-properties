@@ -196,7 +196,7 @@ public class SwingPropertySupport {
 
     /**
      * <p>
-     * <b>Note 1</b>: In order to work properly, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
+     * <b>Note 1</b>: To support non-continuous selection intervals, the selection mode of the table should be set to {@link javax.swing.ListSelectionModel#MULTIPLE_INTERVAL_SELECTION}.
      * </p>
      * <p>
      * <b>Note 2:</b> Order of values in the list is not guaranteed to be identical to the order returned by {@link JTable#getSelectedRows()}.
