@@ -90,11 +90,14 @@ final class SelectedRowsPropertyImpl {
                             break;
                         }
                     }
+                    final ListSelectionModel selectionModel = table.getSelectionModel();
                     if (contInterval) {
-                        table.getSelectionModel().setSelectionInterval(min, min + propValue.size() - 1);
+                        // e.g. 3, 4, 5 (or 5, 3, 4)
+                        selectionModel.setSelectionInterval(min, min + propValue.size() - 1);
                     } else {
-                        table.clearSelection();
-                        propValue.forEach(index -> table.getSelectionModel().addSelectionInterval(index, index));
+                        // e.g. 1, 3, 7
+                        selectionModel.clearSelection();
+                        propValue.forEach(index -> selectionModel.addSelectionInterval(index, index));
                     }
                 }
             } finally {
