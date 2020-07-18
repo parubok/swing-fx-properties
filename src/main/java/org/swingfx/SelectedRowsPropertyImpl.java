@@ -38,7 +38,7 @@ final class SelectedRowsPropertyImpl {
         void selectedRowsChanged() {
             if (!adjustingTableSelection) {
                 List<Integer> tableValue = getSelectedRows((JTable) getBean());
-                if (!new HashSet<>(tableValue).equals(new HashSet<>(get()))) { // compare disregarding order
+                if (nonEqualUnordered(tableValue, get())) {
                     if (tableValue.isEmpty()) {
                         get().clear();
                     } else {
@@ -50,7 +50,7 @@ final class SelectedRowsPropertyImpl {
     }
 
     private static ArrayList<Integer> getSelectedRows(JTable table) {
-        final ArrayList<Integer> selectedRows = new ArrayList<>();
+        final ArrayList<Integer> selectedRows = new ArrayList<>(); // must be modifiable list
         if (!table.getSelectionModel().isSelectionEmpty()) {
             int[] rows = table.getSelectedRows();
             for (int i = 0; i < rows.length; i++) {
@@ -67,12 +67,16 @@ final class SelectedRowsPropertyImpl {
         p.selectedRowsChanged();
     };
 
+    private static boolean nonEqualUnordered(List<Integer> v1, List<Integer> v2) {
+        return !(new HashSet<>(v1).equals(new HashSet<>(v2))); // compare disregarding order
+    }
+
     private static final ChangeListener<List<Integer>> FX_PROP_LISTENER = (observable, oldValue, newValue) -> {
         TableSelectedRowsProperty p = (TableSelectedRowsProperty) observable;
         JTable table = (JTable) p.getBean();
         List<Integer> tableValue = getSelectedRows(table);
         List<Integer> propValue = p.get();
-        if (!tableValue.equals(propValue)) {
+        if (nonEqualUnordered(tableValue, propValue)) {
             p.adjustingTableSelection = true;
             try {
                 if (propValue.isEmpty()) {
