@@ -9,10 +9,13 @@ import javax.swing.SwingUtilities;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
 class SelectionPathPropertyImplTest {
-
+    private static TreePath path(TreeNode... nodes) {
+        return new TreePath(nodes);
+    }
 
     @Test
     void basic_test_1() throws Exception {
@@ -26,12 +29,12 @@ class SelectionPathPropertyImplTest {
             JTree tree = new JTree(model);
             ReadOnlyObjectProperty<TreePath> p = SelectionPathPropertyImpl.getProperty(tree);
             Assertions.assertNull(p.get());
-            tree.setSelectionPath(new TreePath(new Object[] { root, child_1 }));
-            Assertions.assertEquals(new TreePath(new Object[] { root, child_1 }), p.get());
-            tree.addSelectionPath(new TreePath(new Object[] { root, child_2 }));
-            Assertions.assertEquals(new TreePath(new Object[] { root, child_1 }), p.get());
-            tree.removeSelectionPath(new TreePath(new Object[] { root, child_1 }));
-            Assertions.assertEquals(new TreePath(new Object[] { root, child_2 }), p.get());
+            tree.setSelectionPath(path(root, child_1));
+            Assertions.assertEquals(path(root, child_1), p.get());
+            tree.addSelectionPath(path(root, child_2));
+            Assertions.assertEquals(path(root, child_1), p.get());
+            tree.removeSelectionPath(path(root, child_1));
+            Assertions.assertEquals(path(root, child_2), p.get());
             tree.clearSelection();
             Assertions.assertNull(p.get());
         });
