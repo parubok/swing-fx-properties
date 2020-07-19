@@ -22,11 +22,11 @@ class SelectedRowsPropertyImplTest {
             JTable table1 = new JTable();
             table1.setModel(model);
             table1.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> selRowsProp1 = SwingPropertySupport.selectedRowsProperty(table1);
+            ListProperty<Integer> selRowsProp1 = SelectedRowsPropertyImpl.getProperty(table1);
             JTable table2 = new JTable();
             table2.setModel(model);
             table2.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> selRowsProp2 = SwingPropertySupport.selectedRowsProperty(table2);
+            ListProperty<Integer> selRowsProp2 = SelectedRowsPropertyImpl.getProperty(table2);
             selRowsProp1.bindBidirectional(selRowsProp2);
 
             table1.getSelectionModel().setSelectionInterval(0, 0);
@@ -50,7 +50,7 @@ class SelectedRowsPropertyImplTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            ListProperty<Integer> p = SelectedRowsPropertyImpl.getProperty(table);
             p.add(3);
             Assertions.assertArrayEquals(new int[]{3}, table.getSelectedRows());
             p.set(new ObservableListWrapper<>(new ArrayList<>(Arrays.asList(4, 6))));
@@ -73,7 +73,7 @@ class SelectedRowsPropertyImplTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            ListProperty<Integer> p = SelectedRowsPropertyImpl.getProperty(table);
             Assertions.assertTrue(p.isEmpty());
             Assertions.assertEquals(0, table.getSelectedRowCount());
             p.get().setAll(9, 7, 8); // unsorted
@@ -99,7 +99,7 @@ class SelectedRowsPropertyImplTest {
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             table.selectAll();
-            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            ListProperty<Integer> p = SelectedRowsPropertyImpl.getProperty(table);
             Assertions.assertEquals(table.getSelectedRowCount(), p.size());
         });
     }
@@ -111,7 +111,7 @@ class SelectedRowsPropertyImplTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            ListProperty<Integer> p = SelectedRowsPropertyImpl.getProperty(table);
             Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(100)));
             Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(-1)));
             Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(0),
@@ -126,7 +126,7 @@ class SelectedRowsPropertyImplTest {
             JTable table = new JTable();
             table.setModel(model);
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            ListProperty<Integer> p = SelectedRowsPropertyImpl.getProperty(table);
             table.addRowSelectionInterval(1, 2);
             Assertions.assertEquals(Arrays.asList(1, 2), p.get());
 
