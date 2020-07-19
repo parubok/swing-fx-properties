@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import swingfx.beans.property.ListProperty;
 
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
@@ -55,6 +56,7 @@ class SelectedRowsPropertyImplTest {
             p.set(new ObservableListWrapper<>(new ArrayList<>(Arrays.asList(4, 6))));
             Assertions.assertArrayEquals(new int[]{4, 6}, table.getSelectedRows());
 
+            Assertions.assertFalse(p.isEmpty());
             p.clear();
             Assertions.assertTrue(p.isEmpty());
             Assertions.assertArrayEquals(new int[0], table.getSelectedRows());
@@ -78,10 +80,10 @@ class SelectedRowsPropertyImplTest {
             Assertions.assertEquals(Arrays.asList(9, 7, 8), p.get());
             Assertions.assertArrayEquals(new int[]{7, 8, 9}, table.getSelectedRows());
 
-            table.getSelectionModel().addSelectionInterval(11, 12);
+            table.addRowSelectionInterval(11, 12);
             Assertions.assertEquals(Arrays.asList(7, 8, 9, 11, 12), p.get());
 
-            table.getSelectionModel().addSelectionInterval(17, 15);
+            table.addRowSelectionInterval(17, 15);
             Assertions.assertEquals(Arrays.asList(7, 8, 9, 11, 12, 15, 16, 17), p.get());
 
             table.clearSelection();
@@ -111,6 +113,28 @@ class SelectedRowsPropertyImplTest {
             table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
             Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(100)));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(-1)));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> p.addAll(Integer.valueOf(0),
+                    Integer.valueOf(-1)));
+        });
+    }
+
+    @Test
+    void change_selection_model() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            TableModel model = new DefaultTableModel(20, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+            ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
+            table.addRowSelectionInterval(1, 2);
+            Assertions.assertEquals(Arrays.asList(1, 2), p.get());
+
+            table.setSelectionModel(new DefaultListSelectionModel()); // clears selection
+            Assertions.assertTrue(p.isEmpty());
+
+            table.addRowSelectionInterval(5, 7);
+            Assertions.assertEquals(Arrays.asList(5, 6, 7), p.get());
         });
     }
 }
