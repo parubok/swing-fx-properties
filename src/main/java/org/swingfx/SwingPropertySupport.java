@@ -108,6 +108,7 @@ public class SwingPropertySupport {
      * @return Read-only property which value is the selected path in three. The property value is {@code null}
      * if no path is selected or the first selected path if multiple paths are selected.
      * @see JTree#getSelectionPath()
+     * @since swing-fx-properties 1.12
      */
     public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
         return SelectionPathPropertyImpl.getProperty(tree);
@@ -206,6 +207,7 @@ public class SwingPropertySupport {
      * @return Property which value is indexes of the selected rows of the provided table.
      * @see JTable#getSelectedRows()
      * @see javax.swing.ListSelectionModel#setSelectionMode(int)
+     * @since swing-fx-properties 1.5
      */
     public static ListProperty<Integer> selectedRowsProperty(JTable table) {
         return SelectedRowsPropertyImpl.getProperty(table);
