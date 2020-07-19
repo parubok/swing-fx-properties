@@ -12,6 +12,8 @@ import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
 
 class SelectionPathPropertyImplTest {
+
+
     @Test
     void basic_test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
@@ -22,7 +24,7 @@ class SelectionPathPropertyImplTest {
             root.add(child_2);
             TreeModel model = new DefaultTreeModel(root);
             JTree tree = new JTree(model);
-            ReadOnlyObjectProperty<TreePath> p = SwingPropertySupport.selectionPathProperty(tree);
+            ReadOnlyObjectProperty<TreePath> p = SelectionPathPropertyImpl.getProperty(tree);
             Assertions.assertNull(p.get());
             tree.setSelectionPath(new TreePath(new Object[] { root, child_1 }));
             Assertions.assertEquals(new TreePath(new Object[] { root, child_1 }), p.get());
