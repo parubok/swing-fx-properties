@@ -172,7 +172,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
         protected void fireValueChangedEvent() {
             final T oldValue = currentValue;
             currentValue = observable.getValue();
-            if (!Objects.equals(currentValue, oldValue)) {
+            if (!Objects.equals(oldValue, currentValue)) {
                 listener.changed(observable, oldValue, currentValue);
             }
         }
@@ -341,7 +341,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
                 if (curChangeSize > 0) {
                     final T oldValue = currentValue;
                     currentValue = observable.getValue();
-                    if (!Objects.equals(currentValue, oldValue)) {
+                    if (!Objects.equals(oldValue, currentValue)) {
                         for (int i = 0; i < curChangeSize; i++) {
                             curChangeList[i].changed(observable, oldValue, currentValue);
                         }

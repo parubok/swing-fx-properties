@@ -25,11 +25,12 @@
 
 package com.sun.swingfx.binding;
 
-import java.lang.ref.WeakReference;
-
+import org.swingfx.misc.Logging;
 import swingfx.beans.InvalidationListener;
 import swingfx.beans.Observable;
 import swingfx.beans.binding.Binding;
+
+import java.lang.ref.WeakReference;
 
 public class BindingHelperObserver implements InvalidationListener {
 
@@ -46,6 +47,7 @@ public class BindingHelperObserver implements InvalidationListener {
     public void invalidated(Observable observable) {
         final Binding<?> binding = ref.get();
         if (binding == null) {
+            Logging.getLogger().fine("Weak reference to binding was cleared.");
             observable.removeListener(this);
         } else {
             binding.invalidate();
