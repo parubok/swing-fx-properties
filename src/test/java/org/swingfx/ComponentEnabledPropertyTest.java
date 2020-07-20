@@ -12,7 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-class ComponentEnabledPropertyImplTest {
+class ComponentEnabledPropertyTest {
     @Test
     void test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {

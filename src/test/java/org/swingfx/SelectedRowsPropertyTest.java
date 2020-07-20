@@ -14,7 +14,7 @@ import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class SelectedRowsPropertyImplTest {
+class SelectedRowsPropertyTest {
 
     private static JTable newTable() {
         TableModel model = new DefaultTableModel(20, 3);

@@ -14,7 +14,7 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-class SelectionPathPropertyImplTest {
+class SelectionPathPropertyTest {
     private static TreePath path(TreeNode... nodes) {
         return new TreePath(nodes);
     }
