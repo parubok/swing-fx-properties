@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.swingfx.SwingPropertySupport.backgroundProperty;
 import static org.swingfx.SwingPropertySupport.enabledProperty;
@@ -41,6 +43,8 @@ public class Demo {
     }
 
     private static void buildUI() {
+        Logger.getLogger("org.swingfx").setLevel(Level.FINEST);
+
         JPanel contentPanel = new JPanel(new BorderLayout());
 
         JTabbedPane tabbedPane = new JTabbedPane();
