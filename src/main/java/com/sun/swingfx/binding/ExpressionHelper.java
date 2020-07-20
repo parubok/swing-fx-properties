@@ -30,6 +30,7 @@ import swingfx.beans.value.ChangeListener;
 import swingfx.beans.value.ObservableValue;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * A convenience class for creating implementations of {@link ObservableValue}.
@@ -171,8 +172,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
         protected void fireValueChangedEvent() {
             final T oldValue = currentValue;
             currentValue = observable.getValue();
-            final boolean changed = (currentValue == null)? (oldValue != null) : !currentValue.equals(oldValue);
-            if (changed) {
+            if (!Objects.equals(currentValue, oldValue)) {
                 listener.changed(observable, oldValue, currentValue);
             }
         }
@@ -341,8 +341,7 @@ public abstract class ExpressionHelper<T> extends ExpressionHelperBase {
                 if (curChangeSize > 0) {
                     final T oldValue = currentValue;
                     currentValue = observable.getValue();
-                    final boolean changed = (currentValue == null)? (oldValue != null) : !currentValue.equals(oldValue);
-                    if (changed) {
+                    if (!Objects.equals(currentValue, oldValue)) {
                         for (int i = 0; i < curChangeSize; i++) {
                             curChangeList[i].changed(observable, oldValue, currentValue);
                         }
