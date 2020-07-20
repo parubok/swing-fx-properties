@@ -29,7 +29,7 @@ class SelectionPathPropertyImplTest {
             root.add(child_2);
             TreeModel model = new DefaultTreeModel(root);
             JTree tree = new JTree(model);
-            ReadOnlyObjectProperty<TreePath> p = SelectionPathPropertyImpl.getProperty(tree);
+            ReadOnlyObjectProperty<TreePath> p = SwingPropertySupport.selectionPathProperty(tree);
             Assertions.assertNull(p.get());
             tree.setSelectionPath(path(root, child_1));
             Assertions.assertEquals(path(root, child_1), p.get());
@@ -53,7 +53,7 @@ class SelectionPathPropertyImplTest {
             TreeModel model = new DefaultTreeModel(root);
             JTree tree = new JTree(model);
             tree.setSelectionPath(path(root, child_2));
-            ReadOnlyObjectProperty<TreePath> p = SelectionPathPropertyImpl.getProperty(tree);
+            ReadOnlyObjectProperty<TreePath> p = SwingPropertySupport.selectionPathProperty(tree);
             Assertions.assertEquals(path(root, child_2), p.get());
         });
     }
@@ -69,7 +69,7 @@ class SelectionPathPropertyImplTest {
             TreeModel model = new DefaultTreeModel(root);
             JTree tree = new JTree(model);
             tree.setSelectionPath(path(root, child_2));
-            ReadOnlyObjectProperty<TreePath> p = SelectionPathPropertyImpl.getProperty(tree);
+            ReadOnlyObjectProperty<TreePath> p = SwingPropertySupport.selectionPathProperty(tree);
             Assertions.assertEquals(path(root, child_2), p.get());
             TreeSelectionModel prevSelModel = tree.getSelectionModel();
             tree.setSelectionModel(new DefaultTreeSelectionModel());

@@ -2,14 +2,10 @@ package org.swingfx;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import swingfx.beans.binding.Bindings;
-import swingfx.beans.binding.BooleanBinding;
-import swingfx.beans.binding.StringBinding;
 import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
-import swingfx.beans.property.StringProperty;
 import swingfx.beans.value.ChangeListener;
 import swingfx.beans.value.ObservableValue;
 
@@ -17,7 +13,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.Icon;
 import javax.swing.InputVerifier;
-import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,95 +41,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SwingPropertySupportTest {
-
-    @Test
-    void enabled_prop_1() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
-
-            Assertions.assertTrue(enabledProp.get());
-            label.setEnabled(false);
-            Assertions.assertFalse(enabledProp.get());
-            label.setEnabled(true);
-            Assertions.assertTrue(enabledProp.get());
-
-            enabledProp.set(false);
-            Assertions.assertFalse(label.isEnabled());
-            enabledProp.set(true);
-            Assertions.assertTrue(label.isEnabled());
-        });
-    }
-
-    @Test
-    void enabled_prop_2() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label1 = new TestLabel();
-            BooleanProperty enabledProp1 = SwingPropertySupport.enabledProperty(label1);
-            JLabel label2 = new TestLabel();
-            BooleanProperty enabledProp2 = SwingPropertySupport.enabledProperty(label2);
-            BooleanBinding binding = Bindings.and(enabledProp1, enabledProp2);
-            Assertions.assertTrue(binding.get());
-            label2.setEnabled(false);
-            Assertions.assertFalse(binding.get());
-            label2.setEnabled(true);
-            Assertions.assertTrue(binding.get());
-            label1.setEnabled(false);
-            Assertions.assertFalse(binding.get());
-            label1.setEnabled(true);
-            Assertions.assertTrue(binding.get());
-
-            label2.setEnabled(false);
-            label1.setEnabled(false);
-            Assertions.assertFalse(binding.get());
-            label1.setEnabled(true);
-            Assertions.assertFalse(binding.get());
-            label2.setEnabled(true);
-            Assertions.assertTrue(binding.get());
-        });
-    }
-
-    @Test
-    void enabled_str_binding_1() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
-            StringBinding str = Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp);
-            Assertions.assertEquals("true", str.get());
-            label.setEnabled(false);
-            Assertions.assertEquals("false", str.get());
-        });
-    }
-
-    @Test
-    void enabled_text_binding_1() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label = new TestLabel();
-            BooleanProperty enabledProp = SwingPropertySupport.enabledProperty(label);
-            StringProperty textProp = SwingPropertySupport.textProperty(label);
-            textProp.bind(Bindings.createStringBinding(() -> Boolean.toString(enabledProp.get()), enabledProp));
-            Assertions.assertEquals("true", label.getText());
-            label.setEnabled(false);
-            Assertions.assertEquals("false", label.getText());
-            label.setEnabled(true);
-            Assertions.assertEquals("true", label.getText());
-        });
-    }
-
-    @Test
-    void selected_enabled_binding_1() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            JCheckBox checkBox = new JCheckBox();
-            Assertions.assertFalse(checkBox.isSelected());
-            JLabel label = new TestLabel();
-            Assertions.assertTrue(label.isEnabled());
-            SwingPropertySupport.enabledProperty(label).bind(SwingPropertySupport.selectedProperty(checkBox));
-            Assertions.assertFalse(label.isEnabled());
-            checkBox.setSelected(true);
-            Assertions.assertTrue(label.isEnabled());
-        });
-    }
-
     @Test
     void visible_prop_1() throws Exception {
         final AtomicReference<JLabel> ref = new AtomicReference<>();
@@ -211,44 +117,6 @@ public class SwingPropertySupportTest {
             table.clearSelection(); // should not fire event
             Assertions.assertIterableEquals(Arrays.asList(2, 0), values);
         });
-    }
-
-    public static class TestLabel extends JLabel {
-        @Override
-        public boolean isEnabled() {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            return super.isEnabled();
-        }
-
-        @Override
-        public void setEnabled(boolean enabled) {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            super.setEnabled(enabled);
-        }
-
-        @Override
-        public String getText() {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            return super.getText();
-        }
-
-        @Override
-        public void setText(String text) {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            super.setText(text);
-        }
-
-        @Override
-        public Icon getIcon() {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            return super.getIcon();
-        }
-
-        @Override
-        public void setIcon(Icon icon) {
-            Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-            super.setIcon(icon);
-        }
     }
 
     @Test
