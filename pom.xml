@@ -5,7 +5,7 @@
 
   <groupId>org.swingfx</groupId>
   <artifactId>swing-fx-properties</artifactId>
-  <version>1.13</version>
+  <version>1.14-SNAPSHOT</version>
   <name>swing-fx-properties</name>
   <description>Adaptation of JavaFX properties for Swing.</description>
   <url>https://github.com/parubok/swing-fx-properties</url>
@@ -20,7 +20,7 @@
     <connection>scm:git:git@github.com:parubok/swing-fx-properties</connection>
     <url>scm:git:git@github.com:parubok/swing-fx-properties</url>
     <developerConnection>scm:git:git@github.com:parubok/swing-fx-properties</developerConnection>
-    <tag>v1.13</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>
