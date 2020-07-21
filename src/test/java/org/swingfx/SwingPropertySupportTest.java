@@ -2,7 +2,6 @@ package org.swingfx;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import swingfx.beans.property.BooleanProperty;
 import swingfx.beans.property.ObjectProperty;
 import swingfx.beans.property.ReadOnlyBooleanProperty;
 import swingfx.beans.property.ReadOnlyIntegerProperty;
@@ -38,31 +37,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class SwingPropertySupportTest {
-    @Test
-    void visible_prop_1() throws Exception {
-        final AtomicReference<JLabel> ref = new AtomicReference<>();
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label = new TestLabel();
-            ref.set(label);
-            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
-            Assertions.assertTrue(visibleProp.get());
-            label.setVisible(false);
-        });
-        SwingUtilities.invokeAndWait(() -> {
-            JLabel label = ref.get();
-            Assertions.assertFalse(label.isVisible());
-            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
-            Assertions.assertFalse(visibleProp.get());
-            visibleProp.set(true);
-            Assertions.assertTrue(label.isVisible());
-            visibleProp.set(false);
-            Assertions.assertFalse(label.isVisible());
-        });
-    }
-
     @Test
     void selectedRowCountProperty_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
@@ -286,5 +262,4 @@ public class SwingPropertySupportTest {
             Assertions.assertNull(label.getIcon());
         });
     }
-
 }
