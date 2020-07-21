@@ -54,8 +54,8 @@ public class SwingPropertySupportTest {
             });
 
             Assertions.assertEquals(0, selCountProp.get());
-            tree.setSelectionPath(new TreePath(new Object[] { root, child_1 }));
-            tree.addSelectionPath(new TreePath(new Object[] { root, child_2 }));
+            tree.setSelectionPath(new TreePath(new Object[]{root, child_1}));
+            tree.addSelectionPath(new TreePath(new Object[]{root, child_2}));
             Assertions.assertEquals(2, selCountProp.get());
             Assertions.assertIterableEquals(Arrays.asList(0, 1, 1, 2), values);
             tree.clearSelection();

@@ -1,6 +1,7 @@
 package org.swingfx;
 
 import org.junit.jupiter.api.Assertions;
+import swingfx.beans.property.StringProperty;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
@@ -29,6 +30,10 @@ public class TestLabel extends JLabel {
     public void setText(String text) {
         Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
         super.setText(text);
+    }
+
+    public StringProperty textProperty() {
+        return SwingPropertySupport.textProperty(this);
     }
 
     @Override
