@@ -14,12 +14,10 @@ import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
@@ -35,41 +33,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SwingPropertySupportTest {
-
-    @Test
-    void modelRowCountProperty_1() throws Exception {
-        SwingUtilities.invokeAndWait(() -> {
-            DefaultTableModel model = new DefaultTableModel(3, 2);
-            JTable table = new JTable(model);
-            ReadOnlyIntegerProperty rowCountProperty = SwingPropertySupport.modelRowCountProperty(table);
-
-            List<Number> values = new ArrayList<>();
-            rowCountProperty.addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    Assertions.assertTrue(SwingUtilities.isEventDispatchThread());
-                    Assertions.assertEquals(rowCountProperty, observable);
-                    values.add(oldValue);
-                    values.add(newValue);
-                }
-            });
-
-            Assertions.assertEquals(3, rowCountProperty.get());
-            model.removeRow(0);
-            Assertions.assertEquals(2, rowCountProperty.get());
-            Assertions.assertIterableEquals(Arrays.asList(3, 2), values);
-
-            table.setModel(new DefaultTableModel(10, 2));
-            Assertions.assertEquals(10, rowCountProperty.get());
-            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10), values);
-
-            model.removeRow(0); // old model - no effect
-            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10), values);
-
-            ((DefaultTableModel) table.getModel()).removeRow(0);
-            Assertions.assertIterableEquals(Arrays.asList(3, 2, 2, 10, 10, 9), values);
-        });
-    }
 
     @Test
     void borderProperty_1() throws Exception {

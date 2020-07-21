@@ -19,7 +19,7 @@ import java.util.List;
 
 class SelectedRowCountPropertyTest {
     @Test
-    void selectedRowCountProperty_1() throws Exception {
+    void test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             TableModel model = new DefaultTableModel(10, 3);
             JTable table = new JTable();
@@ -49,7 +49,7 @@ class SelectedRowCountPropertyTest {
     }
 
     @Test
-    void selectedRowCountProperty_2() throws Exception {
+    void test_2() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             TableModel model = new DefaultTableModel(10, 3);
             JTable table = new JTable();
