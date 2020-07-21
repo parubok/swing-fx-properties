@@ -50,9 +50,9 @@ final class SelectedRowsPropertyImpl {
     }
 
     private static ArrayList<Integer> getSelectedRows(JTable table) {
-        final ArrayList<Integer> selectedRows = new ArrayList<>(); // must be modifiable list
-        if (!table.getSelectionModel().isSelectionEmpty()) {
-            int[] rows = table.getSelectedRows();
+        final ArrayList<Integer> selectedRows = new ArrayList<>(); // must be mutable list
+        int[] rows = table.getSelectedRows();
+        if (rows != null) {
             for (int i = 0; i < rows.length; i++) {
                 selectedRows.add(Integer.valueOf(rows[i]));
             }
