@@ -10,23 +10,25 @@ import java.util.concurrent.atomic.AtomicReference;
 
 class VisiblePropertyTest {
     @Test
-    void visible_prop_1() throws Exception {
+    void test_1() throws Exception {
         final AtomicReference<JLabel> ref = new AtomicReference<>();
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             ref.set(label);
+            Assertions.assertTrue(label.isVisible());
             BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
             Assertions.assertTrue(visibleProp.get());
             label.setVisible(false);
         });
+        // has to use invokeAndWait twice since visibility change is signaled via Toolkit.getEventQueue().postEvent()
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = ref.get();
             Assertions.assertFalse(label.isVisible());
-            BooleanProperty visibleProp = SwingPropertySupport.visibleProperty(label);
-            Assertions.assertFalse(visibleProp.get());
-            visibleProp.set(true);
+            BooleanProperty p = SwingPropertySupport.visibleProperty(label);
+            Assertions.assertFalse(p.get());
+            p.set(true);
             Assertions.assertTrue(label.isVisible());
-            visibleProp.set(false);
+            p.set(false);
             Assertions.assertFalse(label.isVisible());
         });
     }
