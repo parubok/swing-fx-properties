@@ -10,10 +10,9 @@ import javax.swing.SwingUtilities;
 import java.awt.Component;
 import java.awt.Graphics;
 
-public class SwingPropertySupportTest {
-
+class IconPropertyTest {
     @Test
-    void icon_1() throws Exception {
+    void test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JLabel label = new TestLabel();
             ObjectProperty<Icon> p = SwingPropertySupport.iconProperty(label);
