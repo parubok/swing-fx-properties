@@ -11,10 +11,12 @@ class ObservableMapTest {
     @Test
     void valueAt_1() {
         ObservableMap<String, String> map = new ObservableMapWrapper<>(new HashMap<>());
-        ObjectBinding<String> b = map.valueAt("key1", "v1");
-        Assertions.assertEquals("v1", b.get());
+        ObjectBinding<String> binding = map.valueAt("key1", "v1");
+        Assertions.assertEquals("v1", binding.get());
         map.put("key1", "abc");
-        Assertions.assertEquals("abc", b.get());
+        Assertions.assertEquals("abc", binding.get());
+        map.clear();
+        Assertions.assertEquals("v1", binding.get());
     }
 
     @Test
