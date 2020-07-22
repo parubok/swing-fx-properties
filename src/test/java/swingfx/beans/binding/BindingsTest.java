@@ -126,4 +126,16 @@ class BindingsTest {
 
         b.dispose();
     }
+
+    @Test
+    void createObjectBinding_TriFunction_error() {
+        SimpleStringProperty p1 = new SimpleStringProperty("abc");
+        SimpleIntegerProperty p2 = new SimpleIntegerProperty(3);
+        SimpleDoubleProperty p3 = new SimpleDoubleProperty(1.2);
+        ObjectBinding<String> b = Bindings.createObjectBinding(p1, p2, p3, (v1, v2, v3) -> {
+            throw new RuntimeException("error!");
+        });
+        Assertions.assertThrows(BindingEvaluationException.class, () -> b.get());
+        b.dispose();
+    }
 }
