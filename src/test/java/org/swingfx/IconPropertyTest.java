@@ -39,6 +39,11 @@ class IconPropertyTest {
 
             p.set(null);
             Assertions.assertNull(label.getIcon());
+            Assertions.assertNull(p.get());
+
+            p.set(icon);
+            Assertions.assertEquals(icon, label.getIcon());
+            Assertions.assertEquals(icon, p.get());
         });
     }
 }
