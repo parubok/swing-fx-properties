@@ -4,20 +4,16 @@ import swingfx.beans.property.ObjectProperty;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,7 +27,6 @@ import static org.swingfx.SwingPropertySupport.foregroundProperty;
 import static org.swingfx.SwingPropertySupport.mouseOverProperty;
 import static org.swingfx.SwingPropertySupport.selectedItemProperty;
 import static org.swingfx.SwingPropertySupport.selectedProperty;
-import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
 import static org.swingfx.SwingPropertySupport.textProperty;
 
 /**
@@ -49,7 +44,7 @@ public class Demo {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
-        tabbedPane.addTab("Tab 1", tab1());
+        addDemoTab(new SelectedRowCountPropertyJTable(), tabbedPane);
         tabbedPane.addTab("Tab 2", tab2());
         tabbedPane.addTab("Tab 3", tab3());
         tabbedPane.addTab("mouseOver", mouseOverTab());
@@ -66,43 +61,6 @@ public class Demo {
 
     private static void addDemoTab(DemoTab demoTab, JTabbedPane tabbedPane) {
         tabbedPane.addTab(demoTab.getTitle(), demoTab);
-    }
-
-    private static JPanel tab1() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        DefaultTableModel tableModel = new DefaultTableModel(20, 5) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JTable table = new JTable();
-        table.setModel(tableModel);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(table);
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        JLabel countLabel = new JLabel();
-        bottomPanel.add(countLabel, BorderLayout.WEST);
-        panel.add(bottomPanel, BorderLayout.SOUTH);
-        textProperty(countLabel).bind(selectedRowCountProperty(table).asString("Selected Rows: %d"));
-
-        JPanel topPanel = new JPanel();
-        panel.add(topPanel, BorderLayout.NORTH);
-
-        JButton clearSelectionButton = new JButton("Clear Selection");
-        clearSelectionButton.addActionListener(e -> table.clearSelection());
-        topPanel.add(clearSelectionButton);
-        enabledProperty(clearSelectionButton).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
-
-        JButton deleteRowButton = new JButton("Delete Row");
-        deleteRowButton.addActionListener(e -> tableModel.removeRow(table.getSelectedRow()));
-        topPanel.add(deleteRowButton);
-        enabledProperty(deleteRowButton).bind(selectedRowCountProperty(table).isEqualTo(1));
-
-        return panel;
     }
 
     private static JPanel tab2() {
