@@ -23,7 +23,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import static org.swingfx.SwingPropertySupport.backgroundProperty;
 import static org.swingfx.SwingPropertySupport.enabledProperty;
@@ -33,7 +32,6 @@ import static org.swingfx.SwingPropertySupport.mouseOverProperty;
 import static org.swingfx.SwingPropertySupport.selectedItemProperty;
 import static org.swingfx.SwingPropertySupport.selectedProperty;
 import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
-import static org.swingfx.SwingPropertySupport.selectedRowsProperty;
 import static org.swingfx.SwingPropertySupport.textProperty;
 
 /**
@@ -50,11 +48,12 @@ public class Demo {
         JPanel contentPanel = new JPanel(new BorderLayout());
 
         JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setTabPlacement(JTabbedPane.LEFT);
         tabbedPane.addTab("Tab 1", tab1());
         tabbedPane.addTab("Tab 2", tab2());
         tabbedPane.addTab("Tab 3", tab3());
         tabbedPane.addTab("mouseOver", mouseOverTab());
-        tabbedPane.addTab("selectedRowsProperty(JTable)", selectedRows_JTable());
+        addDemoTab(new SelectedRowsJTable(), tabbedPane);
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JFrame frame = new JFrame("swing-fx-properties");
@@ -63,6 +62,10 @@ public class Demo {
         frame.pack();
         frame.setLocationByPlatform(true);
         frame.setVisible(true);
+    }
+
+    private static void addDemoTab(DemoTab demoTab, JTabbedPane tabbedPane) {
+        tabbedPane.addTab(demoTab.getTitle(), demoTab);
     }
 
     private static JPanel tab1() {
@@ -182,29 +185,6 @@ public class Demo {
         panel.add(colorPanel);
 
         backgroundProperty(colorPanel).bind(mouseOverProperty(colorPanel).asObject(b -> b ? Color.RED : Color.BLUE));
-
-        return panel;
-    }
-
-    private static JPanel selectedRows_JTable() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-        DefaultTableModel tableModel = new DefaultTableModel(20, 5) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-        JTable table = new JTable();
-        table.setModel(tableModel);
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setViewportView(table);
-        panel.add(scrollPane, BorderLayout.CENTER);
-
-        JLabel label = new JLabel();
-        textProperty(label).bind(selectedRowsProperty(table).asObject(selectedRowsList -> selectedRowsList.stream()
-                .map(r -> Integer.toString(r)).collect(Collectors.joining(", ", "Selected rows: [", "]"))));
-        panel.add(label, BorderLayout.SOUTH);
 
         return panel;
     }
