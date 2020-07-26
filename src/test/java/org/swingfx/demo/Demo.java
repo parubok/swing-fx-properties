@@ -24,7 +24,6 @@ import static org.swingfx.SwingPropertySupport.backgroundProperty;
 import static org.swingfx.SwingPropertySupport.enabledProperty;
 import static org.swingfx.SwingPropertySupport.focusedProperty;
 import static org.swingfx.SwingPropertySupport.foregroundProperty;
-import static org.swingfx.SwingPropertySupport.mouseOverProperty;
 import static org.swingfx.SwingPropertySupport.selectedItemProperty;
 import static org.swingfx.SwingPropertySupport.selectedProperty;
 import static org.swingfx.SwingPropertySupport.textProperty;
@@ -47,11 +46,11 @@ public class Demo {
         addDemoTab(new SelectedRowCountPropertyJTable(), tabbedPane);
         tabbedPane.addTab("Tab 2", tab2());
         tabbedPane.addTab("Tab 3", tab3());
-        tabbedPane.addTab("mouseOver", mouseOverTab());
+        addDemoTab(new MouseOverPropertyJComponent(), tabbedPane);
         addDemoTab(new SelectedRowsJTable(), tabbedPane);
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
-        JFrame frame = new JFrame("swing-fx-properties");
+        JFrame frame = new JFrame("Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(contentPanel);
         frame.pack();
@@ -130,19 +129,6 @@ public class Demo {
         panel2.add(colorPanel);
 
         backgroundProperty(colorPanel).bind(selectedItemProperty(colorCombo).asObject(s -> Color.decode(s)));
-
-        return panel;
-    }
-
-    private static JPanel mouseOverTab() {
-        JPanel panel = new JPanel();
-        JPanel colorPanel = new JPanel(null);
-        colorPanel.setOpaque(true);
-        colorPanel.setPreferredSize(new Dimension(100, 100));
-        colorPanel.setBorder(new LineBorder(Color.BLACK));
-        panel.add(colorPanel);
-
-        backgroundProperty(colorPanel).bind(mouseOverProperty(colorPanel).asObject(b -> b ? Color.RED : Color.BLUE));
 
         return panel;
     }
