@@ -4,13 +4,11 @@ import swingfx.beans.property.ObjectProperty;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -21,12 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static org.swingfx.SwingPropertySupport.backgroundProperty;
-import static org.swingfx.SwingPropertySupport.enabledProperty;
-import static org.swingfx.SwingPropertySupport.focusedProperty;
-import static org.swingfx.SwingPropertySupport.foregroundProperty;
 import static org.swingfx.SwingPropertySupport.selectedItemProperty;
-import static org.swingfx.SwingPropertySupport.selectedProperty;
-import static org.swingfx.SwingPropertySupport.textProperty;
 
 /**
  * GUI to demo component property binding.
@@ -44,7 +37,8 @@ public class Demo {
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
         addDemoTab(new SelectedRowCountPropertyJTable(), tabbedPane);
-        tabbedPane.addTab("Tab 2", tab2());
+        addDemoTab(new FocusedPropertyJComponent(), tabbedPane);
+        addDemoTab(new EnabledPropertyJComponent(), tabbedPane);
         tabbedPane.addTab("Tab 3", tab3());
         addDemoTab(new MouseOverPropertyJComponent(), tabbedPane);
         addDemoTab(new SelectedRowsJTable(), tabbedPane);
@@ -60,32 +54,6 @@ public class Demo {
 
     private static void addDemoTab(DemoTab demoTab, JTabbedPane tabbedPane) {
         tabbedPane.addTab(demoTab.getTitle(), demoTab);
-    }
-
-    private static JPanel tab2() {
-        JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-        JPanel topPanel = new JPanel();
-        panel.add(topPanel, BorderLayout.NORTH);
-
-        JCheckBox checkBox = new JCheckBox("Value:");
-        topPanel.add(checkBox);
-
-        JTextField textField = new JTextField("text");
-        textField.setColumns(10);
-        topPanel.add(textField);
-
-        JLabel textFieldFocusLabel = new JLabel();
-        topPanel.add(textFieldFocusLabel);
-        foregroundProperty(textFieldFocusLabel).bind(focusedProperty(textField)
-                .asObject(focused -> focused ? Color.BLUE : Color.RED));
-        textProperty(textFieldFocusLabel).bind(focusedProperty(textField)
-                .asObject(focused -> focused ? "Text field has focus!" : "Text field has NO focus!"));
-
-        enabledProperty(textField).bind(selectedProperty(checkBox));
-
-        return panel;
     }
 
     private static JPanel tab3() {
