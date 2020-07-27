@@ -39,6 +39,7 @@ public class Demo {
         addDemoTab(new SelectedRowCountPropertyJTable(), tabbedPane);
         addDemoTab(new FocusedPropertyJComponent(), tabbedPane);
         addDemoTab(new EnabledPropertyJComponent(), tabbedPane);
+        addDemoTab(new SelectedItemJComboBox(), tabbedPane);
         tabbedPane.addTab("Tab 3", tab3());
         addDemoTab(new MouseOverPropertyJComponent(), tabbedPane);
         addDemoTab(new SelectedRowsJTable(), tabbedPane);
