@@ -63,4 +63,6 @@ The following APIs were added to the original APIs of JavaFX:
 
 Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with the Classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), the same license applies to this project.
 
+This project has no dependencies (except JUnit 5, for testing).
+
 Requires Java 8 or later.
