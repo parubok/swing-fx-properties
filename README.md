@@ -15,35 +15,31 @@ Example:
 - `Bindings.valueAt(ObservableList<E> op, int index)` - throws `BindingEvaluationException` in case of invalid index.
 - `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)` - returns the specified default value in case of invalid index.
 
-The Swing properties are obtained via static methods of class `org.swingfx.SwingPropertySupport`.
+The Swing properties are obtained via static methods of class `SwingPropertySupport`.
 
 Example 1 (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
+
 ```java
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 
-import static org.swingfx.SwingPropertySupport.enabledProperty;
-import static org.swingfx.SwingPropertySupport.selectedProperty;
 
-JCheckBox checkBox = new JCheckBox(); // unselected checkbox
-JLabel label = new JLabel();
-enabledProperty(label).bind(selectedProperty(checkBox));
+import static SwingPropertySupport.enabledProperty;
+
+JCheckBox checkBox=new JCheckBox(); // unselected checkbox
+        JLabel label=new JLabel();
+        enabledProperty(label).bind(selectedProperty(checkBox));
 // label is now disabled since the checkbox is not selected
-checkBox.setSelected(true);
+        checkBox.setSelected(true);
 // label is now enabled
 ```
 
 Example 2 (bind 'enabled' property of an action to 'selectedRowCount' property of a table, so the action is disabled when the table has no selected rows and vice versa):
+
 ```java
-import javax.swing.JTable;
-import javax.swing.Action;
 
-import static org.swingfx.SwingPropertySupport.enabledProperty;
-import static org.swingfx.SwingPropertySupport.selectedRowCountProperty;
 
-Action action = ...; // e.g. delete table rows
-JTable table = ...;
-enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
+Action action=...; // e.g. delete table rows
+        JTable table=...;
+        enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
 ```
 
 The following APIs were added to the original APIs of JavaFX:
