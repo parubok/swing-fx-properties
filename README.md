@@ -20,26 +20,26 @@ The Swing properties are obtained via static methods of class `SwingPropertySupp
 Example 1 (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
 
 ```java
+import static io.github.parubok.fxprop.SwingPropertySupport.enabledProperty;
+import static io.github.parubok.fxprop.SwingPropertySupport.selectedProperty;
 
-
-import static SwingPropertySupport.enabledProperty;
-
-JCheckBox checkBox=new JCheckBox(); // unselected checkbox
-        JLabel label=new JLabel();
-        enabledProperty(label).bind(selectedProperty(checkBox));
+JCheckBox checkBox = new JCheckBox(); // unselected checkbox
+JLabel label = new JLabel();
+enabledProperty(label).bind(selectedProperty(checkBox));
 // label is now disabled since the checkbox is not selected
-        checkBox.setSelected(true);
+checkBox.setSelected(true);
 // label is now enabled
 ```
 
 Example 2 (bind 'enabled' property of an action to 'selectedRowCount' property of a table, so the action is disabled when the table has no selected rows and vice versa):
 
 ```java
+import static io.github.parubok.fxprop.SwingPropertySupport.enabledProperty;
+import static io.github.parubok.fxprop.SwingPropertySupport.selectedProperty;
 
-
-Action action=...; // e.g. delete table rows
-        JTable table=...;
-        enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
+Action action = ...; // for example, 'delete table rows' action
+JTable table = ...;
+enabledProperty(action).bind(selectedRowCountProperty(table).greaterThanOrEqualTo(1));
 ```
 
 The following APIs were added to the original APIs of JavaFX:
