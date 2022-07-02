@@ -62,3 +62,27 @@ Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with th
 This project has no dependencies (except JUnit 5, for testing).
 
 Requires Java 8 or later.
+
+### Installation
+
+Releases are available in [Maven Central](https://repo1.maven.org/maven2/io/github/parubok/swing-fx-properties/)
+
+#### Maven
+
+Add this snippet to the pom.xml `dependencies` section:
+
+```xml
+<dependency>
+    <groupId>io.github.parubok</groupId>
+    <artifactId>swing-fx-properties</artifactId>
+    <version>1.16</version>
+</dependency>
+```
+
+#### Gradle
+
+Add this snippet to the build.gradle `dependencies` section:
+
+```groovy
+implementation 'io.github.parubok:swing-fx-properties:1.16'
+```
