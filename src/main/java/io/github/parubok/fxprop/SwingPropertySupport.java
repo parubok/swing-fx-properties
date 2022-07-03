@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
+import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
@@ -116,10 +117,20 @@ public class SwingPropertySupport {
 
     /**
      * @param table Table. Not null.
-     * @return Read-only property which value is the number of rows in the table model.
+     * @return Read-only property which value is the number of rows in the current model of the table.
+     * @implSpec Setting a new model via {@link JTable#setModel(TableModel)} is properly handled by this property.
      */
     public static ReadOnlyIntegerProperty modelRowCountProperty(JTable table) {
         return ModelRowCountPropertyImpl.getProperty(table);
+    }
+
+    /**
+     * @param tableModel Table model. Not null.
+     * @return Read-only property which value is the number of rows in the table model.
+     * @since swing-fx-properties 1.17
+     */
+    public static ReadOnlyIntegerProperty modelRowCountProperty(TableModel tableModel) {
+        return TableModelRowCountPropertyImpl.getProperty(tableModel);
     }
 
     /**

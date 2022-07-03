@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class ModelRowCountPropertyTest {
+public class ModelRowCountPropertyTest {
     @Test
-    void test_1() throws Exception {
+    public void test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultTableModel model = new DefaultTableModel(3, 2);
             JTable table = new JTable(model);
