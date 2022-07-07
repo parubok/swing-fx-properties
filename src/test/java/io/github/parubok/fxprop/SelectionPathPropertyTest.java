@@ -14,13 +14,13 @@ import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
-class SelectionPathPropertyTest {
+public class SelectionPathPropertyTest {
     private static TreePath path(TreeNode... nodes) {
         return new TreePath(nodes);
     }
 
     @Test
-    void basic_test_1() throws Exception {
+    public void basic_test_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultMutableTreeNode child_1 = new DefaultMutableTreeNode();
@@ -43,7 +43,7 @@ class SelectionPathPropertyTest {
     }
 
     @Test
-    void initial_value() throws Exception {
+    public void initial_value() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultMutableTreeNode child_1 = new DefaultMutableTreeNode();
@@ -59,7 +59,7 @@ class SelectionPathPropertyTest {
     }
 
     @Test
-    void change_selection_model() throws Exception {
+    public void change_selection_model() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultMutableTreeNode child_1 = new DefaultMutableTreeNode();

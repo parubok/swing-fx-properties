@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class SelectionCountPropertyTest {
+public class SelectionCountPropertyTest {
     @Test
-    void tree_selectionCount_1() throws Exception {
+    public void tree_selectionCount_1() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultMutableTreeNode root = new DefaultMutableTreeNode();
             DefaultMutableTreeNode child_1 = new DefaultMutableTreeNode();

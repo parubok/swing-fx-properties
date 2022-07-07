@@ -1,6 +1,7 @@
 package io.github.parubok.fxprop;
 
 import io.github.parubok.swingfx.beans.property.BooleanProperty;
+import io.github.parubok.swingfx.beans.property.IntegerProperty;
 import io.github.parubok.swingfx.beans.property.ListProperty;
 import io.github.parubok.swingfx.beans.property.ObjectProperty;
 import io.github.parubok.swingfx.beans.property.ReadOnlyBooleanProperty;
@@ -15,6 +16,7 @@ import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
 import javax.swing.border.Border;
@@ -113,6 +115,17 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
         return SelectionPathPropertyImpl.getProperty(tree);
+    }
+
+    /**
+     * @param tabbedPane Tabbed pane. Not null.
+     * @return Integer property which value is the selected tab index in the tabbed pane.
+     * @see JTabbedPane#getSelectedIndex()
+     * @see JTabbedPane#setSelectedIndex(int)
+     * @since swing-fx-properties 1.17
+     */
+    public static IntegerProperty selectedIndexProperty(JTabbedPane tabbedPane) {
+        return TabbedPaneSelectedIndexPropertyImpl.getProperty(tabbedPane);
     }
 
     /**

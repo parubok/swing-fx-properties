@@ -14,9 +14,9 @@ import javax.swing.table.TableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class SelectedRowsPropertyTest {
+public class SelectedRowsPropertyTest {
 
-    private static JTable newTable() {
+    static JTable newTable() {
         TableModel model = new DefaultTableModel(20, 3);
         JTable table = new JTable();
         table.setModel(model);
@@ -25,7 +25,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void bindBidirectional() throws Exception {
+    public void bindBidirectional() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table1 = newTable();
             ListProperty<Integer> selRowsProp1 = SwingPropertySupport.selectedRowsProperty(table1);
@@ -48,7 +48,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void set_list() throws Exception {
+    public void set_list() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table = newTable();
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
@@ -68,7 +68,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void unsorted_rows() throws Exception {
+    public void unsorted_rows() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table = newTable();
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
@@ -90,7 +90,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void initial_value() throws Exception {
+    public void initial_value() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table = newTable();
             table.selectAll();
@@ -100,7 +100,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void invalid_rows() throws Exception {
+    public void invalid_rows() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table = newTable();
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
@@ -112,7 +112,7 @@ class SelectedRowsPropertyTest {
     }
 
     @Test
-    void change_selection_model() throws Exception {
+    public void change_selection_model() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTable table = newTable();
             ListProperty<Integer> p = SwingPropertySupport.selectedRowsProperty(table);
