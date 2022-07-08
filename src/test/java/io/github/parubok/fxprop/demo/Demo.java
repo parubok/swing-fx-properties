@@ -1,6 +1,9 @@
 package io.github.parubok.fxprop.demo;
 
+import io.github.parubok.fxprop.SwingPropertySupport;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -23,6 +26,13 @@ public class Demo {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setTabPlacement(JTabbedPane.LEFT);
+        JLabel label = new JLabel();
+        SwingPropertySupport.textProperty(label)
+                .bind(SwingPropertySupport.selectedIndexProperty(tabbedPane)
+                        .add(1)
+                        .asString("Selected tab: %d"));
+        contentPanel.add(label, BorderLayout.SOUTH);
+
         addDemoTab(new SelectedRowCountPropertyJTable(), tabbedPane);
         addDemoTab(new FocusedPropertyJComponent(), tabbedPane);
         addDemoTab(new EnabledPropertyJComponent(), tabbedPane);
