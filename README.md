@@ -1,4 +1,5 @@
 ![Java CI with Maven](https://github.com/parubok/swing-fx-properties/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Latest Version](https://img.shields.io/maven-central/v/io.github.parubok/swing-fx-properties)](https://search.maven.org/search?q=a:swing-fx-properties)
 
 # swing-fx-properties
 Adaptation of [JavaFX properties](https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm) for Swing.
