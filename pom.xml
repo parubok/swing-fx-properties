@@ -26,10 +26,10 @@
 
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>GNU General Public License, version 2, with the Classpath Exception</name>
+      <url>https://openjdk.org/legal/gplv2+ce.html</url>
       <distribution>repo</distribution>
-      <comments>A business-friendly OSS license</comments>
+      <comments>OSS license</comments>
     </license>
   </licenses>
 
@@ -83,6 +83,13 @@
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Automatic-Module-Name>io.github.parubok.fxprops</Automatic-Module-Name>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-install-plugin</artifactId>
