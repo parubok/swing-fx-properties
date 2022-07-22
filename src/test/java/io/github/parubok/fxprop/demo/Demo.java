@@ -40,6 +40,7 @@ public class Demo {
         addDemoTab(new BackgroundPropertyJComponent(), tabbedPane);
         addDemoTab(new MouseOverPropertyJComponent(), tabbedPane);
         addDemoTab(new SelectedRowsJTable(), tabbedPane);
+        addDemoTab(new SelectionRowsPropertyJTree(), tabbedPane);
         contentPanel.add(tabbedPane, BorderLayout.CENTER);
 
         JFrame frame = new JFrame("Demo");
