@@ -58,6 +58,8 @@ The following APIs were added to the original APIs of JavaFX:
 
 **Note:** As specified in `bind` [method JavaDoc](https://docs.oracle.com/javase/8/javafx/api/javafx/beans/property/Property.html#bind-javafx.beans.value.ObservableValue-), JavaFX has all the bind calls implemented through weak listeners. This means the bound property can be garbage collected and stopped from being updated unless there is a strong reference pointing to it.
 
+Includes a stand-alone demo `io.github.parubok.fxprop.demo.Demo` under `test` source sub-root. 
+
 Since [JavaFX](https://github.com/openjdk/jfx) is licensed under [GPL v2 with the Classpath exception](http://openjdk.java.net/legal/gplv2+ce.html), the same license applies to this project.
 
 This project has no dependencies (except JUnit 5, for testing).
@@ -76,7 +78,7 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>io.github.parubok</groupId>
     <artifactId>swing-fx-properties</artifactId>
-    <version>1.17</version>
+    <version>1.18</version>
 </dependency>
 ```
 
@@ -85,5 +87,5 @@ Add this snippet to the pom.xml `dependencies` section:
 Add this snippet to the build.gradle `dependencies` section:
 
 ```groovy
-implementation 'io.github.parubok:swing-fx-properties:1.17'
+implementation 'io.github.parubok:swing-fx-properties:1.18'
 ```
