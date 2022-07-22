@@ -31,6 +31,7 @@ final class SelectionPathPropertyImpl {
             }
             this.selectionModel = selectionModel;
             this.selectionModel.addTreeSelectionListener(this.selectionListener);
+            selectionPathChanged();
         }
 
         @Override
@@ -61,7 +62,6 @@ final class SelectionPathPropertyImpl {
         JTree tree = (JTree) e.getSource();
         TreeSelectionPathProperty p = (TreeSelectionPathProperty) tree.getClientProperty(PROP_SELECTED_PATH);
         p.updateSelectionModel();
-        p.selectionPathChanged();
     };
 
     static ReadOnlyObjectProperty<TreePath> getProperty(JTree tree) {

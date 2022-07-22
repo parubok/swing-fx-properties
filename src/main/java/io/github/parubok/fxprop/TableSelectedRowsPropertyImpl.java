@@ -17,7 +17,7 @@ import java.util.Objects;
 
 import static io.github.parubok.fxprop.ClientProps.PROP_SELECTED_ROWS;
 
-final class SelectedRowsPropertyImpl {
+final class TableSelectedRowsPropertyImpl {
     private static class TableSelectedRowsProperty extends SimpleListProperty<Integer> {
         boolean adjustingTableSelection;
         private ListSelectionModel selectionModel;

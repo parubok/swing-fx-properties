@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
+import java.util.List;
 
 /**
  * Collection of static methods which provide access to various properties of Swing components via JavaFX-style
@@ -115,6 +116,10 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
         return SelectionPathPropertyImpl.getProperty(tree);
+    }
+
+    public static ReadOnlyObjectProperty<List<Integer>> selectionRowsProperty(JTree tree) {
+        return TreeSelectionRowsPropertyImpl.getProperty(tree);
     }
 
     /**
@@ -234,6 +239,6 @@ public class SwingPropertySupport {
      * @since swing-fx-properties 1.5
      */
     public static ListProperty<Integer> selectedRowsProperty(JTable table) {
-        return SelectedRowsPropertyImpl.getProperty(table);
+        return TableSelectedRowsPropertyImpl.getProperty(table);
     }
 }
