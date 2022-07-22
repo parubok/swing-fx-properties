@@ -102,6 +102,8 @@ public class SwingPropertySupport {
      * @param tree Tree. Not null.
      * @return Read-only property which value is the number of selected rows in the tree.
      * @see JTree#getSelectionCount()
+     * @see #selectionRowsProperty(JTree)
+     * @see #selectionPathProperty(JTree)
      */
     public static ReadOnlyIntegerProperty selectionCountProperty(JTree tree) {
         return SelectionCountPropertyImpl.getProperty(tree);
@@ -109,15 +111,28 @@ public class SwingPropertySupport {
 
     /**
      * @param tree Tree. Not null.
-     * @return Read-only property which value is the selected path in three. The property value is {@code null}
+     * @return Read-only property which value is the selected path in the three. The property value is {@code null}
      * if no path is selected or the first selected path if multiple paths are selected.
      * @see JTree#getSelectionPath()
      * @since swing-fx-properties 1.12
+     * @see JTree#getSelectionPath()
+     * @see #selectionRowsProperty(JTree)
+     * @see #selectionCountProperty(JTree)
      */
     public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
         return SelectionPathPropertyImpl.getProperty(tree);
     }
 
+    /**
+     * @param tree Tree. Not null.
+     * @return Read-only property which value is indexes of the selected rows in the three.
+     * @see JTree#getSelectionRows()
+     * @implNote The row indexes in the list are always sorted in ascending order. The list is immutable.
+     * @since swing-fx-properties 1.18
+     * @see JTree#getSelectionRows()
+     * @see #selectionPathProperty(JTree)
+     * @see #selectionCountProperty(JTree)
+     */
     public static ReadOnlyObjectProperty<List<Integer>> selectionRowsProperty(JTree tree) {
         return TreeSelectionRowsPropertyImpl.getProperty(tree);
     }
