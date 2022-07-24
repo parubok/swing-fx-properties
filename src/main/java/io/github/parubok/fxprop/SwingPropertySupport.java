@@ -120,7 +120,7 @@ public class SwingPropertySupport {
      * @see #selectionCountProperty(JTree)
      */
     public static ReadOnlyObjectProperty<TreePath> selectionPathProperty(JTree tree) {
-        return SelectionPathPropertyImpl.getProperty(tree);
+        return TreeSelectionPathPropertyImpl.getProperty(tree);
     }
 
     /**

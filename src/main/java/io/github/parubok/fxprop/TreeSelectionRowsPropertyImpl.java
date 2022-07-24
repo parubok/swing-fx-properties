@@ -22,9 +22,12 @@ final class TreeSelectionRowsPropertyImpl {
         if (selRows == null || selRows.length == 0) {
             return Collections.emptyList();
         }
+        if (selRows.length == 1) {
+            return Collections.singletonList(selRows[0]);
+        }
         List<Integer> list = new ArrayList<>(selRows.length);
-        for (int i = 0; i < selRows.length; i++) {
-            list.add(Integer.valueOf(selRows[i]));
+        for (int selRow : selRows) {
+            list.add(Integer.valueOf(selRow));
         }
         list.sort(Comparator.naturalOrder());
         return Collections.unmodifiableList(list);
@@ -63,7 +66,6 @@ final class TreeSelectionRowsPropertyImpl {
             }
             this.selectionModel = selectionModel;
             this.selectionModel.addTreeSelectionListener(this.selectionListener);
-            selectionRowsChanged();
         }
 
         void selectionRowsChanged() {
@@ -79,6 +81,7 @@ final class TreeSelectionRowsPropertyImpl {
         JTree tree = (JTree) e.getSource();
         TreeSelectionRowsProperty p = (TreeSelectionRowsProperty) tree.getClientProperty(PROP_SELECTED_ROWS);
         p.updateSelectionModel();
+        p.selectionRowsChanged();
     };
 
     static ReadOnlyObjectProperty<List<Integer>> getProperty(JTree tree) {
