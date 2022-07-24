@@ -22,6 +22,7 @@ final class TreeSelectionPathPropertyImpl {
         TreeSelectionPathProperty(JTree tree) {
             this.tree = tree;
             this.value = tree.getSelectionPath();
+            updateSelectionModel();
         }
 
         void updateSelectionModel() {
@@ -70,7 +71,6 @@ final class TreeSelectionPathPropertyImpl {
         if (p == null) {
             p = new TreeSelectionPathProperty(tree);
             tree.putClientProperty(PROP_SELECTED_PATH, p);
-            p.updateSelectionModel();
             tree.addPropertyChangeListener(JTree.SELECTION_MODEL_PROPERTY, TREE_SELECTION_MODEL_PROPERTY_LISTENER);
         }
         return p;

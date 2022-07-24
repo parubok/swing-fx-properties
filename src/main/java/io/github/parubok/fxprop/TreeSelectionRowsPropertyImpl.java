@@ -42,6 +42,7 @@ final class TreeSelectionRowsPropertyImpl {
         TreeSelectionRowsProperty(JTree tree) {
             this.tree = tree;
             this.value = getSelectedRows(tree);
+            updateSelectionModel();
         }
 
         @Override
@@ -90,7 +91,6 @@ final class TreeSelectionRowsPropertyImpl {
         if (p == null) {
             p = new TreeSelectionRowsProperty(tree);
             tree.putClientProperty(PROP_SELECTED_ROWS, p);
-            p.updateSelectionModel();
             tree.addPropertyChangeListener(JTree.SELECTION_MODEL_PROPERTY, TREE_SELECTION_MODEL_PROPERTY_LISTENER);
         }
         return p;
