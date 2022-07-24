@@ -1,9 +1,9 @@
 package io.github.parubok.fxprop;
 
 /**
- * Keys for {@link javax.swing.JComponent#getClientProperty(Object)}/{@link javax.swing.JComponent#putClientProperty(Object, Object)} and {@link javax.swing.text.Document#getProperty(Object)}/{@link javax.swing.text.Document#putProperty(Object, Object)} to store/retrieve SwingFX property objects.
+ * Keys for {@link javax.swing.JComponent#getClientProperty(Object)}/{@link javax.swing.JComponent#putClientProperty(Object, Object)} and {@link javax.swing.text.Document#getProperty(Object)}/{@link javax.swing.text.Document#putProperty(Object, Object)} to store/retrieve property objects.
  */
-public enum ClientProps {
+enum ClientProps {
     PROP_ENABLED,
     PROP_FOCUSED,
     PROP_VISIBLE,
