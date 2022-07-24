@@ -27,7 +27,6 @@ package io.github.parubok.com.sun.swingfx.property.adapter;
 
 import java.lang.reflect.Method;
 
-import io.github.parubok.fxprop.misc.ReflectUtil;
 
 /**
  */
@@ -52,7 +51,6 @@ public class ReadOnlyJavaBeanPropertyBuilderHelper {
 
     public void beanClass(Class<?> beanClass) {
         if ((beanClass == null)? this.beanClass != null : !beanClass.equals(this.beanClass)) {
-            ReflectUtil.checkPackageAccess(beanClass);
             this.beanClass = beanClass;
             this.descriptor = null;
         }
@@ -63,7 +61,6 @@ public class ReadOnlyJavaBeanPropertyBuilderHelper {
         if (bean != null) {
             Class<?> newClass = bean.getClass();
             if ((beanClass == null) || !beanClass.isAssignableFrom(newClass)) {
-                ReflectUtil.checkPackageAccess(newClass);
                 this.beanClass = bean.getClass();
                 this.descriptor = null;
             }

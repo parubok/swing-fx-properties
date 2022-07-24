@@ -31,7 +31,6 @@ import java.lang.reflect.Modifier;
 import io.github.parubok.swingfx.beans.property.ReadOnlyProperty;
 
 import io.github.parubok.fxprop.misc.MethodUtil;
-import io.github.parubok.fxprop.misc.ReflectUtil;
 
 /**
  * A handle to a specific property defined on some {@link Bean}.
@@ -65,7 +64,6 @@ public final class PropertyReference<T> {
             throw new IllegalArgumentException("Name must be specified");
         if (clazz == null)
             throw new NullPointerException("Class must be specified");
-        ReflectUtil.checkPackageAccess(clazz);
         this.name = name;
         this.clazz = clazz;
     }

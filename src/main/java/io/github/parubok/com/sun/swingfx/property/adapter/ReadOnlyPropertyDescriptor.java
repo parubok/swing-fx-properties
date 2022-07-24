@@ -34,8 +34,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import io.github.parubok.fxprop.misc.ReflectUtil;
-
 import static java.util.Locale.ENGLISH;
 
 /**
@@ -65,7 +63,6 @@ public class ReadOnlyPropertyDescriptor {
     public Class<?> getType() {return type;}
 
     public ReadOnlyPropertyDescriptor(String propertyName, Class<?> beanClass, Method getter) {
-        ReflectUtil.checkPackageAccess(beanClass);
 
         this.name = propertyName;
         this.beanClass = beanClass;
