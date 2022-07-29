@@ -19,14 +19,15 @@ final class TabbedPaneSelectedIndexPropertyImpl {
             super.set(tabbedPane.getSelectedIndex());
         }
 
-
         @Override
         public void set(int newValue) {
-            tabbedPane.removeChangeListener(SWING_PROP_LISTENER);
-            try {
-                tabbedPane.setSelectedIndex(newValue); // IndexOutOfBoundsException can be thrown here
-            } finally {
-                tabbedPane.addChangeListener(SWING_PROP_LISTENER);
+            if (tabbedPane.getSelectedIndex() != newValue) {
+                tabbedPane.removeChangeListener(SWING_PROP_LISTENER);
+                try {
+                    tabbedPane.setSelectedIndex(newValue); // IndexOutOfBoundsException can be thrown here
+                } finally {
+                    tabbedPane.addChangeListener(SWING_PROP_LISTENER);
+                }
             }
             super.set(newValue);
         }

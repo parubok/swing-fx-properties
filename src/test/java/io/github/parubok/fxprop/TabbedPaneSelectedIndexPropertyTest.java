@@ -61,6 +61,11 @@ public class TabbedPaneSelectedIndexPropertyTest {
             Assertions.assertEquals(0, p.get());
             Assertions.assertThrows(IndexOutOfBoundsException.class, () -> p.set(-10));
             Assertions.assertEquals(0, p.get());
+            Assertions.assertThrows(IndexOutOfBoundsException.class, () -> p.set(2));
+            Assertions.assertEquals(0, p.get());
+            p.set(1);
+            Assertions.assertEquals(1, p.get());
+            Assertions.assertEquals(1, tabbedPane.getSelectedIndex());
         });
     }
 }
