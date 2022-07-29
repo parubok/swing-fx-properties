@@ -13,12 +13,12 @@ public class TabbedPaneSelectedIndexPropertyTest {
     public void basic_test() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JTabbedPane tabbedPane = new JTabbedPane();
+            IntegerProperty p = SwingPropertySupport.selectedIndexProperty(tabbedPane);
+            Assertions.assertEquals(-1, p.get());
             JPanel tab1 = new JPanel();
             tabbedPane.addTab("tab1", tab1);
             JPanel tab2 = new JPanel();
             tabbedPane.addTab("tab2", tab2);
-            tabbedPane.setSelectedIndex(0);
-            IntegerProperty p = SwingPropertySupport.selectedIndexProperty(tabbedPane);
             Assertions.assertEquals(0, p.get());
             tabbedPane.setSelectedIndex(1);
             Assertions.assertEquals(1, p.get());
@@ -58,7 +58,9 @@ public class TabbedPaneSelectedIndexPropertyTest {
             tabbedPane.setSelectedIndex(0);
             IntegerProperty p = SwingPropertySupport.selectedIndexProperty(tabbedPane);
             Assertions.assertThrows(IndexOutOfBoundsException.class, () -> p.set(10));
+            Assertions.assertEquals(0, p.get());
             Assertions.assertThrows(IndexOutOfBoundsException.class, () -> p.set(-10));
+            Assertions.assertEquals(0, p.get());
         });
     }
 }
