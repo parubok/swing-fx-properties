@@ -25,6 +25,7 @@ final class TableRowCountPropertyImpl {
         private final TableModelListener tableModelListener;
 
         TableRowCountProperty(JTable table) {
+            super();
             this.table = Objects.requireNonNull(table);
             this.value = table.getRowCount();
             this.rowSorterListener = e -> rowCountPossiblyChanged();

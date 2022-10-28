@@ -47,11 +47,14 @@ public class TableRowCountPropertyTest {
             values.clear();
             rowSorter.setRowFilter(null);
             Assertions.assertEquals(Arrays.asList(Integer.valueOf(0), Integer.valueOf(20)), values);
+            // no event on the same filter:
+            rowSorter.setRowFilter(null);
+            Assertions.assertEquals(Arrays.asList(Integer.valueOf(0), Integer.valueOf(20)), values);
         });
     }
 
     @Test
-    public void changeTableModel() throws Exception {
+    public void removeRowFromTableModel() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             DefaultTableModel model = new DefaultTableModel(20, 3);
             JTable table = new JTable();
@@ -70,6 +73,28 @@ public class TableRowCountPropertyTest {
             });
             model.removeRow(19);
             Assertions.assertEquals(Arrays.asList(Integer.valueOf(20), Integer.valueOf(19)), values);
+        });
+    }
+
+    @Test
+    public void noEventOnUpdateTableModel() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            DefaultTableModel model = new DefaultTableModel(20, 3);
+            JTable table = new JTable();
+            table.setModel(model);
+            TableRowSorter<?> rowSorter = new TableRowSorter<>(model);
+            table.setRowSorter(rowSorter);
+
+            List<Number> values = new ArrayList<>();
+            ReadOnlyIntegerProperty p = SwingPropertySupport.rowCountProperty(table);
+            p.addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                    values.add(newValue);
+                }
+            });
+            model.setValueAt("", 0, 0);
+            Assertions.assertTrue(values.isEmpty());
         });
     }
 }
