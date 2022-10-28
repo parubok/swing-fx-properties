@@ -150,9 +150,9 @@ public class SwingPropertySupport {
 
     /**
      * @param table Table. Not null.
-     * @return Read-only property which value is the number of rows of the table.
-     * @implSpec Based on {@link JTable} "rowSorter" property.
+     * @return Read-only property which value is the number of visible rows of the table.
      * @see javax.swing.DefaultRowSorter#setRowFilter(javax.swing.RowFilter)
+     * @see JTable#getRowCount()
      */
     public static ReadOnlyIntegerProperty rowCountProperty(JTable table) {
         return TableRowCountPropertyImpl.getProperty(table);

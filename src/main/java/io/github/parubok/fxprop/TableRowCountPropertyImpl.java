@@ -6,6 +6,9 @@ import io.github.parubok.swingfx.beans.property.ReadOnlyIntegerPropertyBase;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
 import javax.swing.event.RowSorterListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
 
@@ -18,12 +21,20 @@ final class TableRowCountPropertyImpl {
         private int value;
         private RowSorter<?> rowSorter;
         private final RowSorterListener rowSorterListener;
+        private TableModel tableModel;
+        private final TableModelListener tableModelListener;
 
         TableRowCountProperty(JTable table) {
             this.table = Objects.requireNonNull(table);
             this.value = table.getRowCount();
             this.rowSorterListener = e -> rowCountPossiblyChanged();
+            this.tableModelListener = e -> {
+                if (e.getType() != TableModelEvent.UPDATE) {
+                    rowCountPossiblyChanged();
+                }
+            };
             updateRowSorter();
+            updateTableModel();
         }
 
         @Override
@@ -58,12 +69,29 @@ final class TableRowCountPropertyImpl {
                 rowSorter.addRowSorterListener(rowSorterListener);
             }
         }
+
+        void updateTableModel() {
+            if (tableModel != null) {
+                tableModel.removeTableModelListener(tableModelListener);
+            }
+            tableModel = table.getModel();
+            if (tableModel != null) {
+                tableModel.addTableModelListener(tableModelListener);
+            }
+        }
     }
 
     private static final PropertyChangeListener ROW_SORTER_PROPERTY_LISTENER = e -> {
         JTable table = (JTable) e.getSource();
         TableRowCountProperty p = (TableRowCountProperty) table.getClientProperty(PROP_TABLE_ROW_COUNT);
         p.updateRowSorter();
+        p.rowCountPossiblyChanged();
+    };
+
+    private static final PropertyChangeListener TABLE_MODEL_PROPERTY_LISTENER = e -> {
+        JTable table = (JTable) e.getSource();
+        TableRowCountProperty p = (TableRowCountProperty) table.getClientProperty(PROP_TABLE_ROW_COUNT);
+        p.updateTableModel();
         p.rowCountPossiblyChanged();
     };
 
@@ -74,6 +102,7 @@ final class TableRowCountPropertyImpl {
             p = new TableRowCountProperty(table);
             table.putClientProperty(PROP_TABLE_ROW_COUNT, p);
             table.addPropertyChangeListener("rowSorter", ROW_SORTER_PROPERTY_LISTENER);
+            table.addPropertyChangeListener("model", TABLE_MODEL_PROPERTY_LISTENER);
         }
         return p;
     }
