@@ -45,12 +45,7 @@ public class TableRowCountPropertyTest {
             Assertions.assertEquals(Arrays.asList(Integer.valueOf(20), Integer.valueOf(0)), values);
 
             values.clear();
-            rowSorter.setRowFilter(new RowFilter<Object, Integer>() {
-                @Override
-                public boolean include(Entry<?, ? extends Integer> entry) {
-                    return true;
-                }
-            });
+            rowSorter.setRowFilter(null);
             Assertions.assertEquals(Arrays.asList(Integer.valueOf(0), Integer.valueOf(20)), values);
         });
     }

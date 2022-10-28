@@ -22,7 +22,7 @@ final class TableRowCountPropertyImpl {
         TableRowCountProperty(JTable table) {
             this.table = Objects.requireNonNull(table);
             this.value = table.getRowCount();
-            this.rowSorterListener = e -> rowCountChanged();
+            this.rowSorterListener = e -> rowCountPossiblyChanged();
             updateRowSorter();
         }
 
@@ -41,7 +41,7 @@ final class TableRowCountPropertyImpl {
             return "rowCount";
         }
 
-        void rowCountChanged() {
+        void rowCountPossiblyChanged() {
             int c = table.getRowCount();
             if (this.value != c) {
                 this.value = c;
@@ -64,7 +64,7 @@ final class TableRowCountPropertyImpl {
         JTable table = (JTable) e.getSource();
         TableRowCountProperty p = (TableRowCountProperty) table.getClientProperty(PROP_TABLE_ROW_COUNT);
         p.updateRowSorter();
-        p.rowCountChanged();
+        p.rowCountPossiblyChanged();
     };
 
     static ReadOnlyIntegerProperty getProperty(JTable table) {
