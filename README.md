@@ -78,7 +78,7 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>io.github.parubok</groupId>
     <artifactId>swing-fx-properties</artifactId>
-    <version>1.18</version>
+    <version>1.19</version>
 </dependency>
 ```
 
@@ -87,5 +87,5 @@ Add this snippet to the pom.xml `dependencies` section:
 Add this snippet to the build.gradle `dependencies` section:
 
 ```groovy
-implementation 'io.github.parubok:swing-fx-properties:1.18'
+implementation 'io.github.parubok:swing-fx-properties:1.19'
 ```
