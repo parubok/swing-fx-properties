@@ -153,6 +153,7 @@ public class SwingPropertySupport {
      * @return Read-only property which value is the number of visible rows of the table.
      * @see javax.swing.DefaultRowSorter#setRowFilter(javax.swing.RowFilter)
      * @see JTable#getRowCount()
+     * @implNote In some cases, the property change events are fired via {@link javax.swing.SwingUtilities#invokeLater(Runnable)}.
      */
     public static ReadOnlyIntegerProperty rowCountProperty(JTable table) {
         return TableRowCountPropertyImpl.getProperty(table);

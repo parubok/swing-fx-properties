@@ -32,8 +32,8 @@ final class TableRowCountPropertyImpl {
             this.rowSorterListener = e -> rowCountPossiblyChanged();
             this.tableModelListener = e -> {
                 if (e.getType() != TableModelEvent.UPDATE) {
-                    // in Java 11, the JTable is not yet updated at this moment,
-                    // so I need to postpone the event:
+                    // in Java 11, the JTable's row sorter is not yet updated at this moment,
+                    // and JTable.getRowCount() returns the old value:
                     SwingUtilities.invokeLater(this::rowCountPossiblyChanged);
                 }
             };
