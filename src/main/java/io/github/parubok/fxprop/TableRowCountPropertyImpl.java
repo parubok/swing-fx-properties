@@ -5,7 +5,9 @@ import io.github.parubok.swingfx.beans.property.ReadOnlyIntegerPropertyBase;
 
 import javax.swing.JTable;
 import javax.swing.RowSorter;
+import javax.swing.SwingUtilities;
 import javax.swing.event.RowSorterListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import java.beans.PropertyChangeListener;
@@ -29,9 +31,9 @@ final class TableRowCountPropertyImpl {
             this.value = table.getRowCount();
             this.rowSorterListener = e -> rowCountPossiblyChanged();
             this.tableModelListener = e -> {
-                // if (e.getType() != TableModelEvent.UPDATE) {
-                    rowCountPossiblyChanged();
-                //}
+                if (e.getType() != TableModelEvent.UPDATE) {
+                    SwingUtilities.invokeLater(this::rowCountPossiblyChanged);
+                }
             };
             updateRowSorter();
             updateTableModel();

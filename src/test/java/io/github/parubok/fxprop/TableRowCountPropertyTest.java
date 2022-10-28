@@ -55,14 +55,13 @@ public class TableRowCountPropertyTest {
 
     @Test
     public void removeRowFromTableModel() throws Exception {
+        final List<Number> values = new ArrayList<>();
         SwingUtilities.invokeAndWait(() -> {
             DefaultTableModel model = new DefaultTableModel(20, 3);
             JTable table = new JTable();
             table.setModel(model);
             TableRowSorter<?> rowSorter = new TableRowSorter<>(model);
             table.setRowSorter(rowSorter);
-
-            List<Number> values = new ArrayList<>();
             ReadOnlyIntegerProperty p = SwingPropertySupport.rowCountProperty(table);
             p.addListener(new ChangeListener<Number>() {
                 @Override
@@ -72,6 +71,8 @@ public class TableRowCountPropertyTest {
                 }
             });
             model.removeRow(19);
+        });
+        SwingUtilities.invokeAndWait(() -> {
             Assertions.assertEquals(Arrays.asList(Integer.valueOf(20), Integer.valueOf(19)), values);
         });
     }
