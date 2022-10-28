@@ -150,6 +150,15 @@ public class SwingPropertySupport {
 
     /**
      * @param table Table. Not null.
+     * @return Read-only property which value is the number of rows of the table.
+     * @implSpec Based on {@link JTable} "rowSorter" property.
+     */
+    public static ReadOnlyIntegerProperty rowCountProperty(JTable table) {
+        return TableRowCountPropertyImpl.getProperty(table);
+    }
+
+    /**
+     * @param table Table. Not null.
      * @return Read-only property which value is the number of rows in the current model of the table.
      * @implSpec Setting a new model via {@link JTable#setModel(TableModel)} is properly handled by this property.
      */
