@@ -7,7 +7,7 @@ import io.github.parubok.swingfx.beans.value.ObservableValue;
 
 import javax.swing.SwingUtilities;
 
-class TextPropertyTest {
+class LabelTextPropertyTest {
     @Test
     void chained_properties() {
         SwingUtilities.invokeLater(() -> {
