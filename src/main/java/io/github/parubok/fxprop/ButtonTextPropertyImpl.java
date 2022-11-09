@@ -12,8 +12,8 @@ import static io.github.parubok.fxprop.ClientProps.PROP_TEXT;
 
 final class ButtonTextPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER = e -> {
-        AbstractButton label = (AbstractButton) e.getSource();
-        StringProperty p = (StringProperty) label.getClientProperty(PROP_TEXT);
+        AbstractButton button = (AbstractButton) e.getSource();
+        StringProperty p = (StringProperty) button.getClientProperty(PROP_TEXT);
         String newValue = (String) e.getNewValue();
         if (!Objects.equals(newValue, p.get())) {
             p.set(newValue);
@@ -22,9 +22,9 @@ final class ButtonTextPropertyImpl {
 
     private static final ChangeListener<String> FX_PROP_LISTENER = (observable, oldValue, newValue) -> {
         StringProperty p = (StringProperty) observable;
-        AbstractButton label = (AbstractButton) p.getBean();
-        if (!Objects.equals(newValue, label.getText())) {
-            label.setText(newValue);
+        AbstractButton button = (AbstractButton) p.getBean();
+        if (!Objects.equals(newValue, button.getText())) {
+            button.setText(newValue);
         }
     };
 

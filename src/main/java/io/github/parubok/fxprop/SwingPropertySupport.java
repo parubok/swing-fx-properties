@@ -77,7 +77,7 @@ public class SwingPropertySupport {
      * @see JLabel#getText()
      */
     public static StringProperty textProperty(JLabel label) {
-        return TextPropertyImpl.getProperty(label);
+        return LabelTextPropertyImpl.getProperty(label);
     }
 
     /**

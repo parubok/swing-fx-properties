@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import static io.github.parubok.fxprop.ClientProps.PROP_TEXT;
 
-final class TextPropertyImpl {
+final class LabelTextPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER = e -> {
         JLabel label = (JLabel) e.getSource();
         StringProperty p = (StringProperty) label.getClientProperty(PROP_TEXT);
