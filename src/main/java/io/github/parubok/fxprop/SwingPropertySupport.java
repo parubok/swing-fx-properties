@@ -81,6 +81,15 @@ public class SwingPropertySupport {
     }
 
     /**
+     * @return Property object for 'text' property of the specified button.
+     * @see AbstractButton#setText(String)
+     * @see AbstractButton#getText()
+     */
+    public static StringProperty textProperty(AbstractButton button) {
+        return ButtonTextPropertyImpl.getProperty(button);
+    }
+
+    /**
      * @return Property object for 'icon' property of the specified label.
      * @see JLabel#setIcon(Icon)
      * @see JLabel#getIcon()
