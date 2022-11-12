@@ -16,7 +16,7 @@ Example:
 - `Bindings.valueAt(ObservableList<E> op, int index)` - throws `BindingEvaluationException` in case of invalid index.
 - `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)` - returns the specified default value in case of invalid index.
 
-The Swing properties are obtained via static methods of class [`SwingPropertySupport`](blob/master/src/main/java/io/github/parubok/fxprop/SwingPropertySupport.java).
+The Swing properties are obtained via static methods of class [`SwingPropertySupport`](src/main/java/io/github/parubok/fxprop/SwingPropertySupport.java).
 
 Example 1 (bind 'enabled' property of a label to 'selected' property of a checkbox, so the label is disabled when the checkbox is unselected and vice versa):
 
