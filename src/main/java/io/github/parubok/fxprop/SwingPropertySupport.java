@@ -226,6 +226,16 @@ public class SwingPropertySupport {
     }
 
     /**
+     * @param comboBox Combo box. Not null.
+     * @return Property object for 'selectedIndex' property of the specified combo box.
+     * @see JComboBox#setSelectedIndex(int)
+     * @see JComboBox#getSelectedIndex()
+     */
+    public static IntegerProperty selectedIndexProperty(JComboBox<?> comboBox) {
+        return ComboBoxSelectedIndexPropertyImpl.getProperty(comboBox);
+    }
+
+    /**
      * @param component Component. Not null.
      * @return Read-only boolean property which is {@code true} when the mouse cursor is over the component.
      */
