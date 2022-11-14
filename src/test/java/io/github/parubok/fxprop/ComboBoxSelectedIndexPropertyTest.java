@@ -49,8 +49,6 @@ public class ComboBoxSelectedIndexPropertyTest {
         SwingUtilities.invokeAndWait(() -> {
             DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
             model.addElement("item1");
-            model.addElement("item2");
-            model.addElement("item3");
             JComboBox<String> combo = new JComboBox<>(model);
             IntegerProperty p = SwingPropertySupport.selectedIndexProperty(combo);
             Assertions.assertThrows(IllegalArgumentException.class, () -> p.set(20));
