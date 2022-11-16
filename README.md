@@ -3,7 +3,7 @@
 [![javadoc](https://javadoc.io/badge2/io.github.parubok/swing-fx-properties/javadoc.svg)](https://javadoc.io/doc/io.github.parubok/swing-fx-properties)
 
 # swing-fx-properties
-Adaptation of [JavaFX properties](https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm) for Swing.
+Adaptation of [JavaFX properties](https://docs.oracle.com/javafx/2/binding/jfxpub-binding.htm) for [Swing](https://en.wikipedia.org/wiki/Swing_(Java)).
 
 JavaFX introduced an improved approach to component properties handling.
 In JavaFX, component properties are type safe, referenced by method (and not via string name like in Swing) and, what is probably the most significant improvement, support [binding](https://docs.oracle.com/javase/8/javafx/properties-binding-tutorial/binding.htm).
