@@ -14,7 +14,7 @@ This project took the relevant pieces of JavaFX properties code and added suppor
 
 **Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`. For some cases, this library also provides alternative methods which allow to specify a default value which is returned instead of throwing `BindingEvaluationException`.
 Example:
-- `Bindings.valueAt(ObservableList<E> op, int index)` - throws `BindingEvaluationException` in case of invalid index.
+- `Bindings.valueAt(ObservableList<E> op, int index)` - throws [`BindingEvaluationException`](https://javadoc.io/doc/io.github.parubok/swing-fx-properties/latest/io/github/parubok/swingfx/beans/binding/BindingEvaluationException.html) in case of invalid index.
 - `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)` - returns the specified default value in case of invalid index.
 
 The Swing properties are obtained via static methods of class [`SwingPropertySupport`](https://javadoc.io/doc/io.github.parubok/swing-fx-properties/latest/io/github/parubok/fxprop/SwingPropertySupport.html).
