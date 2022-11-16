@@ -12,7 +12,7 @@ The JavaFX properties implementation, in fact, is not JavaFX specific - it is a 
 
 This project took the relevant pieces of JavaFX properties code and added support for Swing - to allow usage of JavaFX-style properties and related functionality with Swing components.
 
-**Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing `BindingEvaluationException`. For some cases, this library also provides alternative methods which allow to specify a default value which is returned instead of throwing `BindingEvaluationException`.
+**Note:** The default JavaFX handling of binding evaluation errors was changed from logging the error and returning some default value to throwing [`BindingEvaluationException`](https://javadoc.io/doc/io.github.parubok/swing-fx-properties/latest/io/github/parubok/swingfx/beans/binding/BindingEvaluationException.html). For some cases, this library also provides alternative methods which allow to specify a default value which is returned instead of throwing `BindingEvaluationException`.
 Example:
 - `Bindings.valueAt(ObservableList<E> op, int index)` - throws [`BindingEvaluationException`](https://javadoc.io/doc/io.github.parubok/swing-fx-properties/latest/io/github/parubok/swingfx/beans/binding/BindingEvaluationException.html) in case of invalid index.
 - `Bindings.valueAt(ObservableList<E> op, int index, E defaultValue)` - returns the specified default value in case of invalid index.
