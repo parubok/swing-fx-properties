@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.TreePath;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
 /**
@@ -95,7 +96,16 @@ public class SwingPropertySupport {
      * @see JLabel#getIcon()
      */
     public static ObjectProperty<Icon> iconProperty(JLabel label) {
-        return IconPropertyImpl.getProperty(label);
+        return IconPropertyImpl.getProperty(label, label::getIcon, label::setIcon);
+    }
+
+    /**
+     * @return Property object for 'icon' property of the specified button.
+     * @see AbstractButton#setIcon(Icon)
+     * @see AbstractButton#getIcon()
+     */
+    public static ObjectProperty<Icon> iconProperty(AbstractButton button) {
+        return IconPropertyImpl.getProperty(button, button::getIcon, button::setIcon);
     }
 
     /**
@@ -285,5 +295,15 @@ public class SwingPropertySupport {
      */
     public static ListProperty<Integer> selectedRowsProperty(JTable table) {
         return TableSelectedRowsPropertyImpl.getProperty(table);
+    }
+
+    /**
+     * @param component Component. Not null.
+     * @return Property object for 'font' property of the specified component.
+     * @see java.awt.Component#setFont(Font)
+     * @see java.awt.Component#getFont()
+     */
+    public static ObjectProperty<Font> fontProperty(JComponent component) {
+        return FontPropertyImpl.getProperty(component);
     }
 }

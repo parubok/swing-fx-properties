@@ -5,16 +5,20 @@ import io.github.parubok.swingfx.beans.property.SimpleObjectProperty;
 import io.github.parubok.swingfx.beans.value.ChangeListener;
 
 import javax.swing.Icon;
-import javax.swing.JLabel;
+import javax.swing.JComponent;
 import java.beans.PropertyChangeListener;
 import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static io.github.parubok.fxprop.ClientProps.PROP_ICON;
+import static io.github.parubok.fxprop.ClientProps.PROP_ICON_GETTER;
+import static io.github.parubok.fxprop.ClientProps.PROP_ICON_SETTER;
 
 final class IconPropertyImpl {
     private static final PropertyChangeListener SWING_PROP_LISTENER = e -> {
-        JLabel label = (JLabel) e.getSource();
-        ObjectProperty<Icon> p = (ObjectProperty) label.getClientProperty(PROP_ICON);
+        JComponent com = (JComponent) e.getSource();
+        ObjectProperty<Icon> p = (ObjectProperty) com.getClientProperty(PROP_ICON);
         Icon newValue = (Icon) e.getNewValue();
         if (!Objects.equals(newValue, p.get())) {
             p.set(newValue);
@@ -23,19 +27,23 @@ final class IconPropertyImpl {
 
     private static final ChangeListener<Icon> FX_PROP_LISTENER = (observable, oldValue, newValue) -> {
         ObjectProperty<Icon> p = (ObjectProperty) observable;
-        JLabel label = (JLabel) p.getBean();
-        if (!Objects.equals(newValue, label.getIcon())) {
-            label.setIcon(newValue);
+        JComponent com = (JComponent) p.getBean();
+        Supplier<Icon> iconGetter = (Supplier) com.getClientProperty(PROP_ICON_GETTER);
+        Consumer<Icon> iconSetter = (Consumer) com.getClientProperty(PROP_ICON_SETTER);
+        if (!Objects.equals(newValue, iconGetter.get())) {
+            iconSetter.accept(newValue);
         }
     };
 
-    static ObjectProperty<Icon> getProperty(JLabel label) {
-        Objects.requireNonNull(label, "label");
-        ObjectProperty<Icon> p = (ObjectProperty) label.getClientProperty(PROP_ICON);
+    static ObjectProperty<Icon> getProperty(JComponent com, Supplier<Icon> iconGetter, Consumer<Icon> iconSetter) {
+        Objects.requireNonNull(com);
+        ObjectProperty<Icon> p = (ObjectProperty) com.getClientProperty(PROP_ICON);
         if (p == null) {
-            p = new SimpleObjectProperty<>(label, "icon", label.getIcon());
-            label.putClientProperty(PROP_ICON, p);
-            label.addPropertyChangeListener("icon", SWING_PROP_LISTENER);
+            p = new SimpleObjectProperty<>(com, "icon", iconGetter.get());
+            com.putClientProperty(PROP_ICON, p);
+            com.putClientProperty(PROP_ICON_GETTER, iconGetter);
+            com.putClientProperty(PROP_ICON_SETTER, iconSetter);
+            com.addPropertyChangeListener("icon", SWING_PROP_LISTENER);
             p.addListener(FX_PROP_LISTENER);
         }
         return p;
