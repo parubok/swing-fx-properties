@@ -10,8 +10,5 @@
         <module name="swing-fx-properties" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="swing-fx-properties" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
