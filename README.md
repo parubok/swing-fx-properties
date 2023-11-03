@@ -79,14 +79,6 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>io.github.parubok</groupId>
     <artifactId>swing-fx-properties</artifactId>
-    <version>1.23</version>
+    <version>1.24</version>
 </dependency>
-```
-
-#### Gradle
-
-Add this snippet to the build.gradle `dependencies` section:
-
-```groovy
-implementation 'io.github.parubok:swing-fx-properties:1.23'
 ```
