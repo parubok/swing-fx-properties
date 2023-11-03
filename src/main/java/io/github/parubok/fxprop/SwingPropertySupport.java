@@ -7,6 +7,7 @@ import io.github.parubok.swingfx.beans.property.ObjectProperty;
 import io.github.parubok.swingfx.beans.property.ReadOnlyBooleanProperty;
 import io.github.parubok.swingfx.beans.property.ReadOnlyIntegerProperty;
 import io.github.parubok.swingfx.beans.property.ReadOnlyObjectProperty;
+import io.github.parubok.swingfx.beans.property.ReadOnlyStringProperty;
 import io.github.parubok.swingfx.beans.property.StringProperty;
 
 import javax.swing.AbstractButton;
@@ -277,6 +278,16 @@ public class SwingPropertySupport {
      */
     public static ReadOnlyBooleanProperty validInputProperty(JTextComponent textComponent) {
         return ValidInputPropertyImpl.getProperty(textComponent);
+    }
+
+    /**
+     * @return Read-only string property for selected text of the specified text component.
+     * @implSpec Value of the property is empty string when there is no selection.
+     * @see JTextComponent#getSelectedText()
+     * @since swing-fx-properties 1.24
+     */
+    public static ReadOnlyStringProperty selectedTextProperty(JTextComponent textComponent) {
+        return SelectedTextPropertyImpl.getProperty(textComponent);
     }
 
     /**
