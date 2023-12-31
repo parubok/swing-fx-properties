@@ -17,6 +17,7 @@ import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTree;
@@ -234,6 +235,17 @@ public class SwingPropertySupport {
      */
     public static <E> ObjectProperty<E> selectedItemProperty(JComboBox<E> comboBox) {
         return SelectedItemPropertyImpl.getProperty(comboBox);
+    }
+
+    /**
+     * @param list List component. Not null.
+     * @return Property object for 'selectedValue' property of the specified list. Value {@code null} of the property means no selection.
+     * @see JList#setSelectedValue(Object, boolean)
+     * @see JList#getSelectedValue()
+     * @implNote The property always passes {@code false} as a value of {@code shouldScroll} argument of {@link JList#setSelectedValue(Object, boolean)}.
+     */
+    public static <E> ObjectProperty<E> selectedValueProperty(JList<E> list) {
+        return SelectedValuePropertyImpl.getProperty(list);
     }
 
     /**
