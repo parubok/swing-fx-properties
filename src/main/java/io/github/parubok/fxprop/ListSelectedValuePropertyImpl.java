@@ -13,7 +13,7 @@ import static io.github.parubok.fxprop.ClientProps.PROP_SELECTED_VALUE;
 /**
  * Selected value of {@link JList}.
  */
-final class SelectedValuePropertyImpl {
+final class ListSelectedValuePropertyImpl {
     private static final ListSelectionListener SELECTION_LISTENER = e -> {
         JList list = (JList) e.getSource();
         Object selectedValue = list.getSelectedValue();

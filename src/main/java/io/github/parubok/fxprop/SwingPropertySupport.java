@@ -245,7 +245,17 @@ public class SwingPropertySupport {
      * @implNote The property always passes {@code false} as a value of {@code shouldScroll} argument of {@link JList#setSelectedValue(Object, boolean)}.
      */
     public static <E> ObjectProperty<E> selectedValueProperty(JList<E> list) {
-        return SelectedValuePropertyImpl.getProperty(list);
+        return ListSelectedValuePropertyImpl.getProperty(list);
+    }
+
+    /**
+     * @param list List component. Not null.
+     * @return Integer property for 'selectedIndex' property of the specified list. Value {@code -1} of the property means no selection.
+     * @see JList#setSelectedIndex(int)
+     * @see JList#getSelectedIndex()
+     */
+    public static IntegerProperty selectedIndexProperty(JList<?> list) {
+        return ListSelectedIndexPropertyImpl.getProperty(list);
     }
 
     /**
