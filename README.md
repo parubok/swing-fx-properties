@@ -79,6 +79,6 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>io.github.parubok</groupId>
     <artifactId>swing-fx-properties</artifactId>
-    <version>1.24</version>
+    <version>1.25</version>
 </dependency>
 ```
